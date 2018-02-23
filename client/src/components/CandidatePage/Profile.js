@@ -14,7 +14,7 @@ export default class ProfileComponent extends Component {
     this.state = "state";
     this.zip = "zip";
     this.phone = "phone";
-    this.email = "email";
+    this.email = props.data.email;
   }
   render() {
     return (
@@ -29,12 +29,11 @@ export default class ProfileComponent extends Component {
             <div className="columns contact-details">
               <h2>Contact Details</h2>
               <p className="address">
-              <span>{this.fname} {this.lname}</span><br />
-              <span>{this.street}<br />
-                {this.city} {this.state}, {this.zip}
-              </span><br />
-              <span>{this.phone}</span><br />
-              <span>{this.email}</span>
+                {this.fname} {this.lname}<br/>
+                {this.street}<br />
+                {this.city} {this.state}, {this.zip}<br/>
+                {this.phone}<br/>
+                {this.email}
               </p>
             </div>
             <div className="columns download"></div>
