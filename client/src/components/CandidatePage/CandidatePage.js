@@ -9,7 +9,7 @@ import Skills from './Skills';
 import Interests from './Interests';
 import Portfolio from './Portfolio';
 import BasicInfoModal from './modal/BasicInfoModal';
-
+import '../../default.css';
 
 /*const items = [
       <SidebarItem>+ Basic Info</SidebarItem>,
