@@ -13,6 +13,10 @@ Install client node_modules
 
 `npm install`
 
+## Postgresql
+
+Be sure to update your database link in `db/config.js`.
+
 ## To run
 
 `cd ASIE-Resume-Database`
