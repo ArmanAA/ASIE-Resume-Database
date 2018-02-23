@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
 
 const styles = {
@@ -7,7 +6,7 @@ const styles = {
   textAlign: "center"
 };
 
-export default class BasicInfoModal extends React.Component {
+export default class BasicInfoModal extends Component {
   constructor(props) {
     super(props);
     this.state = {

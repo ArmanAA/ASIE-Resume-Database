@@ -1,4 +1,5 @@
-let Sequelize = require('sequelize');
+let Sequelize = require('sequelize'),
+    sequelize = require('../sequelize.js')
  
 var attributes = {
   email: {
