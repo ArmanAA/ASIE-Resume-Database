@@ -1,11 +1,6 @@
 let Sequelize = require('sequelize'),
     sequelize = require('../sequelize.js')
-<<<<<<< HEAD
 
-
-=======
- 
->>>>>>> b9a5eb1e7f580a01b60012aa39bfb476d84c0989
 var attributes = {
   email: {
     type: Sequelize.STRING,
