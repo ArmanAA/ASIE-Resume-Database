@@ -65,21 +65,7 @@ passport.deserializeUser(function(id, done) {
   });
 })
 
-app.post('/signup', (req, res) => {
-  User.create({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password
-  })
-  .then(user => {
-    req.session.user = user.dataValues;
-    res.redirect('/candidate');
-  })
-  .catch(error => {
-    res.redirect('/signup');
-  });
-});
+app.post('/signup', User.createUser);
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/candidate',

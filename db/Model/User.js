@@ -59,8 +59,26 @@ let findByIdRes = (req, res, next) => {
   })
 }
 
+let createUser = (req, res) => {
+  User.create({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password
+  })
+  .then(user => {
+    req.session.user = user.dataValues;
+    res.redirect('/candidate');
+  })
+  .catch(error => {
+    res.redirect('/signup');
+  });
+}
+
+
 
 //module.exports.User = User;
 module.exports.findByEP = findByEP;
 module.exports.findById = findById;
 module.exports.findByIdRes = findByIdRes;
+module.exports.createUser = createUser;
