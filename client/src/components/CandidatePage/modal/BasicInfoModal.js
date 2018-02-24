@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
 
 const styles = {
@@ -7,7 +6,7 @@ const styles = {
   textAlign: "center"
 };
 
-export default class BasicInfoModal extends React.Component {
+export default class BasicInfoModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,8 +32,8 @@ export default class BasicInfoModal extends React.Component {
           <h2>Basic Information</h2>
           <form>
             <label className='row'> First name: <input type="text" name="update_fname" defaultValue={this.props.data.firstName}/></label>
-            <label className='row'> Last name: <input type="text" name="update_lname"/></label>
-            <label className='row'> Email: <input type="text" name="update_email"/></label>
+            <label className='row'> Last name: <input type="text" name="update_lname" defaultValue={this.props.data.lastName}/></label>
+            <label className='row'> Email: <input type="text" name="update_email" defaultValue={this.props.data.email}/></label>
             <label className='row'> Address: <input type="text" name="update_address"/></label>
             <label className='row'> Profile Image: <input type="file" name="update_image"/></label>
             <input className='row' type="submit" value="Submit" />
