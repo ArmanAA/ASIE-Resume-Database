@@ -9,7 +9,6 @@ let express = require('express'),
     LocalStrategy = require('passport-local').Strategy,
     bcrypt = require('bcrypt'),
     User = require('./db/Model/Models').User,
-    users = require('./db/users'),
     db = require('./db/db'),
     app = express();
 
@@ -40,25 +39,14 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
   },
   function(email, password, done) {
-    User.findOne({
-      where: {
-        'email': email
-      }
-    }).then(function (user) {
-      if (user == null) {
+    User.findByEP(email, password, function(user) {
+      if(user == null) {
         console.log("logged in failed - user");
         return done(null, false, { message: 'Incorrect credentials.' })
       }
-      
-      //var hashedPassword = bcrypt.hashSync(password, user.salt)
-      
-      if (user.password === password) {
-        console.log("logged in successful");
-        return done(null, user)
-      }
-      console.log("logged in failed - password");
-      
-      return done(null, false, { message: 'Incorrect credentials.' })
+
+      console.log("logged in successful");
+      return done(null, user)
     })
   }
 ))
@@ -68,17 +56,13 @@ passport.serializeUser(function(user, done) {
 })
 
 passport.deserializeUser(function(id, done) {
-  User.findOne({
-    where: {
-      'id': id
-    }
-  }).then(function (user) {
+  User.findById(id, function(user) {
     if (user == null) {
       done(new Error('Wrong user id.'))
     }
     //console.log("des", user);
     done(null, user)
-  })
+  });
 })
 
 app.post('/signup', (req, res) => {
@@ -116,7 +100,8 @@ app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
 
-app.get('/api/candidate', users.findUserByIdRES);
+app.get('/api/candidate', User.findByIdRes);
+app.get('/api/test', User.findByIdRes);
 
 app.use('/candidate', ensureAuthenticated, proxy('http://localhost:3000/candidate'));
 
