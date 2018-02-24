@@ -63,7 +63,8 @@ export default class CandidatePage extends Component {
     const body = await response.json();
 
     if (response.status !== 200) throw Error(body.message);
-    return body[0];
+    console.log(body);
+    return body;
   };
 
   componentDidMount() {
