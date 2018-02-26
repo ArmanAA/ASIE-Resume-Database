@@ -94,6 +94,11 @@ app.get('/api/test', User.findByIdRes);
 
 app.use('/candidate', ensureAuthenticated, proxy('http://localhost:3000/candidate'));
 
+
+app.get('/robots.txt', function(req, res) {
+  res.type('text/plain');
+  res.send('User-agent: *\nDisallow: /');
+})
 app.use('/', proxy('http://localhost:3000/'));
 
 

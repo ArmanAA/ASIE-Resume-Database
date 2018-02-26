@@ -69,11 +69,17 @@ let createUser = (req, res) => {
   .then(user => {
     req.session.user = user.dataValues;
     res.redirect('/candidate');
+<<<<<<< HEAD
   }).catch(error => {
+=======
+  })
+  .catch(error => {
+>>>>>>> e31c48858abbf0e289b131ba0e847521518f50e9
     res.redirect('/signup');
   });
 }
 
+<<<<<<< HEAD
 let updateProfile = (req, res, next) => {
   let id = req.user.id;
   User.update({
@@ -89,11 +95,17 @@ let updateProfile = (req, res, next) => {
     res.json({message: 'failed'})
   })
 }
+=======
+>>>>>>> e31c48858abbf0e289b131ba0e847521518f50e9
 
 
 //module.exports.User = User;
 module.exports.findByEP = findByEP;
 module.exports.findById = findById;
 module.exports.findByIdRes = findByIdRes;
+<<<<<<< HEAD
 module.exports.createUser = createUser;
 module.exports.updateProfile = updateProfile;
+=======
+module.exports.createUser = createUser;
+>>>>>>> e31c48858abbf0e289b131ba0e847521518f50e9
