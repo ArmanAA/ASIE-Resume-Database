@@ -2,6 +2,8 @@ let express = require('express'),
     proxy = require('express-http-proxy'),
     session = require('express-session'),
     cookieParser = require('cookie-parser'),
+    multer = require('multer'),
+    upload = multer(),
     flash = require('connect-flash'),
     bodyParser = require('body-parser'),
     dbinit = require('./db/dbinit'),
@@ -87,6 +89,7 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.get('/api/candidate', User.findByIdRes);
+app.post('/api/candidate/update/profile', upload.array(), User.updateProfile);
 app.get('/api/test', User.findByIdRes);
 
 app.use('/candidate', ensureAuthenticated, proxy('http://localhost:3000/candidate'));

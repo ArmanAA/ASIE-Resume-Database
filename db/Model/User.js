@@ -74,7 +74,26 @@ let createUser = (req, res) => {
   });
 }
 
+let updateProfile = (req, res, next) => {
+  let id = req.user.id;
+  User.update({
+    firstName: req.body.update_fname,
+    lastName: req.body.update_lname
+  }, {
+    where: {
+      'id': id
+    }
+  }).then(results => {
+    res.json({message: 'successful'})
+  }).catch(error => {
+    res.json({message: 'failed'})
+  })
+}
+
+
 //module.exports.User = User;
 module.exports.findByEP = findByEP;
 module.exports.findById = findById;
-module.exports.findByIdRes = findByIdRes;module.exports.createUser = createUser;
+module.exports.findByIdRes = findByIdRes;
+module.exports.createUser = createUser;
+module.exports.updateProfile = updateProfile;

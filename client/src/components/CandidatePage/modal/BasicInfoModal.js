@@ -13,6 +13,7 @@ export default class BasicInfoModal extends Component {
       open: false,
     };
     this.fname = props.data.firstName;
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   onOpenModal = () => {
@@ -23,6 +24,24 @@ export default class BasicInfoModal extends Component {
     this.setState({ open: false });
   };
 
+  handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    console.log(data);
+    fetch('/api/candidate/update/profile', {
+      method: 'POST',
+      body: data,
+      credentials: 'include'
+    }).then(function(response) {
+      if(response) {
+        window.location.reload();
+      }
+      else {
+        this.onCloseModal();
+      }
+    });
+  }
+
   render() {
     const { open } = this.state;
     return (
@@ -30,7 +49,7 @@ export default class BasicInfoModal extends Component {
         <h2 onClick={this.onOpenModal}>+ Basic Info</h2>
         <Modal open={open} onClose={this.onCloseModal} little>
           <h2>Basic Information</h2>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <label className='row'> First name: <input type="text" name="update_fname" defaultValue={this.props.data.firstName}/></label>
             <label className='row'> Last name: <input type="text" name="update_lname" defaultValue={this.props.data.lastName}/></label>
             <label className='row'> Email: <input type="text" name="update_email" defaultValue={this.props.data.email}/></label>
