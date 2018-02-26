@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "armanaa",
+    "password": "123456",
+    "database": "auth-test",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "armanaa",
+    "password": "123456",
+    "database": "auth-test",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
