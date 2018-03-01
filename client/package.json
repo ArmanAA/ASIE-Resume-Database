@@ -12,6 +12,7 @@
     "react-scripts": "1.0.17",
     "react-sidebar": "^2.3.2",
     "react-tagsinput": "^3.19.0",
+    "react-transition-group": "^2.2.1",
     "rodal": "^1.6.3"
   },
   "scripts": {

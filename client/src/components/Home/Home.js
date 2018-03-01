@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
+import CustomMenuBar from './MenuBar.js';
+import MainContent from './Main.js';
+
 
 export default class Home extends Component {
 
+	componentDidMount(){
+		document.title = "Welcome to ASIE Resume Database!"
+	}
+
+
 
   render() {
+   
+
     return (
       <div>
-        <h1>home page</h1>
-        <a className="row" href='/login'>Login</a>
-        <a className="row" href='/signup'>Signup</a>
-      </div>
+      	  <CustomMenuBar/>
+          <MainContent/>
+     </div>
     );
   }
 }
+
+
