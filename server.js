@@ -11,7 +11,9 @@ let express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     bcrypt = require('bcrypt'),
-    User = require('./db/Model/Models').User,
+    Model = require('./db/Model/Models'),
+    User = require('./db/Model/User'),
+    Candidate = require('./db/Model/Candidate'),
     db = require('./db/db'),
     // delete this after dev
     user_resp = require('./profile.js'),
@@ -71,7 +73,11 @@ passport.deserializeUser(function(id, done) {
   });
 })
 
-app.post('/signup', User.createUser);
+app.post('/signup',
+  Candidate.createProfile,
+  (req, res) => {
+    res.redirect('/login');
+  });
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/candidate',
@@ -96,9 +102,7 @@ app.get('/api/hello', (req, res) => {
 app.get('/api/candidate', (req, res) => {
   res.json(user_resp.sample_user);
 });
-app.get('/api/candidate/profile', (req, res) => {
-  res.json(user_resp.profile);
-});
+app.get('/api/candidate/profile', Candidate.getProfileRes);
 app.get('/api/candidate/experience', (req, res) => {
   res.json(user_resp.experience);
 });
@@ -122,10 +126,11 @@ app.get('/api/candidate/portfolio', (req, res) => {
 });
 
 
-app.post('/api/candidate/update/profile', upload.array(), User.updateProfile);
-app.get('/api/test', User.findByIdRes);
+app.post('/api/candidate/update/profile', upload.array(), Candidate.updateProfile);
+app.get('/api/test', Candidate.getProfileRes);
 
-app.use('/candidate', ensureAuthenticated, proxy('http://127.0.0.1:3000/candidate'));
+app.use('/candidate', ensureAuthenticated,
+                      proxy('http://127.0.0.1:3000/candidate'));
 
 
 app.get('/robots.txt', function(req, res) {

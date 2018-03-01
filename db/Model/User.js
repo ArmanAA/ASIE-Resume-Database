@@ -1,5 +1,5 @@
 let Sequelize = require('sequelize'),
-    sequelize = require('../sequelize.js')
+    sequelize = require('../sequelize')
 
 var attributes = {
   email: {
@@ -11,13 +11,23 @@ var attributes = {
     }
   },
   firstName: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING
   },
   lastName: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING
+  },
+  dob: {
+    type: Sequelize.DATE
   },
   password: {
+    type: Sequelize.STRING
+  },
+  phonenumber: {
     type: Sequelize.STRING,
+    unique: true,
+    validate: {
+      isNumeric: true
+    }
   },
   salt: {
     type: Sequelize.STRING
@@ -25,7 +35,7 @@ var attributes = {
 }
 
 var options = {
-  freezeTableName: true
+  freezeTableName: false
 }
 
 var User = sequelize.define('users', attributes, options);
@@ -59,7 +69,7 @@ let findByIdRes = (req, res, next) => {
   })
 }
 
-let createUser = (req, res) => {
+let createUser = (req, res, next) => {
   User.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -68,10 +78,11 @@ let createUser = (req, res) => {
   })
   .then(user => {
     req.session.user = user.dataValues;
-    res.redirect('/candidate');
+    next();
   })
   .catch(error => {
-    res.redirect('/signup');
+    console.log("ERROR: createUser", error);
+    res.json(error);
   });
 }
 
@@ -91,7 +102,7 @@ let updateProfile = (req, res, next) => {
   })
 }
 
-//module.exports.User = User;
+module.exports.User = User;
 module.exports.findByEP = findByEP;
 module.exports.findById = findById;
 module.exports.findByIdRes = findByIdRes;

@@ -30,10 +30,17 @@ export default class ProfileComponent extends Component {
       var rehabclient = this.state.data.rehabclient;
       var conditions = this.state.data.conditions;
       var support = this.state.data.support;
+      if(support) {
+        var support_name = support.name;
+        var support_email = support.email;
+        var support_phone = support.phone;
+      }
 
-      var conditions_list = conditions.map((condition) => {
-        return <li key={condition}>{condition}<br/></li>
-      });
+      if(conditions) {
+        var conditions_list = conditions.map((condition) => {
+          return <li key={condition}>{condition}<br/></li>
+        });
+      }
     }
     return (
       !this.props.data ?
@@ -61,9 +68,9 @@ export default class ProfileComponent extends Component {
                   {conditions_list}
                 </p>
                 <h3>Support Contact</h3>
-                  <p>{support.name}<br/>
-                  {support.email}<br/>
-                  {support.phone}</p><br/>
+                  <p>{support_name}<br/>
+                  {support_email}<br/>
+                  {support_phone}</p><br/>
               </div>
               <div className="columns download"></div>
             </div>

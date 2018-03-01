@@ -1,5 +1,6 @@
-var User = require('./User.js'),
-    sequelize = require('../sequelize.js')
+var User = require('./User'),
+    Candidate = require('./Candidate'),
+    sequelize = require('../sequelize')
 
 sequelize.sync()
   .then(() => console.log('tables have been successfully created, if one doesn\'t exist'))
