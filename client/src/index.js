@@ -6,6 +6,9 @@ import CanddiatePage from './components/CandidatePage/CandidatePage';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
+import WhoAreYou from './components/WhoAreYou';
+import Ideal from './components/Ideal'
+import Waiver from './components/Waiver'
 //import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
@@ -15,6 +18,9 @@ ReactDOM.render(
       <Route path="/login" component={Login}/>
       <Route path="/signup" component={Signup}/>
       <Route path="/candidate" component={CanddiatePage}/>
+      <Route path="/whoareyou" component={WhoAreYou}/>
+      <Route path="/ideal" component={Ideal}/>
+      <Route path="/waiver" component={Waiver}/>
     </Switch>
   </BrowserRouter>
 , document.getElementById('root'));
