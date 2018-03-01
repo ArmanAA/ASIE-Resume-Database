@@ -2,6 +2,7 @@ let express = require('express'),
     proxy = require('express-http-proxy'),
     session = require('express-session'),
     cookieParser = require('cookie-parser'),
+    morgan = require('morgan'),
     multer = require('multer'),
     upload = multer(),
     flash = require('connect-flash'),
@@ -22,6 +23,7 @@ app.use(flash());
 app.use(bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan('tiny'))
 const port = process.env.PORT || 3001;
 
 function ensureAuthenticated(req, res, next) {
