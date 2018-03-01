@@ -125,14 +125,15 @@ app.get('/api/candidate/portfolio', (req, res) => {
 app.post('/api/candidate/update/profile', upload.array(), User.updateProfile);
 app.get('/api/test', User.findByIdRes);
 
-app.use('/candidate', ensureAuthenticated, proxy('http://localhost:3000/candidate'));
+app.use('/candidate', ensureAuthenticated, proxy('http://127.0.0.1:3000/candidate'));
 
 
 app.get('/robots.txt', function(req, res) {
   res.type('text/plain');
   res.send('User-agent: *\nDisallow: /');
-})
-app.use('/', proxy('http://localhost:3000/'));
+});
+
+app.use('/', proxy('127.0.0.1:3000/'));
 
 
 
