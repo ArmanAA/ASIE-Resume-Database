@@ -64,7 +64,7 @@ let getProfile = (id, next) => {
       city: results.city,
       state: results.state,
       zip: results.zip,
-      phone: results.user.phonenumber,
+      phone: results.user.phone,
       email: results.user.email,
       birthday: results.user.dob,
       regionalclient: results.regionalclient,
@@ -101,16 +101,16 @@ let updateProfile = (req, res, next) => {
   let id = req.user.id;
   console.log(req.body);
   Candidate.update({
-    users: {
+    user: {
       firstName: req.body.update_fname,
       lastName: req.body.update_lname,
       email: req.body.update_email,
+      phone: req.body.update_phone
     },
     street: req.body.update_street,
     city: req.body.update_city,
     state: req.body.update_state,
     zip: req.body.update_zip,
-    phone: req.body.update_phone,
     regionalclient: req.body.update_regionalclient != null,
     rehabclient: req.body.update_rehabclient != null,
   }, {
