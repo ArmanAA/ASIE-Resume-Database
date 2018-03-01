@@ -1,5 +1,6 @@
 var User = require('./User'),
     Candidate = require('./Candidate'),
+    Transportation = require('./Transportation')
     sequelize = require('../sequelize')
 
 sequelize.sync()

@@ -14,6 +14,7 @@ let express = require('express'),
     Model = require('./db/Model/Models'),
     User = require('./db/Model/User'),
     Candidate = require('./db/Model/Candidate'),
+    Transportation = require('./db/Model/Transportation'),
     db = require('./db/db'),
     // delete this after dev
     user_resp = require('./profile.js'),
@@ -117,9 +118,7 @@ app.get('/api/candidate/interest', (req, res) => {
 app.get('/api/candidate/availability', (req, res) => {
   res.json(user_resp.availability);
 });
-app.get('/api/candidate/transportation', (req, res) => {
-  res.json(user_resp.transportation);
-});
+app.get('/api/candidate/transportation', Transportation.getRes);
 app.get('/api/candidate/portfolio', (req, res) => {
   res.json(user_resp.portfolio);
 });
