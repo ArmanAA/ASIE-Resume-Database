@@ -13,6 +13,8 @@ let express = require('express'),
     bcrypt = require('bcrypt'),
     User = require('./db/Model/Models').User,
     db = require('./db/db'),
+    // delete this after dev
+    user_resp = require('./profile.js'),
     app = express();
 
 app.use(cookieParser());
@@ -90,7 +92,36 @@ app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
 
-app.get('/api/candidate', User.findByIdRes);
+//app.get('/api/candidate', User.findByIdRes);
+app.get('/api/candidate', (req, res) => {
+  res.json(user_resp.sample_user);
+});
+app.get('/api/candidate/profile', (req, res) => {
+  res.json(user_resp.profile);
+});
+app.get('/api/candidate/experience', (req, res) => {
+  res.json(user_resp.experience);
+});
+app.get('/api/candidate/education', (req, res) => {
+  res.json(user_resp.education);
+});
+app.get('/api/candidate/skills', (req, res) => {
+  res.json(user_resp.skills);
+});
+app.get('/api/candidate/interest', (req, res) => {
+  res.json(user_resp.interest);
+});
+app.get('/api/candidate/availability', (req, res) => {
+  res.json(user_resp.availability);
+});
+app.get('/api/candidate/transportation', (req, res) => {
+  res.json(user_resp.transportation);
+});
+app.get('/api/candidate/portfolio', (req, res) => {
+  res.json(user_resp.portfolio);
+});
+
+
 app.post('/api/candidate/update/profile', upload.array(), User.updateProfile);
 app.get('/api/test', User.findByIdRes);
 

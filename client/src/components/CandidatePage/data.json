@@ -1,0 +1,12 @@
+var userdata = {
+	"profile": {
+		"fname": "jason",
+		"lname": "kwak"
+	},
+	"education": [
+		{
+			"school": "SMC - Best College",
+			"year": "asdf"
+		}
+	]
+}

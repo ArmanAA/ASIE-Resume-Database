@@ -3,29 +3,38 @@ import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'
 
 export default class Skills extends Component {
-	constructor() {
-	    super()
-	    this.state = {tags: []}
-	}
+  constructor(props) {
+    super(props)
+    this.state = {
+      tags: props.data
+    }
+  }
 
-	handleChange(tags) {
-    	this.setState({tags})
-	}
+  componentWillReceiveProps(nextProps) {
+    this.setState({tags: nextProps.data});
+  }
 
-	render() {
-	    return (
-	    	<div className="row">
-				<div className="three columns header-col">
-					<h1><span>Skills</span></h1>
-				</div>
-				<div className="nine columns main-col">
-					<TagsInput
-						value={this.state.tags}
-						onChange={this.handleChange.bind(this)}
-						inputProps={{className: 'react-tagsinput-input',  placeholder: 'Enter skills'}}
-					/>
-				</div>
-			</div>
-	    );
-	}
+  handleChange(tags) {
+      this.setState({tags})
+  }
+
+  render() {
+    return (
+      !this.state.tags ?
+        <span></span>
+      :
+        <div className="row">
+          <div className="three columns header-col">
+            <h1><span>Skills</span></h1>
+          </div>
+          <div className="nine columns main-col">
+            <TagsInput
+              value={this.state.tags}
+              onChange={this.handleChange.bind(this)}
+              inputProps={{className: 'react-tagsinput-input',  placeholder: 'Enter skills'}}
+            />
+          </div>
+        </div>
+    );
+  }
 }

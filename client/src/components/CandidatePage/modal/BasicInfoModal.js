@@ -11,8 +11,12 @@ export default class BasicInfoModal extends Component {
     super(props);
     this.state = {
       open: false,
+      firstName: props.data.fname,
+      lastName: props.data.lname,
+      email: props.data.email,
     };
-    this.fname = props.data.firstName;
+    //this.fname = props.data.firstName;
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -45,20 +49,30 @@ export default class BasicInfoModal extends Component {
   render() {
     const { open } = this.state;
     return (
-      <div style={styles}>
-        <h2 onClick={this.onOpenModal}>+ Basic Info</h2>
-        <Modal open={open} onClose={this.onCloseModal} little>
-          <h2>Basic Information</h2>
-          <form onSubmit={this.handleSubmit}>
-            <label className='row'> First name: <input type="text" name="update_fname" defaultValue={this.props.data.firstName}/></label>
-            <label className='row'> Last name: <input type="text" name="update_lname" defaultValue={this.props.data.lastName}/></label>
-            <label className='row'> Email: <input type="text" name="update_email" defaultValue={this.props.data.email}/></label>
-            <label className='row'> Address: <input type="text" name="update_address"/></label>
-            <label className='row'> Profile Image: <input type="file" name="update_image"/></label>
-            <input className='row' type="submit" value="Submit" />
-          </form>
-        </Modal>
-      </div>
+      !this.props.data ?
+        <span></span>
+      :
+        <div style={styles}>
+          <h2 onClick={this.onOpenModal}>+ Basic Info</h2>
+          <Modal open={open} onClose={this.onCloseModal} little>
+            <h2>Basic Information</h2>
+            <form onSubmit={this.handleSubmit}>
+              <label className='row'> First name: <input type="text" name="update_fname" defaultValue={this.state.firstName}/></label>
+              <label className='row'> Last name: <input type="text" name="update_lname" defaultValue={this.state.lastName}/></label>
+              <label className='row'> Street: <input type="text" name="update_address"/></label>
+              <label className='row'> City: <input type="text" name="update_address"/></label>
+              <label className='row'> State: <input type="text" name="update_address"/></label>
+              <label className='row'> Zip: <input type="text" name="update_address"/></label>
+              <label className='row'> Phone: <input type="text" name="update_address"/></label>
+              <label className='row'> Email: <input type="text" name="update_email" defaultValue={this.state.email}/></label>
+              <label className='row'> Regional Center Client: <input type="checkbox" name="update_address"/></label>
+              <label className='row'> Department of Rehabilitation Client: <input type="checkbox" name="update_address"/></label>
+              
+              <label className='row'> Profile Image: <input type="file" name="update_image"/></label>
+              <input className='row' type="submit" value="Submit" />
+            </form>
+          </Modal>
+        </div>
     );
   }
 }
