@@ -24,10 +24,9 @@ app.use(session({secret: "gravy sauce", resave: true, saveUninitialized: true, p
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('tiny'))
+app.use(morgan('tiny'));
 const port = process.env.PORT || 3001;
 
 function ensureAuthenticated(req, res, next) {
