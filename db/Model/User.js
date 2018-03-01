@@ -22,7 +22,7 @@ var attributes = {
   password: {
     type: Sequelize.STRING
   },
-  phonenumber: {
+  phone: {
     type: Sequelize.STRING,
     unique: true,
     validate: {
