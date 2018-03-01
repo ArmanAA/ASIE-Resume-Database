@@ -115,7 +115,7 @@ let updateProfile = (req, res, next) => {
     rehabclient: req.body.update_rehabclient != null,
   }, {
     where: {
-      'userId': id
+      'id': id
     },
     include: [
       { model: User }
