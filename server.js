@@ -125,6 +125,7 @@ app.get('/api/candidate/portfolio', (req, res) => {
 
 app.post('/api/candidate/update/profile', upload.array(), Candidate.updateProfile);
 app.post('/api/candidate/update/skills', Skills.update);
+app.post('/api/candidate/update/transportation', upload.array(), Transportation.update);
 app.get('/api/test', Candidate.getProfileRes);
 
 app.use('/candidate', ensureAuthenticated,

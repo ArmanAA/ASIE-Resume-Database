@@ -31,7 +31,7 @@ export default class Education extends Component {
             <h1><span>Transportation</span></h1>
           </div>
           <div className="nine columns main-col">
-            <form>
+            <form onChange={this.send_updates}>
               <label>How to Travel?</label>
               <label><input type="checkbox" name="car" defaultChecked={car}/> Car</label>
               <label><input type="checkbox" name="bike" defaultChecked={bike}/> Bike</label>

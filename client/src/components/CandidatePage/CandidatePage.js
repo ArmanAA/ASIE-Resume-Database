@@ -8,6 +8,7 @@ import Skills from './Skills';
 import Interests from './Interests';
 import Portfolio from './Portfolio';
 import BasicInfoModal from './modal/BasicInfoModal';
+import TransportationModal from './modal/TransportationModal';
 import '../../default.css';
 
 /*const items = [
@@ -104,8 +105,8 @@ export default class CandidatePage extends Component {
   render() {
     const sidebarContent =
       <div style={styles.content}>
-        <BasicInfoModal style={styles.sidebarLink} data={this.state.profile}>+ Basic Info</BasicInfoModal>
-        <a onClick={this.transportation_handler} style={styles.sidebarLink}>+ Transportation</a>
+        <BasicInfoModal style={styles.sidebarLink} data={this.state.profile}></BasicInfoModal>
+        <TransportationModal style={styles.sidebarLink} data={this.state.transportation}></TransportationModal>
         <a onClick={this.hours_handler} style={styles.sidebarLink}>+ Hours</a>
         <a onClick={this.experience_handler} style={styles.sidebarLink}>+ Experience</a>
         <a onClick={this.skills_handler} style={styles.sidebarLink}>+ Skills</a>

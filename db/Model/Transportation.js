@@ -32,7 +32,7 @@ var Transportation = sequelize.define('transportation', attributes, options);
 Transportation.belongsTo(Candidate, {foreignKey: 'id', targetKey: 'id'});
 
 let getRes = (req, res) => {
-  let id = 1;//req.user.id;
+  let id = req.user.id;
   get(id, (transportation) => {
     console.log(transportation);
     res.json(transportation);
@@ -44,7 +44,8 @@ let get = (id, next) => {
     where: {
       'id': id
     },
-    include: [Candidate]
+    include: [Candidate],
+    raw:true
   }).then(function(results) {
     console.log(results);
     if(results) {
@@ -61,10 +62,12 @@ let get = (id, next) => {
       var distance = results.distance
     }
 
+    console.log(results.car);
+
     var transportation = {
-      methods: methods,
-      other: other,
-      distance: distance
+      methods: methods || [],
+      other: other || "",
+      distance: distance || ""
     }
     next(transportation);
   });
@@ -91,6 +94,23 @@ let create = (req, res, next) => {
   })
 }
 
+let update = (req, res, next) => {
+  let id = req.user.id;
+  Transportation.upsert({
+    id: id,
+    car: req.body.car != null,
+    bike: req.body.bike != null,
+    metro: req.body.metro != null,
+    walk: req.body.walk != null,
+    other: req.body.other,
+    distance: req.body.distance
+  }).then(results => {
+    res.json({message: 'successful'})
+  }).catch(error => {
+    res.json(error)
+  })
+}
 
 module.exports.getRes = getRes;
 module.exports.create = create;
+module.exports.update = update;
