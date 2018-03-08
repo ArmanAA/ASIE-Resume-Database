@@ -93,7 +93,7 @@ export default class SkillsModal extends Component {
           <h2 onClick={this.onOpenModal}>+ Skills</h2>
           <Modal style={modal_styles} open={open} onClose={this.onCloseModal} little>
             <h2>Skills</h2>
-            <form onSubmit={window.location.reload}>
+            <form className="form-group" onSubmit={window.location.reload}>
               <TagsInput
                 value={this.state.skills}
                 onChange={this.handleChange.bind(this)}
@@ -101,11 +101,6 @@ export default class SkillsModal extends Component {
                 inputProps={{className: 'react-tagsinput-input',  placeholder: 'Enter skills'}}
               />
               <br/>
-              <input className='row' type="submit" value="Submit" />
-          <h2 onClick={this.onOpenModal}>+ Basic Info</h2>
-          <Modal open={open} onClose={this.onCloseModal} little>
-            <h2>Basic Information</h2>
-            <form className="form-group" onSubmit={this.handleSubmit}>
               <input className='row form-control' type="submit" value="Submit" />
             </form>
           </Modal>

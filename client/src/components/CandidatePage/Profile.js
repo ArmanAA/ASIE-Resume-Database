@@ -69,15 +69,15 @@ export default class ProfileComponent extends Component {
           <div className="row">
             <div className="section col-10">
                  <p className="address">
-                    fname} lname}<br/>
-                    street}<br />
-                    city} state}, zip}<br/>
-                    phone}<br/>
-                    email}<br/>
-                    Regional Center Client: regionalclient}<br/>
-                    Department of Rehabilitation Client: rehabclient}<br/>
+                    {fname} {lname}<br/>
+                    {street}<br />
+                    {city} {state}, {zip}<br/>
+                    {phone}<br/>
+                    {email}<br/>
+                    Regional Center Client: {regionalclient}<br/>
+                    Department of Rehabilitation Client: {rehabclient}<br/>
                     Disabilities:<br/>
-                    conditions_list}
+                    {conditions_list}
                   </p>
             </div>
           </div>
@@ -91,9 +91,9 @@ export default class ProfileComponent extends Component {
           <div className="row">
             <div className="section col-10">
                  <p className="address">
-                    <p>support_name}<br/>
-                    support_email}<br/>
-                    support_phone}</p>
+                    <p>{support_name}<br/>
+                    {support_email}<br/>
+                    {support_phone}</p>
                   </p>
             </div>
           </div>

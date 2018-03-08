@@ -47,15 +47,6 @@ export default class Interests extends Component {
       });
     }
     return (
-      <div className="row">
-        <div className="three columns header-col">
-          <h1><span>Interests</span></h1>
-        </div>
-        <div className="nine columns main-col">
-          <h2>Personal</h2>
-            {personal_list}
-          <h2>Career</h2>
-            {career_list}
       !this.props.data ?
         <span></span>
       :
@@ -65,20 +56,15 @@ export default class Interests extends Component {
           </div>
           <div className="col-10 section">
             <h4>Personal</h4>
-            <TagsInput
-              value={this.state.personal_tags}
-              onChange={this.handleChangePersonal}
-              inputProps={{className: 'react-tagsinput-input',  placeholder: 'Enter interests'}}
-            />
+              <ul>
+              {personal_list}
+              </ul>
             <h4>Career</h4>
-            <TagsInput
-              value={this.state.career_tags}
-              onChange={this.handleChangeCareer}
-              inputProps={{className: 'react-tagsinput-input',  placeholder: 'Enter interests'}}
-            />
+              <ul>
+              {career_list}
+              </ul>
           </div>
         </div>
-      </div>
     );
   }
 }

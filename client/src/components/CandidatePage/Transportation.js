@@ -24,22 +24,15 @@ export default class Education extends Component {
       var distance = this.state.data.distance;
     }
     return (
-        <span>Loading Transportation</span>
+      !this.state.data ?
+        <span></span>
+      :
         <div className="row">
-          <div className="three columns header-col">
           <div className="col-3 section-title">
-            <h1><span>Transportation</span></h1>
+            <h1>Transportation</h1>
           </div>
-          <div className="nine columns main-col">
-            <label>How to Travel?</label>
-            <label><input type="checkbox" name="car" defaultChecked={car}/> Car</label>
-            <label><input type="checkbox" name="bike" defaultChecked={bike}/> Bike</label>
-            <label><input type="checkbox" name="metro" defaultChecked={metro}/> Metro</label>
-            <label><input type="checkbox" name="walk" defaultChecked={walk}/> Walk</label><br/>
-            <label> Other <input type="text" name="other" defaultValue={other}/></label><br/>
-            <label> Distance <input type="text" name="distance" defaultValue={distance}/></label>
-        <div className="row">
-            <form className="form-group section col-10" onChange={this.send_updates}>
+          <div className="row">
+            <form className="form-group section col-10">
               <div className="label">
                 <label>How to Travel?</label>
               </div>
@@ -50,7 +43,7 @@ export default class Education extends Component {
                 <label className="form-check-input"> <input  type="checkbox" name="walk" defaultChecked={walk}/> Walk</label><br/>
               </div>
               <div className="form-group">
-                <label> Other <input  className="form-control" type="text" name="other" defaultValue={other}/></label><br/>
+                <label> Other <input className="form-control" type="text" name="other" defaultValue={other}/></label><br/>
                 <label> Distance <input className="form-control" type="text" name="distance" defaultValue={distance}/></label>
               </div>
             </form>

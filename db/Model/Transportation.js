@@ -61,9 +61,7 @@ let get = (id, next) => {
       var other = results.other;
       var distance = results.distance
     }
-
-    console.log(results.car);
-
+    
     var transportation = {
       methods: methods || [],
       other: other || "",
