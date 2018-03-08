@@ -17,9 +17,9 @@ var Skills = sequelize.define('skills', attributes, options);
 Skills.belongsTo(Candidate, {foreignKey: 'userId', targetKey: 'id'});
 
 let getRes = (req, res) => {
-  let id = 1;//req.user.id;
+  let id = req.user.id;
   get(id, (skills) => {
-    console.log(skills);
+    //console.log(skills);
     res.json(skills);
   })
 }
@@ -31,7 +31,7 @@ let get = (id, next) => {
     },
     raw: true
   }).then(function(results) {
-    console.log(results);
+    //console.log(results);
 
 
     var skills = [];
@@ -44,21 +44,27 @@ let get = (id, next) => {
 
 let update = (req, res, next) => {
   let id = req.user.id;
-  console.log(req.body);
-  Skills.update({
-    skills: req.body.skills,
-  }, {
-    where: {
-      'userId': id
-    },
-    include: [
-      { model: Candidate }
-    ]
-  }).then(results => {
-    res.json({message: 'successful'})
-  }).catch(error => {
-    res.json(error)
-  })
+  let skill = req.body.skill;
+  let type = req.body.type;
+  //console.log("skill:", skill);
+  if(type == "add") {
+    Skills.create({
+      'userId': id,
+      'skills': skill
+    }).then(results => {
+      res.json({message: 'successful'})
+    }).catch(error => {
+      res.json(error)
+    })
+  }
+  else {
+    Skills.destroy({
+      where: {
+        'userId': id,
+        'skills': skill
+      }
+    })
+  }
 }
 
 module.exports.Skills = Skills;
