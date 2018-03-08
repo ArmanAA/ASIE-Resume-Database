@@ -31,15 +31,13 @@ export default class Education extends Component {
             <h1><span>Transportation</span></h1>
           </div>
           <div className="nine columns main-col">
-            <form onChange={this.send_updates}>
-              <label>How to Travel?</label>
-              <label><input type="checkbox" name="car" defaultChecked={car}/> Car</label>
-              <label><input type="checkbox" name="bike" defaultChecked={bike}/> Bike</label>
-              <label><input type="checkbox" name="metro" defaultChecked={metro}/> Metro</label>
-              <label><input type="checkbox" name="walk" defaultChecked={walk}/> Walk</label><br/>
-              <label> Other <input type="text" name="other" defaultValue={other}/></label><br/>
-              <label> Distance <input type="text" name="distance" defaultValue={distance}/></label>
-            </form>
+            <label>How to Travel?</label>
+            <label><input type="checkbox" name="car" defaultChecked={car}/> Car</label>
+            <label><input type="checkbox" name="bike" defaultChecked={bike}/> Bike</label>
+            <label><input type="checkbox" name="metro" defaultChecked={metro}/> Metro</label>
+            <label><input type="checkbox" name="walk" defaultChecked={walk}/> Walk</label><br/>
+            <label> Other <input type="text" name="other" defaultValue={other}/></label><br/>
+            <label> Distance <input type="text" name="distance" defaultValue={distance}/></label>
           </div>
         </div>
     );
