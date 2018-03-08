@@ -13,9 +13,10 @@ export default class MenuBar extends Component {
 								<a href='/' > <img alt="Logo" src='./assets/images/logo.png' width="200" /> </a>
 							</div>
 							<form action="/login" method="POST">
-								<input className="text-field" type="text" placeholder="email" name="email"></input>
-								<input className="text-password" type="password>" placeholder="password" name="password"></input>
-								<button className="btn btn-custom" type="submit"> Sign in</button>
+							
+								<input className=" order-1 text-field form-control" type="text" placeholder="email" name="email"></input>	
+								<input className="order-2 text-password form-control" id="pwd" type="password" placeholder="password" name="password"></input>
+								<button className="order-3 btn btn-custom btn-menu" type="submit"> Sign in</button>	
 							</form>
 
 						</div>

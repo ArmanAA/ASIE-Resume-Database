@@ -7,7 +7,7 @@
 	width: 100% !important;
 }
 .topbar{
-	background-color: var(--maincolor);
+	background-color: #46A;
 	border-style: none;
 	width: 100%;
 	margin: auto;
@@ -16,7 +16,7 @@
 }
 
 .ASIE{
-	height: 100%;
+	height: auto;
 	margin-left: 12px;
 	color: white;
 	font-size: 2em;
@@ -28,21 +28,25 @@ form{
 	padding-bottom: 5px;
 	padding-right: 15px;
 	float: right;
-
 }
 
 
-.text-field {
-	width: 200px;
+.text-field, .text-password {
+	width: 200px !important;
 	margin:  auto 5px;
 	padding: 5px;
+	display: inline !important;
+	
+
+
 }
 
 
 .btn-custom{
 	margin-top:  0 !important ;
-	background-color: #26D;
-
+	
+	font: 16px/30px 'opensans-bold', sans-serif;
+   background: #11ABB0;
 	color: white;
 
 
@@ -52,7 +56,23 @@ form{
 	background-color: #79C;
 }
 
+.btn-menu{
+	display: inline;
+}
 
 button {
 	color: white;
+	font: 16px/30px 'opensans-bold', sans-serif;
+   background: #11ABB0;
+}
+
+
+@media (max-width: 574px){
+	.text-field, .text-password {
+		float: none;
+	}
+
+	.topbar{
+		height: 200px;
+	}
 }

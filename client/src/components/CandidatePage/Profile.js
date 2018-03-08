@@ -46,35 +46,61 @@ export default class ProfileComponent extends Component {
       !this.props.data ?
         <span></span>
       :
-        <div id="basic" className="row">
-          <div className="three columns">
-            <img className="profile-pic"  src={profilepic} alt="Profile Pic" />
+        <div className="container-fluid profile-wrapper">
+        <div className="row">
+          <div className="col-5 section-title">
+            <h1><span>About Me</span></h1>
           </div>
-          <div className="nine columns main-col">
-            <h2>About Me</h2>
-            <p>{bio}</p>
-            <div className="row">
-              <div className="columns contact-details">
-                <h2>Contact Details</h2>
-                <p className="address">
-                  {fname} {lname}<br/>
-                  {street}<br />
-                  {city} {state}, {zip}<br/>
-                  {phone}<br/>
-                  {email}<br/>
-                  Regional Center Client: {regionalclient}<br/>
-                  Department of Rehabilitation Client: {rehabclient}<br/>
-                  Disabilities:<br/>
-                  {conditions_list}
-                </p>
-                <h3>Support Contact</h3>
-                  <p>{support_name}<br/>
-                  {support_email}<br/>
-                  {support_phone}</p><br/>
+          <div className="row">
+            <div className="section col-10">
+              <div className="profile-pic">
+                <img src="./assets/images/profilepic.jpg" alt="Profile Pic" />
               </div>
-              <div className="columns download"></div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac leo felis. Vestibulum at purus id dolor aliquam consequat. Phasellus tempor sollicitudin ligula, non malesuada erat euismod sit amet. Nullam faucibus, ipsum eget ornare consequat, ipsum nisl consequat magna, ac posuere nisi ligula porta tellus. Nullam rutrum arcu arcu, sed feugiat turpis ultrices sit amet. Nulla hendrerit, libero in cursus faucibus, turpis quam cursus orci, ut venenatis orci ante vitae est. Cras pellentesque tortor a neque feugiat, at aliquam nisi finibus.</p>
             </div>
           </div>
+        </div>
+
+
+        <div className="row">
+          <div className="col-5 section-title">
+            <h1><span>Contact Details</span></h1>
+          </div>
+          <div className="row">
+            <div className="section col-10">
+                 <p className="address">
+                    fname} lname}<br/>
+                    street}<br />
+                    city} state}, zip}<br/>
+                    phone}<br/>
+                    email}<br/>
+                    Regional Center Client: regionalclient}<br/>
+                    Department of Rehabilitation Client: rehabclient}<br/>
+                    Disabilities:<br/>
+                    conditions_list}
+                  </p>
+            </div>
+          </div>
+        </div>
+
+
+        <div className="row">
+          <div className="col-5 section-title">
+            <h1><span>Support Contact</span></h1>
+          </div>
+          <div className="row">
+            <div className="section col-10">
+                 <p className="address">
+                    <p>support_name}<br/>
+                    support_email}<br/>
+                    support_phone}</p>
+                  </p>
+            </div>
+          </div>
+        </div>
+
+        
+
         </div>
     );
   }

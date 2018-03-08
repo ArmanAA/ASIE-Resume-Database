@@ -23,17 +23,21 @@ export default class Skills extends Component {
       !this.state.tags ?
         <span></span>
       :
+      <div>
         <div className="row">
-          <div className="three columns header-col">
+          <div className="col-3 section-title">
             <h1><span>Skills</span></h1>
           </div>
-          <div className="nine columns main-col">
+          </div>
+          <div>
+          <div className="col-10 section">
             <TagsInput
               value={this.state.tags}
               onChange={this.handleChange.bind(this)}
               inputProps={{className: 'react-tagsinput-input',  placeholder: 'Enter skills'}}
             />
           </div>
+        </div>
         </div>
     );
   }

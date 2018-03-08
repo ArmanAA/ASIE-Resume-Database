@@ -114,9 +114,9 @@ export default class CandidatePage extends Component {
         <a onClick={this.portfolio_handler} style={styles.sidebarLink}>+ Portfolio</a>
       </div>;
     return (
-      !this.state.profile ?
+      /*!this.state.profile ?
         <div>Loading...</div>
-      :
+      :*/
         <div className="home">
            <Sidebar sidebar={sidebarContent}
                     docked={this.state.docked}>

@@ -22,3 +22,24 @@ h1{
 .btn{
 	margin-top: 10px;
 }
+
+.home{
+	width: 30%;
+	margin: auto;
+}
+
+@media (max-width: 993px) {
+   .form-box{
+   	width: 90%;
+   	margin: 100px auto;
+   }
+
+   .signup-form{
+   	padding: 0;
+   }
+
+   h1{
+   	font-size: 0.5em;
+
+   }
+}

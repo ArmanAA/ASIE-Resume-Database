@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
-
+import '../Signup/css/Signup.css'
 export default class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
+        
+        <div className="col-sm-10 col-md-8 col-lg-6 form-box">
         <h1>Login page</h1>
-        <a href='/'>Home</a>
-        <form action="/login" method="post">
+        <form className="signup-form"action="/login" method="post">
+          <div className="form-group">
           <div>
             <label>Email:</label>
-            <input type="text" name="email"/>
+            <input  className="form-control"type="text" name="email"/>
           </div>
           <div>
             <label>Password:</label>
-            <input type="password" name="password"/>
+            <input className="form-control" type="password" name="password"/>
           </div>
           <div>
-            <input type="submit" value="Log In"/>
+            <input className="form-control btn btn-primary" type="submit" value="Log In"/>
+          </div>
           </div>
         </form>
+        </div>
+        <a className="home btn btn-custom" role="button" href='/'>Home</a>
       </div>
     );
   }

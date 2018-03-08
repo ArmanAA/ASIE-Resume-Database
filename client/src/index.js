@@ -9,6 +9,7 @@ import Signup from './components/Signup/Signup';
 import WhoAreYou from './components/WhoAreYou';
 import Ideal from './components/Ideal'
 import Waiver from './components/Waiver'
+import 'bootstrap/dist/css/bootstrap.min.css';
 //import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(

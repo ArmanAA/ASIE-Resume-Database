@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MenuBar from '../Home/MenuBar.js'
-import './Signup.css';
+import './css/Signup.css';
 
 export default class Login extends Component {
  componentDidMount(){
@@ -13,7 +13,7 @@ export default class Login extends Component {
 
         <div className="container">
         <div className="row">   
-        <div className="col-6 form-box">
+        <div className="col-sm-10 col-md-8 col-lg-6 form-box">
      
           <form className="signup-form" action="/signup" method="post">
             <div className="form-group">
@@ -35,7 +35,6 @@ export default class Login extends Component {
                 <input className="form-control" type="password" name="password"/>
               </div>
               <div>
-                
                 <input type="checkbox" name="terms"/>
                 <label> I have read and agree to the <a href=''>terms & conditions</a>. </label>
               </div>

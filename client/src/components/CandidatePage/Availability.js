@@ -35,22 +35,28 @@ export default class Availability extends Component {
         <span></span>
       :
         <div className="row">
-        <div className="three columns header-col">
+        <div className="col-3 section-title">
           <h1><span>Availability</span></h1>
         </div>
-        <div className="nine columns main-col">
-          <form>
-            <label><input type="checkbox" name="sunday" defaultChecked={sunday}/> Sunday</label>
-            <label><input type="checkbox" name="monday" defaultChecked={monday}/> Monday</label>
-            <label><input type="checkbox" name="tuesday" defaultChecked={tuesday}/> Tuesday</label>
-            <label><input type="checkbox" name="wednesday" defaultChecked={wednesday}/> Wednesday</label>
-            <label><input type="checkbox" name="thursday" defaultChecked={thursday}/> Thursday</label>
-            <label><input type="checkbox" name="friday" defaultChecked={friday}/> Friday</label>
-            <label><input type="checkbox" name="saturday" defaultChecked={saturday}/> Saturday</label>
-            <label><input type="checkbox" name="morning" defaultChecked={morning}/> Morning</label>
-            <label><input type="checkbox" name="afternoon" defaultChecked={afternoon}/> Afternoon</label>
-            <label><input type="checkbox" name="evening" defaultChecked={evening}/> Evening</label>
-            <label> Hours <input type="text" name="hours" defaultValue={hours}/></label>
+        <div className="row">
+          <form className="form-group section col-10">
+          <div className="form-check form-check-inline">
+            <label className="form-check-input"><input type="checkbox" name="sunday" defaultChecked={sunday}/> Sunday</label>
+            <label className="form-check-input"><input type="checkbox" name="monday" defaultChecked={monday}/> Monday</label>
+            <label className="form-check-input"><input type="checkbox" name="tuesday" defaultChecked={tuesday}/> Tuesday</label>
+            <label className="form-check-input"><input type="checkbox" name="wednesday" defaultChecked={wednesday}/> Wednesday</label>
+            <label className="form-check-input"><input type="checkbox" name="thursday" defaultChecked={thursday}/> Thursday</label>
+            <label className="form-check-input"><input type="checkbox" name="friday" defaultChecked={friday}/> Friday</label>
+            <label className="form-check-input"><input type="checkbox" name="saturday" defaultChecked={saturday}/> Saturday</label>
+           </div>
+           <div className="form-check form-check-inline"> 
+            <label className="form-check-input"><input type="checkbox" name="morning" defaultChecked={morning}/> Morning</label>
+            <label className="form-check-input"><input type="checkbox" name="afternoon" defaultChecked={afternoon}/> Afternoon</label>
+            <label className="form-check-input"><input type="checkbox" name="evening" defaultChecked={evening}/> Evening</label>
+            </div>
+            <div className="form-group">
+            <label> Hours <input  className="form-control" type="text" name="hours" defaultValue={hours}/></label>
+            </div>
           </form>
         </div>
       </div>

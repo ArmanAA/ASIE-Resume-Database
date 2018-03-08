@@ -36,17 +36,17 @@ export default class Interests extends Component {
         <span></span>
       :
         <div className="row">
-          <div className="three columns header-col">
+          <div className="col-3 section-title">
             <h1><span>Interests</span></h1>
           </div>
-          <div className="nine columns main-col">
-            <h2>Personal</h2>
+          <div className="col-10 section">
+            <h4>Personal</h4>
             <TagsInput
               value={this.state.personal_tags}
               onChange={this.handleChangePersonal}
               inputProps={{className: 'react-tagsinput-input',  placeholder: 'Enter interests'}}
             />
-            <h2>Career</h2>
+            <h4>Career</h4>
             <TagsInput
               value={this.state.career_tags}
               onChange={this.handleChangeCareer}

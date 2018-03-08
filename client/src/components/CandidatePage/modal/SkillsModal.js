@@ -66,8 +66,8 @@ export default class BasicInfoModal extends Component {
           <h2 onClick={this.onOpenModal}>+ Basic Info</h2>
           <Modal open={open} onClose={this.onCloseModal} little>
             <h2>Basic Information</h2>
-            <form onSubmit={this.handleSubmit}>
-              <input className='row' type="submit" value="Submit" />
+            <form className="form-group" onSubmit={this.handleSubmit}>
+              <input className='row form-control' type="submit" value="Submit" />
             </form>
           </Modal>
         </div>
