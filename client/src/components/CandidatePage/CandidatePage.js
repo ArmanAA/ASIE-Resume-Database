@@ -12,6 +12,7 @@ import TransportationModal from './modal/TransportationModal';
 import HoursModal from './modal/HoursModal';
 import SkillsModal from './modal/SkillsModal';
 import InterestModal from './modal/InterestModal';
+import PortfolioModal from './modal/PortfolioModal';
 import '../../default.css';
 
 /*const items = [
@@ -111,10 +112,10 @@ export default class CandidatePage extends Component {
         <BasicInfoModal style={styles.sidebarLink} data={this.state.profile}></BasicInfoModal>
         <TransportationModal style={styles.sidebarLink} data={this.state.transportation}></TransportationModal>
         <a onClick={this.experience_handler} style={styles.sidebarLink}>+ Experience</a>
-        <a onClick={this.portfolio_handler} style={styles.sidebarLink}>+ Portfolio</a>
         <HoursModal style={styles.sidebarLink} data={this.state.hours}></HoursModal>
         <SkillsModal style={styles.sidebarLink} data={this.state.skills}></SkillsModal>
         <InterestModal style={styles.sidebarLink} data={this.state.interest}></InterestModal>
+        <PortfolioModal style={styles.sidebarLink} data={this.state.portfolio}></PortfolioModal>
       </div>;
     return (
       !this.state.profile ?

@@ -17,7 +17,7 @@ class Portfolio extends Component {
   render() {
     if(this.state.portfolio){
       var projects = this.state.portfolio.map(function(projects){
-        var projectImage = 'assets/images/'+projects.thumbnail;
+        var projectImage = projects.thumbnail;
         return <div key={projects.title} className="columns portfolio-item">
            <div className="item-wrap">
             <a href={projects.url} title={projects.title}>

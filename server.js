@@ -4,7 +4,6 @@ let express = require('express'),
     cookieParser = require('cookie-parser'),
     morgan = require('morgan'),
     multer = require('multer'),
-    upload = multer(),
     flash = require('connect-flash'),
     bodyParser = require('body-parser'),
     dbinit = require('./db/dbinit'),
@@ -18,6 +17,7 @@ let express = require('express'),
     Hours = require('./db/Model/Hours'),
     Skills = require('./db/Model/Skills'),
     Interest = require('./db/Model/Interest'),
+    Portfolio = require('./db/Model/Portfolio'),
     db = require('./db/db'),
     // delete this after dev
     user_resp = require('./profile.js'),
@@ -32,6 +32,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 const port = process.env.PORT || 3001;
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'client/public/portfolio/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '.jpg') //Appending .jpg
+  }
+})
+var upload = multer({ storage: storage });
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -116,9 +125,7 @@ app.get('/api/candidate/skills', Skills.getRes);
 app.get('/api/candidate/interest', Interest.getRes);
 app.get('/api/candidate/hours', Hours.getRes);
 app.get('/api/candidate/transportation', Transportation.getRes);
-app.get('/api/candidate/portfolio', (req, res) => {
-  res.json(user_resp.portfolio);
-});
+app.get('/api/candidate/portfolio', Portfolio.getRes);
 
 
 app.post('/api/candidate/update/profile', upload.array(), Candidate.updateProfile);
@@ -126,6 +133,7 @@ app.post('/api/candidate/update/skills', Skills.update);
 app.post('/api/candidate/update/interest', Interest.update);
 app.post('/api/candidate/update/transportation', upload.array(), Transportation.update);
 app.post('/api/candidate/update/hours', upload.array(), Hours.update);
+app.post('/api/candidate/update/portfolio', upload.single("image"), Portfolio.update);
 app.get('/api/test', Candidate.getProfileRes);
 
 app.use('/candidate', ensureAuthenticated,
