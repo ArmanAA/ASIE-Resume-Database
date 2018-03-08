@@ -56,6 +56,27 @@ export default class Interests extends Component {
             {personal_list}
           <h2>Career</h2>
             {career_list}
+      !this.props.data ?
+        <span></span>
+      :
+        <div className="row">
+          <div className="col-3 section-title">
+            <h1><span>Interests</span></h1>
+          </div>
+          <div className="col-10 section">
+            <h4>Personal</h4>
+            <TagsInput
+              value={this.state.personal_tags}
+              onChange={this.handleChangePersonal}
+              inputProps={{className: 'react-tagsinput-input',  placeholder: 'Enter interests'}}
+            />
+            <h4>Career</h4>
+            <TagsInput
+              value={this.state.career_tags}
+              onChange={this.handleChangeCareer}
+              inputProps={{className: 'react-tagsinput-input',  placeholder: 'Enter interests'}}
+            />
+          </div>
         </div>
       </div>
     );

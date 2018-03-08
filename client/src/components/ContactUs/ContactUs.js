@@ -17,7 +17,7 @@ export default class ContactUs extends Component {
         <div className="col-6 form-box">
      
           <form className="signup-form" action="" method="">
-            <div className="form-group">
+            <div className="form-group col-sm-10 col-md-8 col-lg-6 form-box">
               <h1>Contact Us</h1>
               
               <div>

@@ -16,10 +16,12 @@ export default class Education extends Component {
     if(this.state.data) {
       var experiencelist = this.state.data.map((job) => {
         return <div key={job.title}>
-          <h3>{job.title}</h3>
-          <h4>{job.company}</h4>
-          <p>{job.from} - {job.currently ? "Present" : job.to}</p>
-          <p>{job.description}</p>
+          <h4>{job.title}</h4>
+          <h5>{job.company}</h5>
+          <ul>
+            <li>{job.from} - {job.currently ? "Present" : job.to}</li>
+            <li>{job.description}</li>
+          </ul>
         </div>
       });
     }
@@ -28,10 +30,10 @@ export default class Education extends Component {
         <span></span>
       :
         <div className="row">
-          <div className="three columns header-col">
+          <div className="col-3 section-title">
             <h1><span>Experience</span></h1>
           </div>
-          <div className="nine columns main-col">
+          <div className="col-10 section">
             {experiencelist}
           </div>
         </div>

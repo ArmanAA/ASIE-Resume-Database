@@ -56,7 +56,6 @@ export default class CandidatePage extends Component {
       mql: mql,
       docked: true,
       count: 0,
-
       user: null,
       profile: null,
       experience: null,
@@ -124,7 +123,7 @@ export default class CandidatePage extends Component {
            <Sidebar sidebar={sidebarContent}
                     docked={this.state.docked}>
             <div>
-              <div>
+              <div className="mainpage">
                 <Profile data={this.state.profile}/>
                 <Transportation data={this.state.transportation}/>
                 <Hours data={this.state.hours}/>

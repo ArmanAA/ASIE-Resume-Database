@@ -86,15 +86,19 @@ export default class BasicInfoModal extends Component {
           <h2 onClick={this.onOpenModal}>+ Transporation</h2>
           <Modal open={open} onClose={this.onCloseModal} little>
             <h2>Basic Information</h2>
-            <form onSubmit={this.handleSubmit}>
+            <form className="form-group" onSubmit={this.handleSubmit}>
               <label>How to Travel?</label>
-              <label><input type="checkbox" name="car" defaultChecked={this.state.car}/> Car</label>
-              <label><input type="checkbox" name="bike" defaultChecked={this.state.bike}/> Bike</label>
-              <label><input type="checkbox" name="metro" defaultChecked={this.state.metro}/> Metro</label>
-              <label><input type="checkbox" name="walk" defaultChecked={this.state.walk}/> Walk</label><br/>
-              <label> Other <input type="text" name="other" defaultValue={this.state.other}/></label><br/>
-              <label> Distance <input type="text" name="distance" defaultValue={this.state.distance}/></label>
+              <div className="form-check form-check-inline">
+              <label className="form-check-input "><input type="checkbox" name="car" defaultChecked={this.state.car}/> Car</label>
+              <label className="form-check-input "><input type="checkbox" name="bike" defaultChecked={this.state.bike}/> Bike</label>
+              <label className="form-check-input "><input type="checkbox" name="metro" defaultChecked={this.state.metro}/> Metro</label>
+              <label className="form-check-input "><input type="checkbox" name="walk" defaultChecked={this.state.walk}/> Walk</label><br/>
+              </div>
+              <div className="form-group">
+              <label> Other <input className="form-control" type="text" name="other" defaultValue={this.state.other}/></label><br/>
+              <label> Distance <input className="form-control" type="text" name="distance" defaultValue={this.state.distance}/></label>
               <input className='row' type="submit" value="Submit" />
+              </div>
             </form>
           </Modal>
         </div>
