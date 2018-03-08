@@ -111,7 +111,6 @@ export default class CandidatePage extends Component {
       <div style={styles.content}>
         <BasicInfoModal style={styles.sidebarLink} data={this.state.profile}></BasicInfoModal>
         <TransportationModal style={styles.sidebarLink} data={this.state.transportation}></TransportationModal>
-        <a onClick={this.experience_handler} style={styles.sidebarLink}>+ Experience</a>
         <HoursModal style={styles.sidebarLink} data={this.state.hours}></HoursModal>
         <SkillsModal style={styles.sidebarLink} data={this.state.skills}></SkillsModal>
         <InterestModal style={styles.sidebarLink} data={this.state.interest}></InterestModal>
@@ -128,7 +127,6 @@ export default class CandidatePage extends Component {
               <div>
                 <Profile data={this.state.profile}/>
                 <Transportation data={this.state.transportation}/>
-                <Experience data={this.state.experience}/>
                 <Hours data={this.state.hours}/>
                 <Skills data={this.state.skills}/>
                 <Interests data={this.state.interest}/>
