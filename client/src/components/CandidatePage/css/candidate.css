@@ -99,7 +99,7 @@ h1{
     box-sizing: border-box;
 }
 
-.home a{
+.home + div + div + a{
     border-style: solid;
     border-radius: 5px;
     border-width: 1px;
@@ -107,7 +107,10 @@ h1{
     padding: 8px !important;
 }
 
-.home a:hover{
+.home + div + div + a:hover{
     background-color: #63a5a0;
     color: white !important;
 }
+
+
+

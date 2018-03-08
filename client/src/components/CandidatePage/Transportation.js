@@ -24,9 +24,9 @@ export default class Education extends Component {
       var distance = this.state.data.distance;
     }
     return (
-      !this.state.data ?
+      /*!this.state.data ?
         <span>Loading Transportation</span>
-      :
+      :*/
         <div className="row">
           <div className="col-3 section-title">
             <h1><span>Transportation</span></h1>

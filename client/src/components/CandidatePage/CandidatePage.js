@@ -52,7 +52,6 @@ export default class CandidatePage extends Component {
       mql: mql,
       docked: true,
       count: 0,
-
       user: null,
       profile: null,
       experience: null,
@@ -114,14 +113,14 @@ export default class CandidatePage extends Component {
         <a onClick={this.portfolio_handler} style={styles.sidebarLink}>+ Portfolio</a>
       </div>;
     return (
-      /*!this.state.profile ?
+      !this.state.profile ?
         <div>Loading...</div>
-      :*/
+      :
         <div className="home">
            <Sidebar sidebar={sidebarContent}
                     docked={this.state.docked}>
             <div>
-              <div>
+              <div className="mainpage">
                 <Profile data={this.state.profile}/>
                 <Transportation data={this.state.transportation}/>
                 <Availability data={this.state.availability}/>
