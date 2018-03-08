@@ -15,6 +15,7 @@ let express = require('express'),
     User = require('./db/Model/User'),
     Candidate = require('./db/Model/Candidate'),
     Transportation = require('./db/Model/Transportation'),
+    Hours = require('./db/Model/Hours'),
     Skills = require('./db/Model/Skills'),
     db = require('./db/db'),
     // delete this after dev
@@ -114,9 +115,7 @@ app.get('/api/candidate/skills', Skills.getRes);
 app.get('/api/candidate/interest', (req, res) => {
   res.json(user_resp.interest);
 });
-app.get('/api/candidate/availability', (req, res) => {
-  res.json(user_resp.availability);
-});
+app.get('/api/candidate/hours', Hours.getRes);
 app.get('/api/candidate/transportation', Transportation.getRes);
 app.get('/api/candidate/portfolio', (req, res) => {
   res.json(user_resp.portfolio);
@@ -126,6 +125,7 @@ app.get('/api/candidate/portfolio', (req, res) => {
 app.post('/api/candidate/update/profile', upload.array(), Candidate.updateProfile);
 app.post('/api/candidate/update/skills', Skills.update);
 app.post('/api/candidate/update/transportation', upload.array(), Transportation.update);
+app.post('/api/candidate/update/hours', upload.array(), Hours.update);
 app.get('/api/test', Candidate.getProfileRes);
 
 app.use('/candidate', ensureAuthenticated,

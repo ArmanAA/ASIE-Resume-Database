@@ -3,12 +3,13 @@ import Sidebar from 'react-sidebar';
 import Profile from './Profile';
 import Transportation from './Transportation';
 import Experience from './Experience'
-import Availability from './Availability';
+import Hours from './Hours';
 import Skills from './Skills';
 import Interests from './Interests';
 import Portfolio from './Portfolio';
 import BasicInfoModal from './modal/BasicInfoModal';
 import TransportationModal from './modal/TransportationModal';
+import HoursModal from './modal/HoursModal';
 import '../../default.css';
 
 /*const items = [
@@ -59,7 +60,7 @@ export default class CandidatePage extends Component {
       education: null,
       skills: null,
       interest: null,
-      availability: null,
+      hours: null,
       transportation: null,
       portfolio: null
     }
@@ -81,7 +82,7 @@ export default class CandidatePage extends Component {
     this.callApi('/api/candidate/education', 'education');
     this.callApi('/api/candidate/skills', 'skills');
     this.callApi('/api/candidate/interest', 'interest');
-    this.callApi('/api/candidate/availability', 'availability');
+    this.callApi('/api/candidate/hours', 'hours');
     this.callApi('/api/candidate/transportation', 'transportation');
     this.callApi('/api/candidate/portfolio', 'portfolio');
   }
@@ -107,11 +108,11 @@ export default class CandidatePage extends Component {
       <div style={styles.content}>
         <BasicInfoModal style={styles.sidebarLink} data={this.state.profile}></BasicInfoModal>
         <TransportationModal style={styles.sidebarLink} data={this.state.transportation}></TransportationModal>
-        <a onClick={this.hours_handler} style={styles.sidebarLink}>+ Hours</a>
         <a onClick={this.experience_handler} style={styles.sidebarLink}>+ Experience</a>
         <a onClick={this.skills_handler} style={styles.sidebarLink}>+ Skills</a>
         <a onClick={this.interest_handler} style={styles.sidebarLink}>+ Interests</a>
         <a onClick={this.portfolio_handler} style={styles.sidebarLink}>+ Portfolio</a>
+        <HoursModal style={styles.sidebarLink} data={this.state.hours}></HoursModal>
       </div>;
     return (
       !this.state.profile ?
@@ -124,8 +125,8 @@ export default class CandidatePage extends Component {
               <div>
                 <Profile data={this.state.profile}/>
                 <Transportation data={this.state.transportation}/>
-                <Availability data={this.state.availability}/>
                 <Experience data={this.state.experience}/>
+                <Hours data={this.state.hours}/>
                 <Skills data={this.state.skills}/>
                 <Interests data={this.state.interest}/>
                 <Portfolio data={this.state.portfolio}/>
