@@ -58,7 +58,7 @@ export default class Skills extends Component {
       });
     }
     return (
-      !this.state.skills ?
+      !this.state.skills || this.state.skills.length == 0 ?
         <span></span>
       :
         <div className="row">

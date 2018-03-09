@@ -73,18 +73,21 @@ export default class HoursModal extends Component {
         <Modal open={open} onClose={this.onCloseModal} little>
           <h2>Hours</h2>
           <form onSubmit={this.handleSubmit}>
-            <label>How to Travel?</label>
-            <label><input type="checkbox" name="sunday" defaultChecked={this.state.sunday}/> Sunday</label>
-            <label><input type="checkbox" name="monday" defaultChecked={this.state.monday}/> Monday</label>
-            <label><input type="checkbox" name="tuesday" defaultChecked={this.state.tuesday}/> Tuesday</label>
-            <label><input type="checkbox" name="wednesday" defaultChecked={this.state.wednesday}/> Wednesday</label>
-            <label><input type="checkbox" name="thursday" defaultChecked={this.state.thursday}/> Thursday</label>
-            <label><input type="checkbox" name="friday" defaultChecked={this.state.friday}/> Friday</label>
-            <label><input type="checkbox" name="saturday" defaultChecked={this.state.saturday}/> Saturday</label>
-            <label><input type="checkbox" name="morning" defaultChecked={this.state.morning}/> Morning</label>
-            <label><input type="checkbox" name="afternoon" defaultChecked={this.state.afternoon}/> Afternoon</label>
-            <label><input type="checkbox" name="evening" defaultChecked={this.state.evening}/> Evening</label>
+            <label>How to Travel?</label><br/>
+            <label><input type="checkbox" name="sunday" defaultChecked={this.state.sunday}/> Sunday </label>
+            <label><input type="checkbox" name="monday" defaultChecked={this.state.monday}/> Monday </label>
+            <label><input type="checkbox" name="tuesday" defaultChecked={this.state.tuesday}/> Tuesday </label>
+            <label><input type="checkbox" name="wednesday" defaultChecked={this.state.wednesday}/> Wednesday </label>
+            <label><input type="checkbox" name="thursday" defaultChecked={this.state.thursday}/> Thursday </label>
+            <label><input type="checkbox" name="friday" defaultChecked={this.state.friday}/> Friday </label>
+            <label><input type="checkbox" name="saturday" defaultChecked={this.state.saturday}/> Saturday </label>
+            <br/>
+            <label><input type="checkbox" name="morning" defaultChecked={this.state.morning}/> Morning </label>
+            <label><input type="checkbox" name="afternoon" defaultChecked={this.state.afternoon}/> Afternoon </label>
+            <label><input type="checkbox" name="evening" defaultChecked={this.state.evening}/> Evening </label>
+            <br/>
             <label>Hours <input type="text" name="hours" defaultValue={this.state.hours}/></label>
+            <br/>
             <input className='row' type="submit" value="Submit" />
           </form>
         </Modal>

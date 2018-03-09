@@ -70,14 +70,13 @@ export default class ProfileComponent extends Component {
             <div className="section col-10">
                  <p className="address">
                     {fname} {lname}<br/>
-                    {street}<br />
-                    {city} {state}, {zip}<br/>
-                    {phone}<br/>
-                    {email}<br/>
-                    Regional Center Client: {regionalclient}<br/>
-                    Department of Rehabilitation Client: {rehabclient}<br/>
-                    Disabilities:<br/>
-                    {conditions_list}
+                    {street ? <span>{street}<br/></span> : <span></span>}
+                    {city ? <span>{city} {state}, {zip}<br/></span> : <span></span>}
+                    {phone ? <span>{phone}<br/></span> : <span></span>}
+                    {email ? <span>{email}<br/></span> : <span></span>}
+                    {regionalclient ? <span>Regional Center Client: {regionalclient}<br/></span> : <span></span>}
+                    {rehabclient ? <span>Department of Rehabilitation Client: {rehabclient}<br/></span> : <span></span>}
+                    {conditions_list && conditions_list.length > 0 ? <span>Disabilities:<br/>{conditions_list}</span> : <span></span>}
                   </p>
             </div>
           </div>
