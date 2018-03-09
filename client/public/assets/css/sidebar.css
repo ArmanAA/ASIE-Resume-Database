@@ -1,0 +1,12 @@
+sidebarLink: {
+    display: 'block',
+    padding: '16px 0px',
+    color: '#757575',
+    textDecoration: 'none',
+}
+
+divider: {
+    margin: '8px 0',
+    height: 1,
+    backgroundColor: '#757575',
+}
