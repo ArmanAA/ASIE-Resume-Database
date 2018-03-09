@@ -9,6 +9,7 @@ import Interests from './Interests';
 import Portfolio from './Portfolio';
 import BasicInfoModal from './modal/BasicInfoModal';
 import TransportationModal from './modal/TransportationModal';
+import ExperienceModal from './modal/ExperienceModal';
 import HoursModal from './modal/HoursModal';
 import SkillsModal from './modal/SkillsModal';
 import InterestModal from './modal/InterestModal';
@@ -111,6 +112,7 @@ export default class CandidatePage extends Component {
         <BasicInfoModal style={styles.sidebarLink} data={this.state.profile}></BasicInfoModal>
         <TransportationModal style={styles.sidebarLink} data={this.state.transportation}></TransportationModal>
         <HoursModal style={styles.sidebarLink} data={this.state.hours}></HoursModal>
+        <ExperienceModal style={styles.sidebarLink} data={this.state.experience}></ExperienceModal>
         <SkillsModal style={styles.sidebarLink} data={this.state.skills}></SkillsModal>
         <InterestModal style={styles.sidebarLink} data={this.state.interest}></InterestModal>
         <PortfolioModal style={styles.sidebarLink} data={this.state.portfolio}></PortfolioModal>
@@ -127,6 +129,7 @@ export default class CandidatePage extends Component {
                 <Profile data={this.state.profile}/>
                 <Transportation data={this.state.transportation}/>
                 <Hours data={this.state.hours}/>
+                <Experience data={this.state.experience}/>
                 <Skills data={this.state.skills}/>
                 <Interests data={this.state.interest}/>
                 <Portfolio data={this.state.portfolio}/>

@@ -16,6 +16,7 @@ let express = require('express'),
     Transportation = require('./db/Model/Transportation'),
     Hours = require('./db/Model/Hours'),
     Skills = require('./db/Model/Skills'),
+    Experience = require('./db/Model/Experience'),
     Interest = require('./db/Model/Interest'),
     Portfolio = require('./db/Model/Portfolio'),
     db = require('./db/db'),
@@ -115,9 +116,7 @@ app.get('/api/candidate', (req, res) => {
   res.json(user_resp.sample_user);
 });
 app.get('/api/candidate/profile', Candidate.getProfileRes);
-app.get('/api/candidate/experience', (req, res) => {
-  res.json(user_resp.experience);
-});
+app.get('/api/candidate/experience', Experience.getRes);
 app.get('/api/candidate/education', (req, res) => {
   res.json(user_resp.education);
 });
@@ -129,6 +128,7 @@ app.get('/api/candidate/portfolio', Portfolio.getRes);
 
 
 app.post('/api/candidate/update/profile', upload.array(), Candidate.updateProfile);
+app.post('/api/candidate/update/experience', portfolio_upload.array(), Experience.update);
 app.post('/api/candidate/update/skills', Skills.update);
 app.post('/api/candidate/update/interest', Interest.update);
 app.post('/api/candidate/update/transportation', upload.array(), Transportation.update);

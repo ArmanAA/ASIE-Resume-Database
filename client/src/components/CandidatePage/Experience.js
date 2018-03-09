@@ -26,7 +26,7 @@ export default class Education extends Component {
       });
     }
     return (
-      !this.props.data ?
+      !this.state.data || this.state.data.length === 0 ?
         <span></span>
       :
         <div className="row">
