@@ -44,7 +44,7 @@ export default class Education extends Component {
               </div>
               <div className="form-group">
                 <label> Other <input className="form-control" type="text" name="other" defaultValue={other}/></label><br/>
-                <label> Distance <input className="form-control" type="text" name="distance" defaultValue={distance}/></label>
+                <label> Distance (miles)<input className="form-control" type="text" name="distance" defaultValue={distance}/></label>
               </div>
             </form>
           </div>
