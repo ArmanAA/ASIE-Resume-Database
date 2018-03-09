@@ -81,26 +81,7 @@ export default class ProfileComponent extends Component {
             </div>
           </div>
         </div>
-
-
-        <div className="row">
-          <div className="col-5 section-title">
-            <h1><span>Support Contact</span></h1>
-          </div>
-          <div className="row">
-            <div className="section col-10">
-                 <p className="address">
-                    <p>{support_name}<br/>
-                    {support_email}<br/>
-                    {support_phone}</p>
-                  </p>
-            </div>
-          </div>
-        </div>
-
-        
-
-        </div>
+      </div>
     );
   }
 }
