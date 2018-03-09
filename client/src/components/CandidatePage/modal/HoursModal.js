@@ -6,7 +6,7 @@ const styles = {
   textAlign: "center"
 };
 
-export default class BasicInfoModal extends Component {
+export default class HoursModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
