@@ -51,7 +51,7 @@ export default class Hours extends Component {
             <label><input type="checkbox" name="afternoon" defaultChecked={afternoon}/> Afternoon</label>
             <label><input type="checkbox" name="evening" defaultChecked={evening}/> Evening</label>
             <br/>
-            <label> Hours <input type="text" name="hours" defaultValue={hours}/></label>
+            <label> Hours per week<input type="text" name="hours" defaultValue={hours}/></label>
           </div>
         </div>
     );
