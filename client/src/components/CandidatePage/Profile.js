@@ -26,8 +26,8 @@ export default class ProfileComponent extends Component {
       var zip = this.state.data.zip;
       var phone = this.state.data.phone;
       var email = this.state.data.email;
-      var regionalclient = this.state.data.regionalclient;
-      var rehabclient = this.state.data.rehabclient;
+      var regionalclient = this.state.data.regionalclient ? "Yes" : "No";
+      var rehabclient = this.state.data.rehabclient ? "Yes" : "No";
       var conditions = this.state.data.conditions;
       var support = this.state.data.support;
       if(support) {

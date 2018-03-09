@@ -19,8 +19,8 @@ export default class BasicInfoModal extends Component {
       state: props.data.state,
       zip: props.data.zip,
       phone: props.data.phone,
-      regionalclient: props.data.update_regionalclient,
-      rehabclient: props.data.update_rehabclient
+      regionalclient: props.data.regionalclient,
+      rehabclient: props.data.rehabclient
     };
     //this.fname = props.data.firstName;
 
@@ -38,8 +38,8 @@ export default class BasicInfoModal extends Component {
         state: nextProps.data.state,
         zip: nextProps.data.zip,
         phone: nextProps.data.phone,
-        regionalclient: nextProps.data.update_regionalclient,
-        rehabclient: nextProps.data.update_rehabclient
+        regionalclient: nextProps.data.regionalclient,
+        rehabclient: nextProps.data.rehabclient
       })
     }
   }
