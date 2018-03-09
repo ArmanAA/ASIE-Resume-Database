@@ -16,7 +16,7 @@ export default class ProfileComponent extends Component {
 
   render() {
     if(this.state.data) {
-      var profilepic = "assets/images/profilepic.jpg";
+      var profilepic = "profile/" + this.state.data.profilepic;
       var bio = "Some sentences";
       var fname = this.state.data.fname;
       var lname = this.state.data.lname;
@@ -54,7 +54,7 @@ export default class ProfileComponent extends Component {
           <div className="row">
             <div className="section col-10">
               <div className="profile-pic">
-                <img src="./assets/images/profilepic.jpg" alt="Profile Pic" />
+                <img src={profilepic} alt="Profile Pic" />
               </div>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac leo felis. Vestibulum at purus id dolor aliquam consequat. Phasellus tempor sollicitudin ligula, non malesuada erat euismod sit amet. Nullam faucibus, ipsum eget ornare consequat, ipsum nisl consequat magna, ac posuere nisi ligula porta tellus. Nullam rutrum arcu arcu, sed feugiat turpis ultrices sit amet. Nulla hendrerit, libero in cursus faucibus, turpis quam cursus orci, ut venenatis orci ante vitae est. Cras pellentesque tortor a neque feugiat, at aliquam nisi finibus.</p>
             </div>

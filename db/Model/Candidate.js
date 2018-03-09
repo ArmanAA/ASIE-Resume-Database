@@ -29,6 +29,10 @@ var attributes = {
   },
   archived: {
     type: Sequelize.BOOLEAN
+  },
+  profilepic: {
+    type: Sequelize.STRING,
+    defaultValue: 'profilepic.jpg'
   }
 }
 
@@ -57,7 +61,6 @@ let getProfile = (id, next) => {
   }).then(function(results) {
     //console.log(results);
     var profile = {
-      profilepic: "assets/images/profilepic.jpg",
       fname: results.user.firstName,
       lname: results.user.lastName,
       street: results.street,
@@ -69,7 +72,8 @@ let getProfile = (id, next) => {
       birthday: results.user.dob,
       regionalclient: results.regionalclient,
       rehabclient: results.rehabclient,
-      conditions: []
+      conditions: [],
+      profilepic: results.profilepic
     }
     next(profile);
   });
@@ -100,6 +104,8 @@ let createProfile = (req, res, next) => {
 let updateProfile = (req, res, next) => {
   let id = req.user.id;
   console.log(req.body);
+  req.file = req.file || {};
+  let filename = req.file.filename;
   Candidate.update({
     user: {
       firstName: req.body.update_fname,
@@ -113,6 +119,7 @@ let updateProfile = (req, res, next) => {
     zip: req.body.update_zip,
     regionalclient: req.body.update_regionalclient != null,
     rehabclient: req.body.update_rehabclient != null,
+    profilepic: filename
   }, {
     where: {
       'id': id

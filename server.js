@@ -33,15 +33,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 const port = process.env.PORT || 3001;
-var storage = multer.diskStorage({
+let portfolio_storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'client/public/portfolio/')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '.jpg') //Appending .jpg
   }
-})
-var upload = multer({ storage: storage });
+});
+let portfolio_upload = multer({ storage: portfolio_storage });
+let profile_storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'client/public/profile/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '.jpg') //Appending .jpg
+  }
+});
+let profile_update = multer({ storage: profile_storage });
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -127,13 +136,13 @@ app.get('/api/candidate/transportation', Transportation.getRes);
 app.get('/api/candidate/portfolio', Portfolio.getRes);
 
 
-app.post('/api/candidate/update/profile', upload.array(), Candidate.updateProfile);
+app.post('/api/candidate/update/profile', profile_update.single("update_image"), Candidate.updateProfile);
 app.post('/api/candidate/update/experience', portfolio_upload.array(), Experience.update);
 app.post('/api/candidate/update/skills', Skills.update);
 app.post('/api/candidate/update/interest', Interest.update);
-app.post('/api/candidate/update/transportation', upload.array(), Transportation.update);
-app.post('/api/candidate/update/hours', upload.array(), Hours.update);
-app.post('/api/candidate/update/portfolio', upload.single("image"), Portfolio.update);
+app.post('/api/candidate/update/transportation', portfolio_upload.array(), Transportation.update);
+app.post('/api/candidate/update/hours', portfolio_upload.array(), Hours.update);
+app.post('/api/candidate/update/portfolio', portfolio_upload.single("image"), Portfolio.update);
 app.get('/api/test', Candidate.getProfileRes);
 
 app.use('/candidate', ensureAuthenticated,

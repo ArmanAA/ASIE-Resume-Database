@@ -11,8 +11,8 @@ const styles = {
 
 const SortableItem = SortableElement(({value}) =>
   <div className="noselect">
-    {value.title}<br/>
-    {value.description}
+    <h4>{value.title}</h4><br/>
+    <p>{value.description}</p>
   </div>
 );
 
