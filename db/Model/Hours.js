@@ -106,7 +106,7 @@ let get = (id, next) => {
 }
 
 let upsert = (req, res, next) => {
-  console.log(req.body);
+  //console.log(req.body);
   let id = req.user.id;
   Hours.upsert({
     id: id,

@@ -47,7 +47,7 @@ Candidate.belongsTo(User, {foreignKey: 'id', targetKey: 'id'});
 let getProfileRes = (req, res) => {
   let id = req.user.id;
   getProfile(id, (candidate) => {
-    console.log(candidate);
+    //console.log(candidate);
     res.json(candidate);
   })
 }
@@ -103,9 +103,9 @@ let createProfile = (req, res, next) => {
 
 let updateProfile = (req, res, next) => {
   let id = req.user.id;
-  console.log(req.body);
   req.file = req.file || {};
   let filename = req.file.filename;
+  //console.log("candidate", req.body);
   Candidate.update({
     user: {
       firstName: req.body.update_fname,

@@ -61,7 +61,7 @@ let get = (id, next) => {
 }
 
 let update = (req, res, next) => {
-  console.log(req.file.filename);
+  //console.log(req.file.filename);
   let id = req.user.id;
   let action = 'add';//req.body.action;
   let type = 'picture';//req.body.type;

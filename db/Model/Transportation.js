@@ -34,7 +34,7 @@ Transportation.belongsTo(Candidate, {foreignKey: 'id', targetKey: 'id'});
 let getRes = (req, res) => {
   let id = req.user.id;
   get(id, (transportation) => {
-    console.log(transportation);
+    //console.log(transportation);
     res.json(transportation);
   })
 }
@@ -47,7 +47,7 @@ let get = (id, next) => {
     include: [Candidate],
     raw:true
   }).then(function(results) {
-    console.log(results);
+    //console.log(results);
     if(results) {
       var methods = [];
       if(results.car)
