@@ -31,7 +31,7 @@ var Experiences = sequelize.define("experiences", attributes, options);
 Experiences.belongsTo(Candidate, { foreignKey: "userId", targetKey: "id" });
 
 let getRes = (req, res) => {
-  let id = 1;//req.user.id;
+  let id = req.user.id;
   get(id, experiences => {
     //console.log(transportation);
     res.json(experiences);
