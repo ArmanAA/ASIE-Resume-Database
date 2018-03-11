@@ -9,6 +9,7 @@ import Signup from './components/Signup/Signup';
 import WhoAreYou from './components/WhoAreYou';
 import Ideal from './components/Ideal'
 import Waiver from './components/Waiver'
+import SearchPage from './components/SearchPage/SearchPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import registerServiceWorker from './registerServiceWorker';
 
@@ -22,6 +23,7 @@ ReactDOM.render(
       <Route path="/whoareyou" component={WhoAreYou}/>
       <Route path="/ideal" component={Ideal}/>
       <Route path="/waiver" component={Waiver}/>
+      <Route path="/search" component={SearchPage}/>
     </Switch>
   </BrowserRouter>
 , document.getElementById('root'));

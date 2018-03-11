@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'
+import "../../MenuBar.css";
 
 const styles = {
   fontFamily: "sans-serif",
@@ -90,7 +91,7 @@ export default class SkillsModal extends Component {
         <span></span>
       :
         <div style={styles}>
-          <h2 onClick={this.onOpenModal}>+ Skills</h2>
+          <h2 className="Link" onClick={this.onOpenModal}>+ Skills</h2>
           <Modal style={modal_styles} open={open} onClose={this.onCloseModal} little>
             <h2>Skills</h2>
             <form className="form-group" onSubmit={window.location.reload}>

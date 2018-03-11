@@ -3,6 +3,7 @@ import Modal from 'react-responsive-modal';
 import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 import PortfolioAddModal from './PortfolioAddModal';
 import './style.css'
+import "../../MenuBar.css";
 
 const styles = {
   fontFamily: "sans-serif",
@@ -61,7 +62,7 @@ export default class PortfolioModal extends Component {
     const { open } = this.state;
     return (
       <div style={styles}>
-        <h2 onClick={this.onOpenModal}>+ Portfolio</h2>
+        <h2 className="Link" onClick={this.onOpenModal}>+ Portfolio</h2>
         <Modal open={open} onClose={this.onCloseModal} little>
           <PortfolioAddModal />
           <div>

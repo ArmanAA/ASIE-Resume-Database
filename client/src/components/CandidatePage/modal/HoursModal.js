@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
+import "../../MenuBar.css";
 
 const styles = {
   fontFamily: "sans-serif",
@@ -69,7 +70,7 @@ export default class HoursModal extends Component {
     const { open } = this.state;
     return (
       <div style={styles}>
-        <h2 onClick={this.onOpenModal}>+ Hours</h2>
+        <h2 className="Link" onClick={this.onOpenModal}>+ Hours</h2>
         <Modal open={open} onClose={this.onCloseModal} little>
           <h2>Hours</h2>
           <form onSubmit={this.handleSubmit}>

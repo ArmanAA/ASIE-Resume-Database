@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
 import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 import ExperienceAddModal from './ExperienceAddModal';
+import "../../MenuBar.css";
 
 const styles = {
   fontFamily: "sans-serif",
@@ -61,7 +62,7 @@ export default class ExperienceModal extends Component {
     const { open } = this.state;
     return (
       <div style={styles}>
-        <h2 onClick={this.onOpenModal}>+ Experience</h2>
+        <h2 className="Link" onClick={this.onOpenModal}>+ Experience</h2>
         <Modal open={open} onClose={this.onCloseModal} little>
           <ExperienceAddModal/>
           <div>

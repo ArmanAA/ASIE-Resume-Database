@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
+import "../../MenuBar.css";
 
 const styles = {
   fontFamily: "sans-serif",
@@ -83,7 +84,7 @@ export default class BasicInfoModal extends Component {
         <span></span>
       :
         <div style={styles}>
-          <h2 onClick={this.onOpenModal}>+ Transporation</h2>
+          <h2 className="Link" onClick={this.onOpenModal}>+ Transporation</h2>
           <Modal open={open} onClose={this.onCloseModal} little>
             <h2>Basic Information</h2>
             <form className="form-group" onSubmit={this.handleSubmit}>

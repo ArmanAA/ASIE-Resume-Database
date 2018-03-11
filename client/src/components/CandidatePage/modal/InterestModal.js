@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'
+import "../../MenuBar.css";
 
 const styles = {
   fontFamily: "sans-serif",
@@ -97,7 +98,7 @@ export default class InterestModal extends Component {
         <span></span>
       :
         <div style={styles}>
-          <h2 onClick={this.onOpenModal}>+ Interest</h2>
+          <h2 className="Link" onClick={this.onOpenModal}>+ Interest</h2>
           <Modal open={open} onClose={this.onCloseModal} little>
             <h2>Interest</h2>
             <h3>Personal</h3>

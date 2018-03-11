@@ -53,31 +53,23 @@ export default class ProfileComponent extends Component {
           </div>
           <div className="row">
             <div className="section col-10">
-              <div className="profile-pic">
-                <img src={profilepic} alt="Profile Pic" />
-              </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac leo felis. Vestibulum at purus id dolor aliquam consequat. Phasellus tempor sollicitudin ligula, non malesuada erat euismod sit amet. Nullam faucibus, ipsum eget ornare consequat, ipsum nisl consequat magna, ac posuere nisi ligula porta tellus. Nullam rutrum arcu arcu, sed feugiat turpis ultrices sit amet. Nulla hendrerit, libero in cursus faucibus, turpis quam cursus orci, ut venenatis orci ante vitae est. Cras pellentesque tortor a neque feugiat, at aliquam nisi finibus.</p>
-            </div>
-          </div>
-        </div>
-
-
-        <div className="row">
-          <div className="col-5 section-title">
-            <h1><span>Contact Details</span></h1>
-          </div>
-          <div className="row">
-            <div className="section col-10">
-                 <p className="address">
-                    {fname} {lname}<br/>
+              <div className="row">
+                <div className="profile-pic col-sm-4">
+                  <img src={profilepic} alt="Profile Pic" />
+                </div>
+                <div className='col-sm-6'>
+                  <h1> {fname} {lname}<br/> </h1>
+                  <p>
                     {street ? <span>{street}<br/></span> : <span></span>}
                     {city ? <span>{city} {state}, {zip}<br/></span> : <span></span>}
                     {phone ? <span>{phone}<br/></span> : <span></span>}
                     {email ? <span>{email}<br/></span> : <span></span>}
-                    {regionalclient ? <span>Regional Center Client: {regionalclient}<br/></span> : <span></span>}
-                    {rehabclient ? <span>Department of Rehabilitation Client: {rehabclient}<br/></span> : <span></span>}
+                    {regionalclient ? <span>Regional Center Client? {regionalclient}<br/></span> : <span></span>}
+                    {rehabclient ? <span>Department of Rehabilitation Client? {rehabclient}<br/></span> : <span></span>}
                     {conditions_list && conditions_list.length > 0 ? <span>Disabilities:<br/>{conditions_list}</span> : <span></span>}
                   </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

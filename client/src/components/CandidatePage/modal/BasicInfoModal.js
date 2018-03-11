@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
+import "../../MenuBar.css";
 
 const styles = {
   fontFamily: "sans-serif",
-  textAlign: "center"
+  textAlign: "center",
+  modal: {
+    maxWidth: 800,
+    position: 'relative',
+    padding: '1.2rem',
+    background: '#ffffff',
+    backgroundClip: 'padding-box',
+    boxShadow: '0 12px 15px 0 rgba(0,0,0,0.25)',
+  }
 };
 
 export default class BasicInfoModal extends Component {
@@ -77,8 +86,8 @@ export default class BasicInfoModal extends Component {
         <span></span>
       :
         <div style={styles}>
-          <h2 onClick={this.onOpenModal}>+ Basic Info</h2>
-          <Modal open={open} onClose={this.onCloseModal} little>
+          <h2 className="Link" onClick={this.onOpenModal}>+ Basic Info</h2>
+          <Modal open={open} onClose={this.onCloseModal} style={styles.modal}>
             <h2>Basic Information</h2>
             <form className="form-group" onSubmit={this.handleSubmit}>
               <label className='row'> First name: <input className="form-control"  type="text" name="update_fname" defaultValue={this.state.firstName} required/></label>
@@ -87,8 +96,8 @@ export default class BasicInfoModal extends Component {
               <label className='row'> City: <input  className="form-control" type="text" name="update_city" defaultValue={this.state.city} required/></label>
               <label className='row'> State: <input  className="form-control" type="text" name="update_state" defaultValue={this.state.state} required/></label>
               <label className='row'> Zip: <input className="form-control"  type="text" name="update_zip" defaultValue={this.state.zip} required/></label>
-              <label className='row'> Phone: <input className="form-control"  type="text" name="update_phone" defaultValue={this.state.phone} required/></label>
-              <label className='row'> Email: <input className="form-control"  type="text" name="update_email" defaultValue={this.state.email} required/></label>
+              <label className='row'> Phone number: <input className="form-control"  type="text" name="update_phone" defaultValue={this.state.phone} required/></label>
+              <label className='row'> Email address: <input className="form-control"  type="text" name="update_email" defaultValue={this.state.email} required/></label>
              
               <label className='row'> Regional Center Client: <input type="checkbox" name="update_regionalclient" defaultChecked={this.state.regionalclient}/></label>
               <label className='row'> Department of Rehabilitation Client: <input type="checkbox" name="update_rehabclient" defaultChecked={this.state.rehabclient}/></label>
