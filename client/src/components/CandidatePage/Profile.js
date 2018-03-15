@@ -3,47 +3,31 @@ import React, { Component } from 'react';
 export default class ProfileComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: props.data
-    }
+    this.componentWillReceiveProps(props);
   }
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.data) {
-      this.setState({data: nextProps.data})
+      this.setState({
+        profilepic: "profile/" + nextProps.data.profilepic,
+        fname: nextProps.data.fname,
+        lname: nextProps.data.lname,
+        street: nextProps.data.street,
+        city: nextProps.data.city,
+        state: nextProps.data.state,
+        zip: nextProps.data.zip,
+        phone: nextProps.data.phone,
+        email: nextProps.data.email,
+        regionalclient: nextProps.data.regionalclient,
+        rehabclient: nextProps.data.rehabclient,
+        conditions: nextProps.data.conditions
+      });
     }
   }
 
   render() {
-    if(this.state.data) {
-      var profilepic = "profile/" + this.state.data.profilepic;
-      var bio = "Some sentences";
-      var fname = this.state.data.fname;
-      var lname = this.state.data.lname;
-      var street = this.state.data.street;
-      var city = this.state.data.city;
-      var state = this.state.data.state;
-      var zip = this.state.data.zip;
-      var phone = this.state.data.phone;
-      var email = this.state.data.email;
-      var regionalclient = this.state.data.regionalclient ? "Yes" : "No";
-      var rehabclient = this.state.data.rehabclient ? "Yes" : "No";
-      var conditions = this.state.data.conditions;
-      var support = this.state.data.support;
-      if(support) {
-        var support_name = support.name;
-        var support_email = support.email;
-        var support_phone = support.phone;
-      }
-
-      if(conditions) {
-        var conditions_list = conditions.map((condition) => {
-          return <li key={condition}>{condition}<br/></li>
-        });
-      }
-    }
     return (
-      !this.props.data ?
+      !this.state ?
         <span></span>
       :
         <div className="container-fluid profile-wrapper">
@@ -55,18 +39,18 @@ export default class ProfileComponent extends Component {
             <div className="section col-10">
               <div className="row">
                 <div className="profile-pic col-sm-4">
-                  <img src={profilepic} alt="Profile Pic" />
+                  {this.state.profilepic ? <img src={this.state.profilepic} alt="Profile Pic" /> : <span></span>}
                 </div>
                 <div className='col-sm-6'>
-                  <h1> {fname} {lname}<br/> </h1>
+                  <h1> {this.state.fname} {this.state.lname}<br/> </h1>
                   <p>
-                    {street ? <span>{street}<br/></span> : <span></span>}
-                    {city ? <span>{city} {state}, {zip}<br/></span> : <span></span>}
-                    {phone ? <span>{phone}<br/></span> : <span></span>}
-                    {email ? <span>{email}<br/></span> : <span></span>}
-                    {regionalclient ? <span>Regional Center Client? {regionalclient}<br/></span> : <span></span>}
-                    {rehabclient ? <span>Department of Rehabilitation Client? {rehabclient}<br/></span> : <span></span>}
-                    {conditions_list && conditions_list.length > 0 ? <span>Disabilities:<br/>{conditions_list}</span> : <span></span>}
+                    {this.state.street ? <span>{this.state.street}<br/></span> : <span></span>}
+                    {this.state.city ? <span>{this.state.city} {this.state.state}, {this.state.zip}<br/></span> : <span></span>}
+                    {this.state.phone ? <span>{this.state.phone}<br/></span> : <span></span>}
+                    {this.state.email ? <span>{this.state.email}<br/></span> : <span></span>}
+                    {this.state.regionalclient ? <span>Regional Center Client? {this.state.regionalclient}<br/></span> : <span></span>}
+                    {this.state.rehabclient ? <span>Department of Rehabilitation Client? {this.state.rehabclient}<br/></span> : <span></span>}
+                    {this.state.conditions_list && this.state.conditions_list.length > 0 ? <span>Disabilities:<br/>{this.state.conditions_list}</span> : <span></span>}
                   </p>
                 </div>
               </div>
