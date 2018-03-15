@@ -4,43 +4,6 @@ import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel';
 import SidebarContent from '../AdminComponents/MenuBar';
 
 const mql = window.matchMedia('(min-width: 800px)');
-const styles = {
-  sidebar: {
-    width: 256,
-    height: '100vh',
-    backgroundColor: '#111',
-    overflow: 'hidden'
-  },
-  sidebarLink: {
-    display: 'block',
-    padding: '16px 0px',
-    color: '#757575',
-    textDecoration: 'none',
-  },
-  divider: {
-    margin: '8px 0',
-    height: 1,
-    backgroundColor: '#757575',
-  },
-  content: {
-    padding: '16px',
-    height: '100vh',
-    backgroundColor: '#111',
-    overflow: 'hidden'
-  },
-  contentHeaderMenuLink: {
-    textDecoration: 'none',
-    color: 'white',
-    padding: 8,
-  },
-
-};
-
-const topMenuStyle = {
-  position: 'fixed',
-  width: '100%'
-};
-
 
 export default class SearchPage extends Component {
   constructor(props) {
@@ -95,7 +58,7 @@ export default class SearchPage extends Component {
     const contentHeader = (
       <span>
         {!this.state.docked &&
-         <a onClick={this.toggleOpen.bind(this)} href="#" style={styles.contentHeaderMenuLink}>=</a>}
+         <button onClick={this.toggleOpen.bind(this)}>=</button>}
         <span></span>
       </span>);
     return (

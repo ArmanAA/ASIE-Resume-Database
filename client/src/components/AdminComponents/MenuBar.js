@@ -24,13 +24,10 @@ const SidebarContent = (props) => {
 
   return (
     <MaterialTitlePanel title="Menu" style={style}>
-      <div style={styles.content}>
-
         <Link to="/dashboard" style={styles.sidebarLink}><h2 className='Link'>Dashboard</h2></Link>
         <Link to="/candidates" style={styles.sidebarLink}><h2 className='Link'>Candidates</h2></Link>
         <Link to="/employers" style={styles.sidebarLink}><h2 className='Link'>Employers</h2></Link>
         <Link to="/facilitators" style={styles.sidebarLink}><h2 className='Link'>Facilitators</h2></Link>
-      </div>
     </MaterialTitlePanel>
   );
 };

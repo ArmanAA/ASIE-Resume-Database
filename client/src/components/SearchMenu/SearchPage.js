@@ -2,55 +2,10 @@ import React, { Component } from 'react';
 import Sidebar from 'react-sidebar';
 import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel';
 import SidebarContent from '../AdminComponents/MenuBar';
+import styles from './SearchPage.css';
 
 
 const mql = window.matchMedia('(min-width: 800px)');
-const styles = {
-  sidebar: {
-    width: 256,
-    height: '100vh',
-    backgroundColor: '#111',
-    overflow: 'hidden'
-  },
-  sidebarLink: {
-    display: 'block',
-    padding: '16px 0px',
-    color: '#757575',
-    textDecoration: 'none',
-  },
-  divider: {
-    margin: '8px 0',
-    height: 1,
-    backgroundColor: '#757575',
-  },
-  content: {
-    padding: '16px',
-    height: '100vh',
-    backgroundColor: '#111',
-    overflow: 'hidden'
-  },
-  contentHeaderMenuLink: {
-    textDecoration: 'none',
-    color: 'white',
-    padding: 8,
-  },
-
-};
-
-const topMenuStyle = {
-  position: 'fixed',
-  width: '100%'
-};
-
-
-const searchstyles = {
-  flex:1,
-  justifyContent: "center",
-  alignItems: "center",
-  textAlignVertical: "center",
-  textAlign: "center",
-  height: '100vh'
-};
 
 export default class SearchPage extends Component {
   constructor(props) {
@@ -106,18 +61,26 @@ export default class SearchPage extends Component {
     const contentHeader = (
       <span>
         {!this.state.docked &&
-         <a onClick={this.toggleOpen.bind(this)} href="#" style={styles.contentHeaderMenuLink}>=</a>}
+         <button class="btn-toggle-menu" onClick={this.toggleOpen.bind(this)}>=</button>}
         <span></span>
       </span>);
     return (
 
         !this.state.search ?
-        <div style={{backgroundColor: '#111'}}>
+        <div>
            <Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
             <MaterialTitlePanel  title={contentHeader}>
-              <div style={searchstyles}>
-                THIS IS THE CANDIDATES MENU!
-              </div>
+				<div className="container center-area">
+					<div className="row">
+						<form className="col-12">
+							<div className="input-group row">
+							   	<input type="text" className="form-control col-sm-8 form-margins" placeholder="Search for candidates, skills, locations, and more"/>
+								<button className="btn-search col-sm-2" type="button">Search</button>
+								<button className="btn-no-style col-sm-2" type="button">Advanced</button>
+							</div>
+						</form>
+					</div>
+				</div>
             </MaterialTitlePanel>
           </Sidebar>
         </div>
@@ -127,10 +90,18 @@ export default class SearchPage extends Component {
 
         <div>
            <Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
-            <MaterialTitlePanel title={contentHeader}>
-              <div>
-                <h2> </h2>
-              </div>
+            <MaterialTitlePanel  title={contentHeader}>
+				<div className="container center-horizontal">
+					<div className="row">
+						<form className="col-12">
+							<div className="input-group row">
+							   	<input type="text" className="form-control col-sm-8 form-margins" placeholder="Search for candidates, skills, locations, and more"/>
+								<button className="btn-search col-sm-2" type="button">Search</button>
+								<button className="btn-no-style col-sm-2" type="button">Advanced</button>
+							</div>
+						</form>
+					</div>
+				</div>
             </MaterialTitlePanel>
           </Sidebar>
         </div>
