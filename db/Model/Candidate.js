@@ -3,15 +3,9 @@ let Sequelize = require('sequelize'),
     User = require('./User').User
 
 var attributes = {
-  street: {
-    type: Sequelize.STRING
-  },
-  city: {
-    type: Sequelize.STRING
-  },
-  state: {
-    type: Sequelize.STRING
-  },
+  street: Sequelize.STRING,
+  city: Sequelize.STRING,
+  state: Sequelize.STRING,
   zip: {
     type: Sequelize.INTEGER,
     validate: {
@@ -19,17 +13,14 @@ var attributes = {
     }
   },
   regionalclient: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.ENUM,
+    values: ['yes', 'no', 'idk']
   },
   rehabclient: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.ENUM,
+    values: ['yes', 'no', 'idk']
   },
-  website: {
-    type: Sequelize.STRING
-  },
-  archived: {
-    type: Sequelize.BOOLEAN
-  },
+  archived: Sequelize.BOOLEAN,
   profilepic: {
     type: Sequelize.STRING,
     defaultValue: 'profilepic.jpg'
@@ -37,7 +28,7 @@ var attributes = {
 }
 
 var options = {
-  freezeTableName: false
+  omitNull: true
 }
 
 var Candidate = sequelize.define('candidate', attributes, options);
@@ -80,6 +71,7 @@ let getProfile = (id, next) => {
 }
 
 let createProfile = (req, res, next) => {
+  //console.log(req.body);
   Candidate.create({
     user: {
       firstName: req.body.firstName,
@@ -105,7 +97,7 @@ let updateProfile = (req, res, next) => {
   let id = req.user.id;
   req.file = req.file || {};
   let filename = req.file.filename;
-  //console.log("candidate", req.body);
+  console.log("candidate", req.body);
   Candidate.update({
     user: {
       firstName: req.body.update_fname,

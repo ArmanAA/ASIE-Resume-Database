@@ -3,53 +3,21 @@ let Sequelize = require('sequelize'),
     Candidate = require('./Candidate').Candidate
 
 var attributes = {
-  sunday: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
-  monday: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
-  tuesday: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
-  wednesday: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
-  thursday: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
-  friday: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
-  saturday: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
-  morning: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
-  afternoon: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
-  evening: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
-  hours: {
-    type: Sequelize.INTEGER
-  }
+  sunday: Sequelize.BOOLEAN,
+  monday: Sequelize.BOOLEAN,
+  tuesday: Sequelize.BOOLEAN,
+  wednesday: Sequelize.BOOLEAN,
+  thursday: Sequelize.BOOLEAN,
+  friday: Sequelize.BOOLEAN,
+  saturday: Sequelize.BOOLEAN,
+  morning: Sequelize.BOOLEAN,
+  afternoon: Sequelize.BOOLEAN,
+  evening: Sequelize.BOOLEAN,
+  hours: Sequelize.INTEGER
 }
 
 var options = {
-  freezeTableName: false
+  omitNull: true
 }
 
 var Hours = sequelize.define('hours', attributes, options);

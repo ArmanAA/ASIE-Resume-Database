@@ -10,18 +10,10 @@ var attributes = {
       isEmail: true
     }
   },
-  firstName: {
-    type: Sequelize.STRING
-  },
-  lastName: {
-    type: Sequelize.STRING
-  },
-  dob: {
-    type: Sequelize.DATE
-  },
-  password: {
-    type: Sequelize.STRING
-  },
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING,
+  dob: Sequelize.DATE,
+  password: Sequelize.STRING,
   phone: {
     type: Sequelize.STRING,
     unique: true,
@@ -29,13 +21,11 @@ var attributes = {
       isNumeric: true
     }
   },
-  salt: {
-    type: Sequelize.STRING
-  }
+  salt: Sequelize.STRING
 }
 
 var options = {
-  freezeTableName: false
+  omitNull: true
 }
 
 var User = sequelize.define('users', attributes, options);

@@ -3,12 +3,8 @@ let Sequelize = require('sequelize'),
     Candidate = require('./Candidate')
 
 var attributes = {
-  name: {
-    type: Sequelize.STRING
-  },
-  email: {
-    type: Sequelize.STRING
-  },
+  name: Sequelize.STRING,
+  email: Sequelize.STRING,
   phone: {
     type: Sequelize.STRING,
     unique: true,
@@ -19,7 +15,7 @@ var attributes = {
 }
 
 var options = {
-  freezeTableName: true
+  omitNull: true
 }
 
 var SupportContact = sequelize.define('supportcontact', attributes, options);

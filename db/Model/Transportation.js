@@ -3,28 +3,16 @@ let Sequelize = require('sequelize'),
     Candidate = require('./Candidate').Candidate
 
 var attributes = {
-  car: {
-    type: Sequelize.BOOLEAN
-  },
-  bike: {
-    type: Sequelize.BOOLEAN
-  },
-  metro: {
-    type: Sequelize.BOOLEAN
-  },
-  walk: {
-    type: Sequelize.BOOLEAN
-  },
-  other: {
-    type: Sequelize.STRING
-  },
-  distance: {
-    type: Sequelize.INTEGER
-  }
+  car: Sequelize.BOOLEAN,
+  bike: Sequelize.BOOLEAN,
+  metro: Sequelize.BOOLEAN,
+  walk: Sequelize.BOOLEAN,
+  other: Sequelize.STRING,
+  distance: Sequelize.INTEGER
 }
 
 var options = {
-  freezeTableName: false
+  omitNull: true
 }
 
 var Transportation = sequelize.define('transportation', attributes, options);
@@ -110,5 +98,4 @@ let update = (req, res, next) => {
 }
 
 module.exports.getRes = getRes;
-module.exports.create = create;
 module.exports.update = update;

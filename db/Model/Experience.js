@@ -3,28 +3,16 @@ let Sequelize = require("sequelize"),
  Candidate = require("./Candidate").Candidate;
 
 var attributes = {
-  title: {
-    type: Sequelize.STRING
-  },
-  from: {
-    type: Sequelize.INTEGER
-  },
-  company: {
-    type: Sequelize.STRING
-  },
-  to: {
-    type: Sequelize.INTEGER
-  },
-  currently: {
-    type: Sequelize.BOOLEAN
-  },
-  description: {
-    type: Sequelize.STRING
-  }
+  title: Sequelize.STRING,
+  from: Sequelize.INTEGER,
+  company: Sequelize.STRING,
+  to: Sequelize.INTEGER,
+  currently: Sequelize.BOOLEAN,
+  description: Sequelize.STRING
 };
 
 var options = {
-  freezeTableName: false
+  omitNull: true
 };
 var Experiences = sequelize.define("experiences", attributes, options);
 

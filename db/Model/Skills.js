@@ -3,13 +3,11 @@ let Sequelize = require('sequelize'),
     Candidate = require('./Candidate').Candidate
 
 var attributes = {
-  skills: {
-    type: Sequelize.STRING
-  }
+  skills: Sequelize.STRING
 }
 
 var options = {
-  freezeTableName: false
+  omitNull: true
 }
 
 var Skills = sequelize.define('skills', attributes, options);
@@ -67,6 +65,5 @@ let update = (req, res, next) => {
   }
 }
 
-module.exports.Skills = Skills;
 module.exports.getRes = getRes;
 module.exports.update = update;

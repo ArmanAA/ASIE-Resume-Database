@@ -7,22 +7,14 @@ var attributes = {
     type: Sequelize.ENUM,
     values: ['picture', 'video']
   },
-  url: {
-    type: Sequelize.STRING
-  },
-  title: {
-    type: Sequelize.STRING
-  },
-  thumbnail: {
-    type: Sequelize.STRING
-  },
-  description: {
-    type: Sequelize.STRING
-  }
+  url: Sequelize.STRING,
+  title: Sequelize.STRING,
+  thumbnail: Sequelize.STRING,
+  description: Sequelize.STRING
 }
 
 var options = {
-  freezeTableName: false
+  omitNull: true
 }
 
 var Portfolio = sequelize.define('portfolio', attributes, options);

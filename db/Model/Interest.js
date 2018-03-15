@@ -7,13 +7,11 @@ var attributes = {
     type: Sequelize.ENUM,
     values: ['personal', 'career']
   },
-  interest: {
-    type: Sequelize.STRING
-  }
+  interest: Sequelize.STRING
 }
 
 var options = {
-  freezeTableName: false
+  omitNull: true
 }
 
 var Interest = sequelize.define('interest', attributes, options);
