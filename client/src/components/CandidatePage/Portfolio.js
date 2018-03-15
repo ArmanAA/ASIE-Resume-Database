@@ -31,7 +31,7 @@ class Portfolio extends Component {
     }
 
     return (
-      !this.state.portfolio || this.state.portfolio.length == 0 ?
+      !this.state.portfolio || this.state.portfolio.length === 0 ?
         <span></span>
       :
         <section id="portfolio">

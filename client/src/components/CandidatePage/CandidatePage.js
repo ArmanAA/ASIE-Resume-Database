@@ -146,7 +146,7 @@ export default class CandidatePage extends Component {
     const contentHeader = (
       <span>
         {!this.state.docked &&
-         <a onClick={this.toggleOpen.bind(this)} href="#" style={styles.contentHeaderMenuLink}>=</a>}
+         <a onClick={this.toggleOpen.bind(this)} style={styles.contentHeaderMenuLink}>☰</a>}
         <span> Menu </span>
       </span>);
     return (

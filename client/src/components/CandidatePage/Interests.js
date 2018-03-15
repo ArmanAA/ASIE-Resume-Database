@@ -47,8 +47,8 @@ export default class Interests extends Component {
       });
     }
     return (
-      (!this.state.personal_tags || this.state.personal_tags.length == 0) &&
-      (!this.state.career_tags || this.state.career_tags.legnth == 0) ?
+      (!this.state.personal_tags || this.state.personal_tags.length === 0) &&
+      (!this.state.career_tags || this.state.career_tags.legnth === 0) ?
         <span></span>
       :
         <div className="row">
