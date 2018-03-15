@@ -1,0 +1,85 @@
+.btn-toggle-menu {
+	background-color: black;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+.center-area {
+	position: absolute;
+	left: 50%;
+	top: 40%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+
+.center-horizontal {
+	position: absolute;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+
+.btn-search {
+	background-color: black;
+    background-repeat:no-repeat;
+    overflow: hidden;
+    outline:none;
+}
+
+.btn-no-style {
+	background-color: transparent;
+	color: black;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.btn-no-style:hover {
+	text-decoration: underline;
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (min-width : 320px) {
+	.form-margins {
+		margin-bottom: $spacer-x * .5 !important;
+	}
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (min-width : 480px) {
+	.form-margins {
+		margin-bottom: $spacer-x * .5 !important;
+	}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+	.form-margins {
+		margin-right: $spacer-x * 1.5 !important;
+		padding-right: ($spacer-x * .5) !important;
+	}
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+	.form-margins {
+		margin-right: $spacer-x * 1.5 !important;
+		padding-right: ($spacer-x * .5) !important;
+	}
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+	.form-margins {
+		margin-right: $spacer-x * 1.5 !important;
+		padding-right: ($spacer-x * .5) !important;
+	}
+}

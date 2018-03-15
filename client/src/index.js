@@ -9,7 +9,10 @@ import Signup from './components/Signup/Signup';
 import WhoAreYou from './components/WhoAreYou';
 import Ideal from './components/Ideal'
 import Waiver from './components/Waiver'
-import SearchPage from './components/SearchPage/SearchPage';
+import CandidatesMenu from './components/SearchMenu/SearchPage';
+import DashBoardMenu from './components/DashboardMenu/Dashboard';
+import EmployersMenu from './components/EmployersMenu/Employers';
+import FacilitatorsMenu from './components/FacilitatorsMenu/Facilitators';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import registerServiceWorker from './registerServiceWorker';
 
@@ -23,7 +26,10 @@ ReactDOM.render(
       <Route path="/whoareyou" component={WhoAreYou}/>
       <Route path="/ideal" component={Ideal}/>
       <Route path="/waiver" component={Waiver}/>
-      <Route path="/search" component={SearchPage}/>
+      <Route path="/candidates" component={CandidatesMenu}/>
+      <Route path="/dashboard" component={DashBoardMenu}/>
+      <Route path="/employers" component={EmployersMenu}/>
+      <Route path="/facilitators" component={FacilitatorsMenu}/>
     </Switch>
   </BrowserRouter>
 , document.getElementById('root'));

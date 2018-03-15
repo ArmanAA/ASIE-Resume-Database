@@ -15,18 +15,7 @@ import SkillsModal from './modal/SkillsModal';
 import InterestModal from './modal/InterestModal';
 import PortfolioModal from './modal/PortfolioModal';
 import MaterialTitlePanel from './MaterialTitlePanel';
-import '../../default.css';
 
-
-/*const items = [
-      <SidebarItem>+ Basic Info</SidebarItem>,
-      <SidebarItem>+ Transportation</SidebarItem>,
-      <SidebarItem>+ Hours</SidebarItem>,
-      <SidebarItem>+ Experience</SidebarItem>,
-      <SidebarItem>+ Skills</SidebarItem>,
-      <SidebarItem>+ Interests</SidebarItem>,
-      <SidebarItem>+ Portfolio</SidebarItem>
-    ];*/
 
 const mql = window.matchMedia('(min-width: 800px)');
 const styles = {
