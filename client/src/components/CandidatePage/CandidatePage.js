@@ -157,7 +157,7 @@ export default class CandidatePage extends Component {
            <Sidebar sidebar={sidebarContent} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
             <MaterialTitlePanel title={contentHeader}>
               <div>
-                <div className="mainpage">
+                <div className="mainpage" style={{maxWidth: 820}}>
                   <Profile data={this.state.profile}/>
                   <Transportation data={this.state.transportation}/>
                   <Hours data={this.state.hours}/>
