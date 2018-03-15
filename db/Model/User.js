@@ -17,6 +17,7 @@ var attributes = {
   phone: {
     type: Sequelize.STRING,
     unique: true,
+    allowNull: true,
     validate: {
       isNumeric: true
     }

@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 
+const regional = {
+  "yes": "Yes",
+  "no": "No",
+  "idk": "I don't know"
+}
+
 export default class ProfileComponent extends Component {
   constructor(props) {
     super(props);
@@ -48,8 +54,8 @@ export default class ProfileComponent extends Component {
                     {this.state.city ? <span>{this.state.city} {this.state.state}, {this.state.zip}<br/></span> : <span></span>}
                     {this.state.phone ? <span>{this.state.phone}<br/></span> : <span></span>}
                     {this.state.email ? <span>{this.state.email}<br/></span> : <span></span>}
-                    {this.state.regionalclient ? <span>Regional Center Client? {this.state.regionalclient}<br/></span> : <span></span>}
-                    {this.state.rehabclient ? <span>Department of Rehabilitation Client? {this.state.rehabclient}<br/></span> : <span></span>}
+                    {this.state.regionalclient ? <span>Regional Center Client? {regional[this.state.regionalclient]}<br/></span> : <span></span>}
+                    {this.state.rehabclient ? <span>Department of Rehabilitation Client? {regional[this.state.rehabclient]}<br/></span> : <span></span>}
                     {this.state.conditions_list && this.state.conditions_list.length > 0 ? <span>Disabilities:<br/>{this.state.conditions_list}</span> : <span></span>}
                   </p>
                 </div>

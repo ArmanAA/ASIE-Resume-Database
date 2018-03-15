@@ -5,26 +5,37 @@ let Sequelize = require('sequelize'),
 var attributes = {
   street: Sequelize.STRING,
   city: Sequelize.STRING,
-  state: Sequelize.STRING,
+  state: {
+    type: Sequelize.ENUM,
+    values: ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+             'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+             'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+             'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+             'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'],
+    allowNull: true
+  },
   zip: {
     type: Sequelize.INTEGER,
     validate: {
       isNumeric: true
-    }
+    },
+    allowNull: true
   },
   regionalclient: {
     type: Sequelize.ENUM,
-    values: ['yes', 'no', 'idk']
+    values: ['yes', 'no', 'idk'],
+    allowNull: true
   },
   rehabclient: {
     type: Sequelize.ENUM,
-    values: ['yes', 'no', 'idk']
+    values: ['yes', 'no', 'idk'],
+    allowNull: true
   },
-  archived: Sequelize.BOOLEAN,
-  profilepic: {
-    type: Sequelize.STRING,
-    defaultValue: 'profilepic.jpg'
-  }
+  archived: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  profilepic: Sequelize.STRING
 }
 
 var options = {
@@ -77,8 +88,9 @@ let createProfile = (req, res, next) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
-      password: req.body.password
-    }
+      password: req.body.password,
+    },
+    profilepic: 'profilepic.jpg'
   }, {
     include: [
       { model: User }
@@ -97,30 +109,43 @@ let updateProfile = (req, res, next) => {
   let id = req.user.id;
   req.file = req.file || {};
   let filename = req.file.filename;
-  console.log("candidate", req.body);
+  if(req.body.update_zip === "")
+    req.body.update_zip = null
+  if(req.body.update_phone === "")
+    req.body.update_phone = null
+  if(req.body.update_state === "")
+    req.body.update_state = null
+  if(req.body.update_regionalclient === "")
+    req.body.update_regionalclient = null
+  if(req.body.update_rehabclient === "")
+    req.body.update_rehabclient = null
   Candidate.update({
-    user: {
-      firstName: req.body.update_fname,
-      lastName: req.body.update_lname,
-      email: req.body.update_email,
-      phone: req.body.update_phone
-    },
     street: req.body.update_street,
     city: req.body.update_city,
     state: req.body.update_state,
     zip: req.body.update_zip,
-    regionalclient: req.body.update_regionalclient != null,
-    rehabclient: req.body.update_rehabclient != null,
+    regionalclient: req.body.update_regionalclient,
+    rehabclient: req.body.update_rehabclient,
     profilepic: filename
   }, {
     where: {
       'id': id
-    },
-    include: [
-      { model: User }
-    ]
-  }).then(results => {
-    res.json({message: 'successful'})
+    }
+  }).then(candidate_results => {
+    User.update({
+      firstName: req.body.update_fname,
+      lastName: req.body.update_lname,
+      email: req.body.update_email,
+      phone: req.body.update_phone
+    }, {
+      where: {
+        'id': id
+      }
+    }).then(user_results => {
+      res.json({message: 'successful'})
+    }).catch(error => {
+      res.json(error)
+    })
   }).catch(error => {
     res.json(error)
   })
