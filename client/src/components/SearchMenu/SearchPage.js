@@ -3,6 +3,7 @@ import Sidebar from 'react-sidebar';
 import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel';
 import SidebarContent from '../AdminComponents/MenuBar';
 import styles from './SearchPage.css';
+import ProfileList from './ProfileList';
 
 
 const mql = window.matchMedia('(min-width: 800px)');
@@ -16,11 +17,12 @@ export default class SearchPage extends Component {
       open: false,
       count: 0,
       user: null,
-      search: null
+      profile: []
     }
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
     this.onSetOpen = this.onSetOpen.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
@@ -55,53 +57,55 @@ export default class SearchPage extends Component {
     }
   }
 
+  handleSubmit(event) {
+    const self = this;
+    event.preventDefault();
+    const data = new FormData(event.target);
+    console.log(event.target.interests.value);
+    var url = '/api/search/candidate?' + "interests=" + event.target.interests.value
+                  + "&skills=" + event.target.skills.value + "&locations=" + event.target.locations.value;
+    fetch(url, {
+      method: 'GET',
+      credentials: 'include'
+    }).then(response => {
+      response.json().then(json => {
+        console.log("SearchPage", json);
+        if(json) {
+          self.setState({profile: json});
+        }
+      })
+    });
+  }
+
   render() {
     const sidebar = <SidebarContent />;
 
     const contentHeader = (
       <span>
         {!this.state.docked &&
-         <button class="btn-toggle-menu" onClick={this.toggleOpen.bind(this)}>=</button>}
+         <button className="btn-toggle-menu" onClick={this.toggleOpen.bind(this)}>=</button>}
         <span></span>
       </span>);
     return (
 
-        !this.state.search ?
         <div>
            <Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
             <MaterialTitlePanel  title={contentHeader}>
-				<div className="container center-area">
-					<div className="row">
-						<form className="col-12">
-							<div className="input-group row">
-							   	<input type="text" className="form-control col-sm-8 form-margins" placeholder="Search for candidates, skills, locations, and more"/>
-								<button className="btn-search col-sm-2" type="button">Search</button>
-								<button className="btn-no-style col-sm-2" type="button">Advanced</button>
-							</div>
-						</form>
-					</div>
-				</div>
-            </MaterialTitlePanel>
-          </Sidebar>
-        </div>
-          
-
-        :
-
-        <div>
-           <Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
-            <MaterialTitlePanel  title={contentHeader}>
-				<div className="container center-horizontal">
-					<div className="row">
-						<form className="col-12">
-							<div className="input-group row">
-							   	<input type="text" className="form-control col-sm-8 form-margins" placeholder="Search for candidates, skills, locations, and more"/>
-								<button className="btn-search col-sm-2" type="button">Search</button>
-								<button className="btn-no-style col-sm-2" type="button">Advanced</button>
-							</div>
-						</form>
-					</div>
-				</div>
+      				<div className="container center-horizontal">
+      					<div className="row">
+      						<form className="col-12" onSubmit={this.handleSubmit}>
+      							<div className="input-group row">
+      							   	<input type="text" name="interests" className="form-control col-sm-8" placeholder="Search by interests"/>
+                        <input type="text" name="skills" className="form-control col-sm-8" placeholder="Search by skills"/>
+                        <input type="text" name="locations" className="form-control col-sm-8" placeholder="Search by locations"/>
+      								  <input className="btn btn-default mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
+      							</div>
+      						</form>
+      					</div>
+      				</div>
+              <div className="">
+                <ProfileList data={this.state.profile}/>
+              </div>
             </MaterialTitlePanel>
           </Sidebar>
         </div>

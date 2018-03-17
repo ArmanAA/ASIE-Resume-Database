@@ -19,6 +19,7 @@ let express = require('express'),
     Experience = require('./db/Model/Experience'),
     Interest = require('./db/Model/Interest'),
     Portfolio = require('./db/Model/Portfolio'),
+    SearchCandidates = require('./db/searchcandidates'),
     db = require('./db/db'),
     // delete this after dev
     user_resp = require('./profile.js'),
@@ -143,7 +144,9 @@ app.post('/api/candidate/update/interest', Interest.update);
 app.post('/api/candidate/update/transportation', portfolio_upload.array(), Transportation.update);
 app.post('/api/candidate/update/hours', portfolio_upload.array(), Hours.update);
 app.post('/api/candidate/update/portfolio', portfolio_upload.single("image"), Portfolio.update);
-app.get('/api/test', Candidate.getProfileRes);
+
+app.get('/api/search/candidate', SearchCandidates.search);
+
 
 app.use('/candidate', ensureAuthenticated,
                       proxy('http://127.0.0.1:3000/candidate'));

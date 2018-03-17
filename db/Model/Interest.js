@@ -2,7 +2,7 @@ let Sequelize = require('sequelize'),
     sequelize = require('../sequelize'),
     Candidate = require('./Candidate').Candidate
 
-var attributes = {
+let attributes = {
   type: {
     type: Sequelize.ENUM,
     values: ['personal', 'career']
@@ -10,11 +10,11 @@ var attributes = {
   interest: Sequelize.STRING
 }
 
-var options = {
+let options = {
   omitNull: true
 }
 
-var Interest = sequelize.define('interest', attributes, options);
+let Interest = sequelize.define('interest', attributes, options);
 
 Interest.belongsTo(Candidate, {foreignKey: 'userId', targetKey: 'id'});
 
