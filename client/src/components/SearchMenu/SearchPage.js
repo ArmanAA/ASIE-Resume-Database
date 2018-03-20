@@ -89,26 +89,28 @@ export default class SearchPage extends Component {
     return (
 
         <div>
-           <Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
-            <MaterialTitlePanel  title={contentHeader}>
-      				<div className="container">
-      					<div className="row">
-      						<form className="col-12" onSubmit={this.handleSubmit}>
-      							<div className="input-group">
-      							   	<input type="text" name="interests" className="form-control col-sm-8" placeholder="Search by interests"/>
-                        <input type="text" name="skills" className="form-control col-sm-8" placeholder="Search by skills"/>
-                        <input type="text" name="locations" className="form-control col-sm-8" placeholder="Search by locations"/>
-      								  <input className="btn btn-default mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
-      							</div>
-      						</form>
-      					</div>
-                <div className="row">
-                  <ProfileList data={this.state.profile}/>
-                </div>
-      				</div>
-              
-            </MaterialTitlePanel>
-          </Sidebar>
+			<Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
+				<MaterialTitlePanel  title={contentHeader}>
+					<div className="container">
+						<div className="row">
+							<form className="col-12" onSubmit={this.handleSubmit}>
+								<div className="input-group">
+									<input type="text" name="interests" className="form-control col-sm-8" placeholder="Search by interests"/>
+									<input type="text" name="skills" className="form-control col-sm-8" placeholder="Search by skills"/>
+									<input type="text" name="locations" className="form-control col-sm-8" placeholder="Search by locations"/>
+									<input className="btn btn-default mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
+								</div>
+							</form>
+						</div>
+						<div className="row">
+							<div className="col">
+								<ProfileList data={this.state.profile}/>
+							</div>
+						</div>
+					</div>
+				  
+				</MaterialTitlePanel>
+			</Sidebar>
         </div>
     );
   }

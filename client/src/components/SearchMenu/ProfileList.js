@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import Profile from './Profile';
-import styles from './SearchPage.css';
+import ReactTable from 'react-table';
+import "react-table/react-table.css";
 
 export default class ProfileList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profile: []
+      profile: [],
+      selected: {},
+      selectAll: 0
     }
+    this.toggleRow = this.toggleRow.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -17,13 +20,109 @@ export default class ProfileList extends Component {
         profile: nextProps.data
       })
     }
+
+  }
+
+  toggleRow(firstName) {
+    const newSelected = Object.assign({}, this.state.selected);
+    newSelected[firstName] = !this.state.selected[firstName];
+    this.setState({
+      selected: newSelected,
+      selectAll: 2
+    });
+  }
+
+  toggleSelectAll() {
+    let newSelected = {};
+
+    if (this.state.selectAll === 0) {
+      this.state.profile.forEach(x => {
+        newSelected[x.firstName] = true;
+      });
+    }
+
+    this.setState({
+      selected: newSelected,
+      selectAll: this.state.selectAll === 0 ? 1 : 0
+    });
   }
 
   render() {
+    const columns = [
+      {
+        id: "checkbox",
+        accessor: "",
+        Cell: ({ original }) => {
+          return (
+            <input
+              type="checkbox"
+              className="checkbox"
+              checked={this.state.selected[original.firstName] === true}
+              onChange={() => this.toggleRow(original.firstName)}
+            />
+          );
+        },
+        Header: x => {
+          return (
+            <input
+              type="checkbox"
+              className="checkbox"
+              checked={this.state.selectAll === 1}
+              ref={input => {
+                if (input) {
+                  input.indeterminate = this.state.selectAll === 2;
+                }
+              }}
+              onChange={() => this.toggleSelectAll()}
+            />
+          );
+        },
+        sortable: false,
+        style: { textAlign: 'center' }
+      },
+      {
+        id: "pic",
+        accessor: "",
+        Cell: ({ original }) => {
+          console.log(original);
+          return (
+            <img src={ "profile/" + original.profilepic } align="middle" width="80" height="80"  />
+          );
+        },
+        Header: '',
+        sortable: false,
+        style: { textAlign: 'center' }
+      },
+      {
+        Header: 'First Name',
+        accessor: 'firstName',
+        style: { textAlign: 'center' }
+      },
+      {
+        Header: 'Last Name',
+        accessor: 'lastName',
+        style: { textAlign: 'center' }
+      },
+      {
+        Header: 'Email',
+        accessor: 'email',
+        style: { textAlign: 'center' }
+      },
+      {
+        Header: 'Location',
+        accessor: 'zip',
+        style: { textAlign: 'center' }
+      },
+
+    ]
     return (
-      <ul className="profile-list">
-        { this.state.profile.map( (profile) => <Profile {...profile} /> ) }
-      </ul>
+      <ReactTable
+        data={this.state.profile}
+        columns={columns}
+        defaultPageSize={10}
+        className="-striped -highlight"
+        
+      />
     );
   }
 }
