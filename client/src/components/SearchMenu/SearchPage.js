@@ -91,10 +91,10 @@ export default class SearchPage extends Component {
         <div>
            <Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
             <MaterialTitlePanel  title={contentHeader}>
-      				<div className="container center-horizontal">
+      				<div className="container">
       					<div className="row">
       						<form className="col-12" onSubmit={this.handleSubmit}>
-      							<div className="input-group row">
+      							<div className="input-group">
       							   	<input type="text" name="interests" className="form-control col-sm-8" placeholder="Search by interests"/>
                         <input type="text" name="skills" className="form-control col-sm-8" placeholder="Search by skills"/>
                         <input type="text" name="locations" className="form-control col-sm-8" placeholder="Search by locations"/>
@@ -102,10 +102,11 @@ export default class SearchPage extends Component {
       							</div>
       						</form>
       					</div>
+                <div className="row">
+                  <ProfileList data={this.state.profile}/>
+                </div>
       				</div>
-              <div className="">
-                <ProfileList data={this.state.profile}/>
-              </div>
+              
             </MaterialTitlePanel>
           </Sidebar>
         </div>
