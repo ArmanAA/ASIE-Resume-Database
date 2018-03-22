@@ -109,7 +109,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 app.post("/signup", Candidate.createProfile, (req, res) => {
-  res.redirect("/login");
+  res.redirect("/");
 });
 
 app.post("/contactus", Employer.createEmployer, (req, res) => {
