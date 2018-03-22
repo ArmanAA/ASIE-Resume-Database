@@ -14,6 +14,7 @@ import DashBoardMenu from './components/DashboardMenu/Dashboard';
 import EmployersMenu from './components/EmployersMenu/Employers';
 import FacilitatorsMenu from './components/FacilitatorsMenu/Facilitators';
 import TempEmp from './components/EmployersMenu/EmployerProfile';
+import ContactUs from "./components/ContactUs/ContactUs";
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import registerServiceWorker from './registerServiceWorker';
 
@@ -32,6 +33,8 @@ ReactDOM.render(
       <Route path="/dashboard" component={DashBoardMenu}/>
       <Route path="/employers" component={EmployersMenu}/>
       <Route path="/facilitators" component={FacilitatorsMenu}/>
+      <Route path="/contactus" component={ContactUs} />
     </Switch>
-  </BrowserRouter>
-, document.getElementById('root'));
+  </BrowserRouter>,
+  document.getElementById("root")
+);
