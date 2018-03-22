@@ -98,9 +98,10 @@ export default class EmployerSearchPage extends Component {
                     <input
                       type="text"
                       name="name"
-                      className="form-control col-sm-8"
+                      className="form-control col-sm-10"
                       placeholder="Search for employees..."
                     />
+                    <input className="btn btn-default mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
                   </div>
                 </form>
                 <div className="row">
