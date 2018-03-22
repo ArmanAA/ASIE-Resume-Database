@@ -16,7 +16,8 @@ let search = (req, res, next) => {
         email: { [Op.iLike]: employer_wild },
         subject: { [Op.iLike]: employer_wild },
         firstName: { [Op.iLike]: employer_wild },
-        lastName: { [Op.iLike]: employer_wild }
+        lastName: { [Op.iLike]: employer_wild },
+        message: { [Op.iLike]: employer_wild }
       }
     };
   });
