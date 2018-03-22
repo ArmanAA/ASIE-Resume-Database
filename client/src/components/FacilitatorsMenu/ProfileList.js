@@ -80,19 +80,7 @@ export default class ProfileList extends Component {
         sortable: false,
         style: { textAlign: 'center' }
       },
-      {
-        id: "pic",
-        accessor: "",
-        Cell: ({ original }) => {
-          console.log(original);
-          return (
-            <img src={ "profile/" + original.profilepic } align="middle" width="80" height="80"  />
-          );
-        },
-        Header: '',
-        sortable: false,
-        style: { textAlign: 'center' }
-      },
+      
       {
         Header: 'First Name',
         accessor: 'firstName',
@@ -107,13 +95,7 @@ export default class ProfileList extends Component {
         Header: 'Email',
         accessor: 'email',
         style: { textAlign: 'center' }
-      },
-      {
-        Header: 'Location',
-        accessor: 'zip',
-        style: { textAlign: 'center' }
-      },
-
+      }
     ]
     return (
       <ReactTable

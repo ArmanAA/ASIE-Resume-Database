@@ -1,0 +1,59 @@
+
+ button:focus, button::-moz-focus-inner, button{
+ 	border: none;
+		box-shadow: none;
+		outline: none;
+		-webkit-transition: background-color 0.5s, color 0.5s; /* Safari */
+    	transition: background-color 0.5s, color 0.5s;
+    	cursor: pointer;
+ }
+
+button:hover{
+	background-color: white;
+	color: darkgray;
+	outline:none;
+}
+
+.buttons, .name{
+	padding: 10px;
+}
+
+.profile{
+	margin: 20px;
+}
+.msg, .sec-title{
+	padding: 10px;
+}
+
+
+.badge{
+	margin: 0 2px;
+}
+
+.box{
+	margin: 5px;
+}
+
+.subject h1,  h6 {
+	height: 100%;
+	margin: 0 auto !important;
+
+}
+.date{
+	height: 50%;
+	margin: auto;
+}
+
+.comment-box{
+	height: 100%;
+	border-style:solid;
+	border-color: white;
+}
+.comment{
+	padding: 2px;
+	font-size: 0.8em;
+}
+
+.full{
+	width: 100%;
+}
