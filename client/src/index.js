@@ -13,6 +13,7 @@ import CandidatesMenu from './components/SearchMenu/SearchPage';
 import DashBoardMenu from './components/DashboardMenu/Dashboard';
 import EmployersMenu from './components/EmployersMenu/Employers';
 import FacilitatorsMenu from './components/FacilitatorsMenu/Facilitators';
+import TempEmp from './components/EmployersMenu/EmployerProfile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import registerServiceWorker from './registerServiceWorker';
 
@@ -26,6 +27,7 @@ ReactDOM.render(
       <Route path="/whoareyou" component={WhoAreYou}/>
       <Route path="/ideal" component={Ideal}/>
       <Route path="/waiver" component={Waiver}/>
+      <Route path="/tempemp" component={TempEmp}/>
       <Route path="/candidates" component={CandidatesMenu}/>
       <Route path="/dashboard" component={DashBoardMenu}/>
       <Route path="/employers" component={EmployersMenu}/>
