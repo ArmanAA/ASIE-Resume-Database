@@ -13,8 +13,9 @@ export default class ContactUs extends Component {
         <MenuBar />
         <div className="container">
           <div className="row">
-            <div className="col-6 form-box ">
-              <form className="signup-form=" action="/contactus" method="post">
+            <div className="col-6 form-box">
+              <div className="row">
+              <form className="col-12 signup-form=" action="/contactus" method="post">
                 <div className="form-group">
                   <h1>Contact Us</h1>
 
@@ -63,6 +64,7 @@ export default class ContactUs extends Component {
                   </div>
                 </div>
               </form>
+              </div>
             </div>{" "}
             {/*col-8*/}
           </div>{" "}
