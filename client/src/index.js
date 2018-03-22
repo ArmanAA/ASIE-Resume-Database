@@ -11,7 +11,7 @@ import Ideal from "./components/Ideal";
 import Waiver from "./components/Waiver";
 import CandidatesMenu from "./components/SearchMenu/SearchPage";
 import DashBoardMenu from "./components/DashboardMenu/Dashboard";
-import EmployersMenu from "./components/EmployersMenu/Employers";
+import EmployersMenu from "./components/EmployersMenu/EmployerSearchPage";
 import ContactUs from "./components/ContactUs/ContactUs";
 import FacilitatorsMenu from "./components/FacilitatorsMenu/Facilitators";
 import "bootstrap/dist/css/bootstrap.min.css";
