@@ -25,7 +25,8 @@ let search = (req, res, next) => {
       return {
         firstName: result.firstName,
         lastName: result.lastName,
-        subject: result.subject
+        subject: result.subject,
+        email: result.email
       };
     });
     res.json(employers_results);

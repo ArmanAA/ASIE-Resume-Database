@@ -79,7 +79,11 @@ export default class EmployerList extends Component {
         sortable: false,
         style: { textAlign: "center" }
       },
-
+      {
+        Header: "Email",
+        accessor: "email",
+        style: { textAlign: "center" }
+      },
       {
         Header: "First Name",
         accessor: "firstName",

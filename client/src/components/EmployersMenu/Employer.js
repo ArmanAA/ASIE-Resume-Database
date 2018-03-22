@@ -18,6 +18,7 @@ export default class Employer extends Component {
         {this.renderDetails("firstName", "First Name:")}
         {this.renderDetails("lastName", "Last Name:")}
         {this.renderDetails("subject", "Subject:")}
+        {this.renderDetails("email", "Email:")}
       </li>
     );
   }
