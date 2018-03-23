@@ -62,8 +62,7 @@ export default class SearchPage extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
     console.log(event.target.interests.value);
-    var url = '/api/search/candidate?' + "interests=" + event.target.interests.value
-                  + "&skills=" + event.target.skills.value + "&locations=" + event.target.locations.value;
+    var url = '/api/search/candidate?' + "interests=" + event.target.interests.value+ "&locations=" + event.target.locations.value;
     fetch(url, {
       method: 'GET',
       credentials: 'include'
@@ -96,7 +95,6 @@ export default class SearchPage extends Component {
 							<form className="col-12" onSubmit={this.handleSubmit}>
 								<div className="input-group">
 									<input type="text" name="interests" className="form-control col-sm-8" placeholder="Search by interests"/>
-									<input type="text" name="skills" className="form-control col-sm-8" placeholder="Search by skills"/>
 									<input type="text" name="locations" className="form-control col-sm-8" placeholder="Search by locations"/>
 									<input className="btn btn-default mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
 								</div>

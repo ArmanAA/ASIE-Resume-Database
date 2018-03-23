@@ -21,6 +21,7 @@ let express = require("express"),
   Interest = require("./db/Model/Interest"),
   Portfolio = require("./db/Model/Portfolio"),
   SearchCandidates = require("./db/searchcandidates"),
+  SearchEmployers = require("./db/searchemployers"),
   db = require("./db/db"),
   // delete this after dev
   user_resp = require("./profile.js"),
@@ -108,7 +109,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 app.post("/signup", Candidate.createProfile, (req, res) => {
-  res.redirect("/login");
+  res.redirect("/");
 });
 
 app.post("/contactus", Employer.createEmployer, (req, res) => {
@@ -177,6 +178,7 @@ app.post(
 );
 
 app.get("/api/search/candidate", SearchCandidates.search);
+app.get("/api/search/employers", SearchEmployers.search);
 
 app.use(
   "/candidate",
