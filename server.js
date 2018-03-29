@@ -20,8 +20,11 @@ let express = require("express"),
   Experience = require("./db/Model/Experience"),
   Interest = require("./db/Model/Interest"),
   Portfolio = require("./db/Model/Portfolio"),
+  Facilitators = require("./db/Model/Facilitators"),
+  SearchFacilitators = require("./db/searchFacilitators"),
   SearchCandidates = require("./db/searchcandidates"),
   SearchEmployers = require("./db/searchemployers"),
+
   db = require("./db/db"),
   // delete this after dev
   user_resp = require("./profile.js"),
@@ -39,9 +42,19 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
+
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 const port = process.env.PORT || 3001;
 let portfolio_storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -62,9 +75,26 @@ let profile_storage = multer.diskStorage({
 });
 let profile_update = multer({ storage: profile_storage });
 
+
+
+function ensureAuthenticatedAdmin(req, res, next) {
+  //ADMIN auth given to FAC for dev; Change to ADMIN later
+  if (req.isAuthenticated() && (req.user.usertype == 'FAC')) {
+    // req.user is available for use here
+    console.log("authorized ADMIN", req.originalUrl);
+    return next();
+  }
+
+  // denied. redirect to login
+  console.log("not authorized as ADMIN", req.originalUrl);
+  res.redirect("/candidate");
+}
+
+
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     // req.user is available for use here
+
     console.log("authorized", req.originalUrl);
     return next();
   }
@@ -119,11 +149,12 @@ app.post("/contactus", Employer.createEmployer, (req, res) => {
 app.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/candidate",
+    successRedirect: "/gate",
     failureRedirect: "/login",
     failureFlash: true
   }),
-  function(req, res) {}
+  function(req, res) {
+  }
 );
 app.get("/logout", function(req, res) {
   console.log("logging out");
@@ -177,8 +208,44 @@ app.post(
   Portfolio.update
 );
 
+/*Search utils*/
 app.get("/api/search/candidate", SearchCandidates.search);
 app.get("/api/search/employers", SearchEmployers.search);
+app.get("/api/search/facilitators", SearchFacilitators.search);
+
+/* Facilitators utils */
+app.post("/api/fill/facilitators", SearchFacilitators.fillData);
+app.post("/api/create/facilitator", Facilitators.createFacilitator);
+app.post("/api/facilitators/profile", Facilitators.getProfile);
+
+/* Log in gateway */
+app.get("/gate", ensureAuthenticated, function(req, res){
+
+  if(req.user.usertype == 'FAC'){
+    Facilitators.updateNow(req);
+
+    res.redirect('/dashboard');
+  }
+  if(req.user.usertype=='CAND'){
+    res.redirect('/candidate');
+  }
+
+})
+
+
+/*Page Authentications */
+//Commented for dev; Uncomment later
+app.use(
+  "/facilitators",
+  ensureAuthenticatedAdmin,
+  proxy("http://127.0.0.1:3000/facilitators")
+);
+
+app.use(
+  "/facilitator",
+  ensureAuthenticatedAdmin,
+  proxy("http://127.0.0.1:3000/facilitators")
+);
 
 app.use(
   "/candidate",

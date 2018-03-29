@@ -62,10 +62,10 @@ export default class EmployerProfile extends Component{
 
 		return(
 			<div>
-				<Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
-				<MaterialTitlePanel  title={contentHeader}>
-				<ProfileComponent />
-				</MaterialTitlePanel>
+			<Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
+			<MaterialTitlePanel  title={contentHeader}>
+			<ProfileComponent />
+			</MaterialTitlePanel>
 			</Sidebar>
 			</div>
 

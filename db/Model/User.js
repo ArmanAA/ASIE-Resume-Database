@@ -22,6 +22,11 @@ var attributes = {
       isNumeric: true
     }
   },
+  usertype: {
+    type: Sequelize.ENUM,
+    values: ['ADMIN', 'FAC', 'CAND'],
+    defaultValue: 'CAND'
+  },
   salt: Sequelize.STRING
 }
 
@@ -30,6 +35,7 @@ var options = {
 }
 
 var User = sequelize.define('users', attributes, options);
+
 
 let findByEP = (email, password, next) => {
   User.findOne({
@@ -65,7 +71,8 @@ let createUser = (req, res, next) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    usertype: 'CAND',
   })
   .then(user => {
     req.session.user = user.dataValues;

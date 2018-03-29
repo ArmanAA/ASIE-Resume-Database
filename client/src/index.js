@@ -14,7 +14,9 @@ import DashBoardMenu from './components/DashboardMenu/Dashboard';
 import EmployersMenu from './components/EmployersMenu/EmployerSearchPage';
 import FacilitatorsMenu from './components/FacilitatorsMenu/Facilitators';
 import TempEmp from './components/EmployersMenu/EmployerProfile';
+import FacilitatorProfile from './components/FacilitatorsMenu/FacilitatorProfile';
 import ContactUs from "./components/ContactUs/ContactUs";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import registerServiceWorker from './registerServiceWorker';
 
@@ -28,12 +30,15 @@ ReactDOM.render(
       <Route path="/whoareyou" component={WhoAreYou}/>
       <Route path="/ideal" component={Ideal}/>
       <Route path="/waiver" component={Waiver}/>
-      <Route path="/tempemp" component={TempEmp}/>
       <Route path="/candidates" component={CandidatesMenu}/>
       <Route path="/dashboard" component={DashBoardMenu}/>
       <Route path="/employers" component={EmployersMenu}/>
       <Route path="/facilitators" component={FacilitatorsMenu}/>
-      <Route path="/contactus" component={ContactUs} />
+      <Route path="/contactus" component={ContactUs} />      
+      <Route path="/tempemp" component={TempEmp}/>      
+      <Route path="/facilitator" component={FacilitatorProfile}/>      
+      
+
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

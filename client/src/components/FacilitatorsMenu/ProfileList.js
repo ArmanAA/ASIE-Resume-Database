@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
-import "react-table/react-table.css";
 
 export default class ProfileList extends Component {
   constructor(props) {
@@ -103,7 +102,14 @@ export default class ProfileList extends Component {
         columns={columns}
         defaultPageSize={10}
         className="-striped -highlight"
-        
+        getTrProps={(state, rowInfo, column, instance) => {
+          return {onClick: e =>{
+            //console.log(column);
+            var url = '/facilitator?id=' + rowInfo.original.id;
+            window.location.href = url;
+        }}
+        }}
+       
       />
     );
   }

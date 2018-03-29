@@ -3,7 +3,8 @@ import Sidebar from 'react-sidebar';
 import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel';
 import SidebarContent from '../AdminComponents/MenuBar';
 import ProfileList from './ProfileList';
-
+import AddFacilitatorModal from './AddFacilitatorModal';
+import './FacilitatorStyle.css';
 const mql = window.matchMedia('(min-width: 800px)');
 
 export default class SearchPage extends Component {
@@ -16,6 +17,22 @@ export default class SearchPage extends Component {
       count: 0,
       user: null,
     }
+
+
+    const self = this;
+
+    fetch('/api/fill/facilitators', {
+      method: 'POST',
+      credentials: 'include'
+    }).then(response => {
+      response.json().then(json => {
+        console.log("SearchPage", json);
+        if(json) {
+          self.setState({profile: json});
+        }
+      })
+    });
+    //fill data
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
     this.onSetOpen = this.onSetOpen.bind(this);
@@ -55,22 +72,23 @@ export default class SearchPage extends Component {
   }
 
   handleSubmit(event) {
-    // const self = this;
-    // event.preventDefault();
-    // const data = new FormData(event.target);
-    // console.log(event.target.interests.value);
-    // var url = '/api/search/candidate?' + "interests=" + event.target.interests.value+ "&locations=" + event.target.locations.value;
-    // fetch(url, {
-    //   method: 'GET',
-    //   credentials: 'include'
-    // }).then(response => {
-    //   response.json().then(json => {
-    //     console.log("SearchPage", json);
-    //     if(json) {
-    //       self.setState({profile: json});
-    //     }
-    //   })
-    // });
+    const self = this;
+    event.preventDefault();
+    const data = new FormData(event.target);
+    var url = '/api/search/facilitators?' + "firstName=" + event.target.firstName.value+ "&lastName=" + event.target.lastName.value
+    + "&email=" + event.target.email.value;
+    console.log(url);
+    fetch(url, {
+      method: 'GET',
+      credentials: 'include'
+    }).then(response => {
+      response.json().then(json => {
+        console.log("SearchPage", json);
+        if(json) {
+          self.setState({profile: json});
+        }
+      })
+    });
   }
 
   render() {
@@ -92,10 +110,14 @@ export default class SearchPage extends Component {
                   <div className="input-group">
                     <input type="text" name="firstName" className="form-control col-sm-8" placeholder="Search by first name"/>
                     <input type="text" name="lastName" className="form-control col-sm-8" placeholder="Search by last name"/>
-                    <input type="text" name="lastName" className="form-control col-sm-8" placeholder="Search by email"/>
+                    <input type="text" name="email" className="form-control col-sm-8" placeholder="Search by email"/>
                     <input className="btn btn-default mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
                   </div>
                 </form>
+                <div className="row px-3">
+                  <AddFacilitatorModal/>
+                  <button className="btn btn-secondary"> Delete facilitator</button>
+                </div>
               </div>
               <div className="row">
                 <div className="col">
