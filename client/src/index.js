@@ -16,7 +16,7 @@ import FacilitatorsMenu from './components/FacilitatorsMenu/Facilitators';
 import TempEmp from './components/EmployersMenu/EmployerProfile';
 import FacilitatorProfile from './components/FacilitatorsMenu/FacilitatorProfile';
 import ContactUs from "./components/ContactUs/ContactUs";
-
+import Logout from "./components/AccountBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import registerServiceWorker from './registerServiceWorker';
 
@@ -37,8 +37,7 @@ ReactDOM.render(
       <Route path="/contactus" component={ContactUs} />      
       <Route path="/tempemp" component={TempEmp}/>      
       <Route path="/facilitator" component={FacilitatorProfile}/>      
-      
-
+      <Route path="/testlogout" component={Logout}/>
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

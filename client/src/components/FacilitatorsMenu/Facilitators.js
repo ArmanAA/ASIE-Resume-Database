@@ -16,6 +16,8 @@ export default class SearchPage extends Component {
       open: false,
       count: 0,
       user: null,
+      deleteClicked: false,
+      
     }
 
 
@@ -37,6 +39,7 @@ export default class SearchPage extends Component {
     this.toggleOpen = this.toggleOpen.bind(this);
     this.onSetOpen = this.onSetOpen.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
 
 
@@ -70,6 +73,7 @@ export default class SearchPage extends Component {
       ev.preventDefault();
     }
   }
+
 
   handleSubmit(event) {
     const self = this;
@@ -116,12 +120,12 @@ export default class SearchPage extends Component {
                 </form>
                 <div className="row px-3">
                   <AddFacilitatorModal/>
-                  <button className="btn btn-secondary"> Delete facilitator</button>
+                  
                 </div>
               </div>
               <div className="row">
                 <div className="col">
-                  <ProfileList data={this.state.profile}/>
+                  <ProfileList data={this.state.profile} />
                 </div>
               </div>
             </div>

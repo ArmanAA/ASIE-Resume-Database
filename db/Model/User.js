@@ -22,6 +22,10 @@ var attributes = {
       isNumeric: true
     }
   },
+  isArchived: {
+    type: Sequelize.BOOLEAN, 
+    defaultValue: false
+  },
   usertype: {
     type: Sequelize.ENUM,
     values: ['ADMIN', 'FAC', 'CAND'],
@@ -33,7 +37,6 @@ var attributes = {
 var options = {
   omitNull: true
 }
-
 var User = sequelize.define('users', attributes, options);
 
 

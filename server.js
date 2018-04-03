@@ -217,11 +217,16 @@ app.get("/api/search/facilitators", SearchFacilitators.search);
 app.post("/api/fill/facilitators", SearchFacilitators.fillData);
 app.post("/api/create/facilitator", Facilitators.createFacilitator);
 app.post("/api/facilitators/profile", Facilitators.getProfile);
+app.post("/api/facilitators/delete", Facilitators.deleteFacilitator);
 
 /* Log in gateway */
 app.get("/gate", ensureAuthenticated, function(req, res){
-
-  if(req.user.usertype == 'FAC'){
+  	console.log(req.user.isArchived);
+  	if(req.user.isArchived){
+  		req.logout(); 
+  		res.redirect('/login');
+  	}
+    if(req.user.usertype == 'FAC'){
     Facilitators.updateNow(req);
 
     res.redirect('/dashboard');
@@ -240,11 +245,22 @@ app.use(
   ensureAuthenticatedAdmin,
   proxy("http://127.0.0.1:3000/facilitators")
 );
+app.use(
+  "/dashboard",
+  ensureAuthenticatedAdmin,
+  proxy("http://127.0.0.1:3000/dashboard")
+);
+
+app.use(
+  "/employers",
+  ensureAuthenticatedAdmin,
+  proxy("http://127.0.0.1:3000/employers")
+);
 
 app.use(
   "/facilitator",
   ensureAuthenticatedAdmin,
-  proxy("http://127.0.0.1:3000/facilitators")
+  proxy("http://127.0.0.1:3000/facilitator")
 );
 
 app.use(

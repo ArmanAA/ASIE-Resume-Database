@@ -94,12 +94,20 @@ let Sequelize = require('sequelize'),
 		    	console.log("THEN ENTER");
 		      transporter.sendMail(mailOptions, (error, info) =>{
 			   	if(error){
+			   		console.log(facilitator.id);
+			   		User.destroy({
+			   			where: {
+			   				id: facilitator.id
+			   			}
+			   		});
+			   		facilitator.destroy();
 			   		res.sendStatus(500);
-			   		return console.log(error, "EROR HERE");
+			   		return console.log(error, "EROR AT EMAIL");
 			   	}
+			   	 console.log("RES SENT HERE");
+		     	 res.sendStatus(200);
 		    })
-		      console.log("RES SENT HERE");
-		      res.sendStatus(200);
+		     
 		  })
 		    .catch(error => {
 		    	console.log("RES SENT CATCH ENTER");
@@ -112,6 +120,35 @@ let Sequelize = require('sequelize'),
 
    let deleteFacilitator = (req, res) =>{
    		//Move to archive? 
+   		console.log(req.body);
+   		var keys = Object.keys(req.body);
+   		console.log(keys);
+   		for(var i = 0; i < keys.length; i++){
+   			if(req.body[keys[i]]){
+   				var id = parseInt(keys[i]);
+   				Facilitators.destroy({
+   					where: { 
+   						id: id
+   					}
+   				}).then(facilitator =>{
+   					User.update(
+   					{
+   						isArchived: true
+   					},
+   					{
+   						where: {
+   							id: id
+   						}
+   					}
+   					);
+   				}).catch(error=>{
+   					console.log("ERROR @ ARCHIVE", error);
+   					return res.sendStatus(500);
+   				});
+   				
+   			}
+   			res.sendStatus(200);
+   		}
    }
 
    let updateNow = (req) =>{
@@ -159,4 +196,5 @@ let Sequelize = require('sequelize'),
   module.exports.Facilitators = Facilitators;
   module.exports.getProfile = getProfile;
   module.exports.createFacilitator = createFacilitator;
- module.exports.updateNow = updateNow; 
+  module.exports.updateNow = updateNow; 
+  module.exports.deleteFacilitator = deleteFacilitator;
