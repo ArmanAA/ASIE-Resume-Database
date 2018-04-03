@@ -2,6 +2,7 @@ let Sequelize = require("sequelize"),
   sequelize = require("../sequelize");
 
 var attributes = {
+  archive: Sequelize.BOOLEAN,
   email: {
     type: Sequelize.STRING,
     allowNull: false,

@@ -17,11 +17,14 @@ let express = require("express"),
   Transportation = require("./db/Model/Transportation"),
   Hours = require("./db/Model/Hours"),
   Skills = require("./db/Model/Skills"),
+  Facilitator = require("./db/Model/Facilitator"),
+  Facilitatorsemployerlist = require("./db/Model/FacilitatorsEmployerList"),
   Experience = require("./db/Model/Experience"),
   Interest = require("./db/Model/Interest"),
   Portfolio = require("./db/Model/Portfolio"),
   SearchCandidates = require("./db/searchcandidates"),
   SearchEmployers = require("./db/searchemployers"),
+  Facilitatorsnotes = require("./db/Model/FacilitatorsNotes"),
   db = require("./db/db"),
   // delete this after dev
   user_resp = require("./profile.js"),
@@ -179,6 +182,10 @@ app.post(
 
 app.get("/api/search/candidate", SearchCandidates.search);
 app.get("/api/search/employers", SearchEmployers.search);
+app.get("/api/search/employer/:id", SearchEmployers.searchID);
+app.get("/api/removeemployer/:id", Facilitatorsemployerlist.removeEmployer);
+app.get("/api/addemployer/:id", Facilitatorsemployerlist.addEmployer);
+app.post("/api/addcomments/:id/:comment", Facilitatorsnotes.addComment);
 
 app.use(
   "/candidate",

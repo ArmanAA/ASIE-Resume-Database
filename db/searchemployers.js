@@ -21,18 +21,47 @@ let search = (req, res, next) => {
       }
     };
   });
+
   searchEmployer(employer_obj, results => {
     let employers_results = results.map(result => {
       return {
         firstName: result.firstName,
         lastName: result.lastName,
-        subject: result.subject
+        subject: result.subject,
+        email: result.email,
+        id: result.id,
+        message: result.message
       };
     });
     res.json(employers_results);
   });
 };
-
+let searchID = (req, res, next) => {
+  let myId = req.params.id;
+  searchEmployerID(myId, results => {
+    console.log(results);
+    let employersID = {
+      firstName: results.firstName,
+      lastName: results.lastName,
+      subject: results.subject,
+      email: results.email,
+      id: results.id,
+      message: results.message
+    };
+    res.json(employersID);
+  });
+};
+let searchEmployerID = (id, next) => {
+  Employer.findOne({
+    // attributes: ["email", "firstName", "lastName", "subject"],
+    where: {
+      id: id
+    },
+    raw: true
+  })
+    .then(next)
+    .catch(next);
+};
 let searchEmployer = (name, next) => {
   console.log("Employer", name);
 
@@ -47,3 +76,4 @@ let searchEmployer = (name, next) => {
 };
 
 exports.search = search;
+exports.searchID = searchID;
