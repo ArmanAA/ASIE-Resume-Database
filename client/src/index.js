@@ -16,6 +16,7 @@ import FacilitatorsMenu from './components/FacilitatorsMenu/Facilitators';
 import TempEmp from './components/EmployersMenu/EmployerProfile';
 import FacilitatorProfile from './components/FacilitatorsMenu/FacilitatorProfile';
 import ContactUs from "./components/ContactUs/ContactUs";
+import NotFoundPage from "./components/NotFoundPage";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import registerServiceWorker from './registerServiceWorker';
@@ -26,7 +27,7 @@ ReactDOM.render(
       <Route exact path="/" component={Home}/>
       <Route path="/login" component={Login}/>
       <Route path="/signup" component={Signup}/>
-      <Route path="/candidate" component={CanddiatePage}/>
+      <Route path="/candidate/:id" component={CanddiatePage}/>
       <Route path="/whoareyou" component={WhoAreYou}/>
       <Route path="/ideal" component={Ideal}/>
       <Route path="/waiver" component={Waiver}/>
@@ -37,7 +38,7 @@ ReactDOM.render(
       <Route path="/contactus" component={ContactUs} />      
       <Route path="/tempemp" component={TempEmp}/>      
       <Route path="/facilitator" component={FacilitatorProfile}/>      
-      
+      <NotFoundRoute/>
 
     </Switch>
   </BrowserRouter>,

@@ -30,6 +30,7 @@ export default class BasicInfoModal extends Component {
       phone: props.data.phone,
       regionalclient: props.data.regionalclient,
       rehabclient: props.data.rehabclient,
+      id: props.id,
 
       options: [{value: "", name: ""},
                           {value: "yes", name: "Yes"},
@@ -70,7 +71,9 @@ export default class BasicInfoModal extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
     console.log(data);
-    fetch('/api/candidate/update/profile', {
+    let url = '/api/candidates/profiles/' + this.state.id + '/update';
+    console.log(url);
+    fetch(url , {
       method: 'POST',
       body: data,
       credentials: 'include'

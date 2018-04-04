@@ -1,25 +1,5 @@
-let Sequelize = require('sequelize'),
-    sequelize = require('../sequelize'),
-    User = require('./User').User,
-    Nodemailer = require('nodemailer');
+let Nodemailer = require('nodemailer');
     RandomPass = require('voucher-code-generator');
-
-   var attributes = {
-
-   		lastOnline: {
-   			type: Sequelize.DATE,
-   			allowNull: true,
-   		}
-
-   };
-
-   var options = {
-   		omitNull: true
-   };
-
-   var Facilitators = sequelize.define('facilitators', attributes, options);
-
-	Facilitators.belongsTo(User, { foreignKey: "id", targetKey: "id" });
 	
 	const Op = Sequelize.Op;
 

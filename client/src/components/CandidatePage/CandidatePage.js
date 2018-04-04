@@ -63,8 +63,10 @@ export default class CandidatePage extends Component {
       interest: null,
       hours: null,
       transportation: null,
-      portfolio: null
+      portfolio: null,
+      id: this.props.match.params.id
     }
+    this.componentDidMount = this.componentDidMount.bind(this);
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
     this.onSetOpen = this.onSetOpen.bind(this);
@@ -80,14 +82,13 @@ export default class CandidatePage extends Component {
   };
 
   componentDidMount() {
-    this.callApi('/api/candidate/profile', 'profile');
-    this.callApi('/api/candidate/experience', 'experience');
-    this.callApi('/api/candidate/education', 'education');
-    this.callApi('/api/candidate/skills', 'skills');
-    this.callApi('/api/candidate/interest', 'interest');
-    this.callApi('/api/candidate/hours', 'hours');
-    this.callApi('/api/candidate/transportation', 'transportation');
-    this.callApi('/api/candidate/portfolio', 'portfolio');
+    this.callApi('/api/candidates/profiles/' + this.state.id, 'profile');
+    this.callApi('/api/candidates/experiences/' + this.state.id, 'experience');
+    this.callApi('/api/candidates/skills/' + this.state.id, 'skills');
+    this.callApi('/api/candidates/interests/' + this.state.id, 'interest');
+    this.callApi('/api/candidates/hours/' + this.state.id, 'hours');
+    this.callApi('/api/candidates/transportations/' + this.state.id, 'transportation');
+    this.callApi('/api/candidates/portfolios/' + this.state.id, 'portfolio');
   }
 
   componentWillMount() {
@@ -122,13 +123,13 @@ export default class CandidatePage extends Component {
     const sidebarContent =
     <MaterialTitlePanel title="Describe Yourself More!" style={styles.content}>
       <div>
-        <BasicInfoModal style={styles.sidebarLink} data={this.state.profile}></BasicInfoModal>
-        <TransportationModal style={styles.sidebarLink} data={this.state.transportation}></TransportationModal>
-        <HoursModal style={styles.sidebarLink} data={this.state.hours}></HoursModal>
-        <ExperienceModal style={styles.sidebarLink} data={this.state.experience}></ExperienceModal>
-        <SkillsModal style={styles.sidebarLink} data={this.state.skills}></SkillsModal>
-        <InterestModal style={styles.sidebarLink} data={this.state.interest}></InterestModal>
-        <PortfolioModal style={styles.sidebarLink} data={this.state.portfolio}></PortfolioModal>
+        <BasicInfoModal style={styles.sidebarLink} data={this.state.profile} id={this.state.id}></BasicInfoModal>
+        <TransportationModal style={styles.sidebarLink} data={this.state.transportation} id={this.state.id}></TransportationModal>
+        <HoursModal style={styles.sidebarLink} data={this.state.hours} id={this.state.id}></HoursModal>
+        <ExperienceModal style={styles.sidebarLink} data={this.state.experience} id={this.state.id}></ExperienceModal>
+        <SkillsModal style={styles.sidebarLink} data={this.state.skills} id={this.state.id}></SkillsModal>
+        <InterestModal style={styles.sidebarLink} data={this.state.interest} id={this.state.id}></InterestModal>
+        <PortfolioModal style={styles.sidebarLink} data={this.state.portfolio} id={this.state.id}></PortfolioModal>
       </div>
     </MaterialTitlePanel>;
 
