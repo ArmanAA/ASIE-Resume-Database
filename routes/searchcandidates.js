@@ -27,7 +27,8 @@ router.get('/', (req, res) => {
 					firstName: result.user.firstName,
 					lastName: result.user.lastName,
 					profilepic: result.profilepic,
-					email: result.user.email
+					email: result.user.email,
+					userId: result.user.id
 				}
 			})
 		}
