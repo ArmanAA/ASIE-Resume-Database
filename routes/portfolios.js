@@ -1,8 +1,19 @@
 let models  = require('../models'),
+	multer = require('multer'),
 	express = require('express'),
 	router  = express.Router();
 
 let image_dir = "/portfolio/";
+
+let portfolio_storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'client/public/portfolio/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '.jpg') //Appending .jpg
+  }
+});
+let portfolio_upload = multer({ storage: portfolio_storage });
 
 router.get('/:user_id', function(req, res) {
 	models.Portfolio.findAll({
@@ -25,7 +36,7 @@ router.get('/:user_id', function(req, res) {
 	});
 })
 
-router.post('/:user_id/update', function(req, res) {
+router.post('/:user_id/update', portfolio_upload.single("image"), function(req, res) {
 	let action = 'add';//req.body.action;
 	let type = 'picture';//req.body.type;
 	let url = req.file.filename;//req.body.url;

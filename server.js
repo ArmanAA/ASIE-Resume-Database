@@ -7,6 +7,7 @@ let express = require("express"),
 	flash = require("connect-flash"),
 	bodyParser = require("body-parser"),
 	passport = require("passport"),
+	sequelize = require("sequelize"),
 	LocalStrategy = require("passport-local").Strategy,
 	bcrypt = require("bcrypt"),
 	models = require('./models'),
@@ -25,7 +26,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
@@ -36,28 +36,11 @@ app.use(function(req, res, next) {
 	next();
 });
 
-
 const port = process.env.PORT || 3001;
-let portfolio_storage = multer.diskStorage({
-	destination: function(req, file, cb) {
-		cb(null, "client/public/portfolio/");
-	},
-	filename: function(req, file, cb) {
-		cb(null, Date.now() + ".jpg"); //Appending .jpg
-	}
-});
-let portfolio_upload = multer({ storage: portfolio_storage });
-let profile_storage = multer.diskStorage({
-	destination: function(req, file, cb) {
-		cb(null, "client/public/profile/");
-	},
-	filename: function(req, file, cb) {
-		cb(null, Date.now() + ".jpg"); //Appending .jpg
-	}
-});
-let profile_update = multer({ storage: profile_storage });
+const react_port = 3000;
 
 function ensureAuthenticatedAdmin(req, res, next) {
+	console.log("AUTH", req.user);
 	//ADMIN auth given to FAC for dev; Change to ADMIN later
 	if (req.isAuthenticated() && (req.user.usertype == 'FAC')) {
 		// req.user is available for use here
@@ -116,7 +99,7 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(id, done) {
 	models.User.findOne({
 		where: {
-			'id': id
+			id: id
 		}
 	}).then((user) => {
 			//console.log(results);
@@ -146,7 +129,11 @@ app.get("/protected", ensureAuthenticated, function(req, res) {
 app.get("/gate", ensureAuthenticated, function(req, res){
 
 	if(req.user.usertype == 'FAC'){
-		Facilitators.updateNow(req);
+		models.Facilitator.update({
+			lastOnline: sequelize.fn('NOW'),
+		}, {where:
+			{id: req.user.id}
+		});
 
 		res.redirect('/dashboard');
 	}
@@ -164,19 +151,19 @@ app.use('/', routes);
 app.use(
 	"/facilitators",
 	ensureAuthenticatedAdmin,
-	proxy("http://127.0.0.1:3000/facilitators")
+	proxy("http://127.0.0.1:" + react_port + "/facilitators")
 );
 
 app.use(
 	"/facilitator",
 	ensureAuthenticatedAdmin,
-	proxy("http://127.0.0.1:3000/facilitators")
+	proxy("http://127.0.0.1:" + react_port + "/facilitators")
 );
 
 app.use(
 	"/candidate",
 	ensureAuthenticated,
-	proxy("http://127.0.0.1:3000/candidate")
+	proxy("http://127.0.0.1:" + react_port + "/candidate")
 );
 
 app.get("/robots.txt", function(req, res) {
@@ -184,20 +171,6 @@ app.get("/robots.txt", function(req, res) {
 	res.send("User-agent: *\nDisallow: /");
 });
 
-app.use("/", proxy("127.0.0.1:3000/"));
-
-/*app.use(function(req, res, next) {
-	var err = new Error('Not Found');
-	err.status = 404;
-	next(err);
-});
-
-app.use(function(err, req, res, next) {
-	res.status(err.status || 500);
-	res.render('error', {
-		message: err.message,
-		error: (app.get('env') === 'development') ? err : {}
-	});
-});*/
+app.use("/", proxy("127.0.0.1:" + react_port + "/"));
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

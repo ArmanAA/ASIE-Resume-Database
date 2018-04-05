@@ -45,7 +45,7 @@ export default class AddFacilitator extends Component{
 	    	email: event.target.email.value	    
 	    };
 
-	    fetch('/api/create/facilitator', {
+	    fetch('/api/facilitators/create', {
 	      headers: { "Content-Type": "application/json" },
 	      method: 'POST',
 	      body: JSON.stringify(data),

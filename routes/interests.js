@@ -29,9 +29,9 @@ router.post('/:user_id/update', function(req, res) {
 	let action = req.body.action;
 	if(action == "add") {
 		models.Interest.create({
-			'userId': req.params.user_id,
-			'interest': interest,
-			'type': type
+			userId: req.params.user_id,
+			interest: interest,
+			type: type
 		}).then(results => {
 			res.json({message: 'successful'})
 		}).catch(error => {
@@ -41,9 +41,9 @@ router.post('/:user_id/update', function(req, res) {
 	else {
 		models.Interest.destroy({
 			where: {
-				'userId': req.params.user_id,
-				'type': type,
-				'interest': interest
+				userId: req.params.user_id,
+				type: type,
+				interest: interest
 			}
 		})
 	}

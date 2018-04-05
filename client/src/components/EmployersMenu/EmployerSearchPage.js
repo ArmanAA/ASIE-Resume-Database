@@ -20,9 +20,13 @@ export default class EmployerSearchPage extends Component {
     this.toggleOpen = this.toggleOpen.bind(this);
     this.onSetOpen = this.onSetOpen.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.search = this.search.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    // populate search table when page loads
+    this.search("");
+  }
 
   componentWillMount() {
     mql.addListener(this.mediaQueryChanged);
@@ -52,12 +56,9 @@ export default class EmployerSearchPage extends Component {
     }
   }
 
-  handleSubmit(event) {
+  search(name) {
     const self = this;
-    event.preventDefault();
-    const data = new FormData(event.target);
-
-    var url = "/api/search/employers?" + "name=" + event.target.name.value;
+    var url = "/api/search/employer?" + "name=" + name;
     fetch(url, {
       method: "GET",
       credentials: "include"
@@ -69,6 +70,12 @@ export default class EmployerSearchPage extends Component {
         }
       });
     });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    this.search(event.target.name.value);
   }
 
   render() {
@@ -99,11 +106,16 @@ export default class EmployerSearchPage extends Component {
                       type="text"
                       name="name"
                       className="form-control col-sm-10"
-                      placeholder="Search for employees..."
+                      placeholder="Search for employees"
                     />
-                    <input className="btn btn-default mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
+                    <input
+                      className="btn btn-default mb-2 col-sm-2 mx-1"
+                      type="submit"
+                      value="Search"
+                    />
                   </div>
                 </form>
+
                 <div className="row">
                   <div className="col">
                     <EmployerList data={this.state.profile} />

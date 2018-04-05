@@ -21,8 +21,8 @@ export default class SearchPage extends Component {
 
     const self = this;
 
-    fetch('/api/fill/facilitators', {
-      method: 'POST',
+    fetch('/api/search/facilitator', {
+      method: 'GET',
       credentials: 'include'
     }).then(response => {
       response.json().then(json => {
@@ -75,7 +75,7 @@ export default class SearchPage extends Component {
     const self = this;
     event.preventDefault();
     const data = new FormData(event.target);
-    var url = '/api/search/facilitators?' + "firstName=" + event.target.firstName.value+ "&lastName=" + event.target.lastName.value
+    var url = '/api/search/facilitator?' + "firstName=" + event.target.firstName.value+ "&lastName=" + event.target.lastName.value
     + "&email=" + event.target.email.value;
     console.log(url);
     fetch(url, {

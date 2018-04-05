@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-	var Facilitator = sequelize.define('Facilitator', {
+	var Facilitator = sequelize.define('facilitator', {
 		lastOnline: {
 			type: DataTypes.DATE,
 			allowNull: true,

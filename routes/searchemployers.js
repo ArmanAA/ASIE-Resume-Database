@@ -1,10 +1,22 @@
-let Sequelize = require("sequelize"),
-  db = require("./db"),
-  Employer = require("./Model/Employer").Employer;
+let models  = require('../models'),
+  Sequelize = require('sequelize'),
+  express = require('express'),
+  router  = express.Router();
 
 const Op = Sequelize.Op;
 
-let search = (req, res, next) => {
+router.get('/profile/:id', (req, res) => {
+  models.Employer.findOne({
+    where: {
+      id: req.params.id
+    },
+    raw: true
+  }).then((result) => {
+    res.json(result);
+  });
+});
+
+router.get('/', (req, res) => {
   let name = req.query.name;
   let nameArray = name.split(" ").filter(entry => {
     return entry;
@@ -24,26 +36,29 @@ let search = (req, res, next) => {
   searchEmployer(employer_obj, results => {
     let employers_results = results.map(result => {
       return {
+        id: result.id,
         firstName: result.firstName,
         lastName: result.lastName,
-        subject: result.subject
+        email: result.email,
+        subject: result.subject,
+        message: result.message
       };
     });
     res.json(employers_results);
   });
-};
+});
 
 let searchEmployer = (name, next) => {
-  console.log("Employer", name);
-
-  Employer.findAll({
-    // attributes: ["email", "firstName", "lastName", "subject"],
-    where: {
-      [Op.or]: name
+  let query = {}
+  if(name && name.length > 0) {
+    query = {
+      // attributes: ["email", "firstName", "lastName", "subject"],
+      where: {
+        [Op.or]: name
+      }
     }
-  })
-    .then(next)
-    .catch(next);
+  }
+  models.Employer.findAll(query).then(next).catch(next);
 };
 
-exports.search = search;
+module.exports = router;

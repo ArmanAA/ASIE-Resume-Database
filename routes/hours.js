@@ -1,4 +1,5 @@
 let models  = require('../models'),
+	multer = require("multer"),
 	express = require('express'),
 	router  = express.Router();
 
@@ -41,7 +42,7 @@ router.get('/:user_id', function(req, res) {
 	});
 })
 
-router.post('/:user_id/update', function(req, res) {
+router.post('/:user_id/update', multer().array(), function(req, res) {
 	models.Hour.upsert({
 		id: req.params.user_id,
 		sunday: req.body.sunday != null,

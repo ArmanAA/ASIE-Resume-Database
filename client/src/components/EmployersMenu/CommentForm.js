@@ -10,24 +10,19 @@ export default class CommentForm extends Component {
 
   handleSubmit (e) {
     e.preventDefault();
-    var authorVal = e.target[0].value.trim();
-    var textVal = e.target[1].value.trim();
-    if (!textVal || !authorVal) {
+    var comment = e.target[0].value.trim();
+    if (!comment) {
       return;
     }
 
-    this.props.onCommentSubmit({author: authorVal, text: textVal});
+    this.props.onCommentSubmit(comment);
     e.target[0].value = '';
-    e.target[1].value = '';
     return;
   }
 
   render() {
     return(
       <form className="comment-form form-group full" onSubmit={this.handleSubmit}>
-        <div className="input-group">
-          <input type="text" placeholder="Your name" className="form-control" />
-        </div>
         <div className="input-group">
           <input type="text" placeholder="Comments" className="form-control" />
         </div>

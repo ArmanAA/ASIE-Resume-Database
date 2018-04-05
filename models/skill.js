@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Skill = sequelize.define('Skill', {
+  var Skill = sequelize.define('skill', {
     skill: DataTypes.STRING
   }, {
     omitNull: true

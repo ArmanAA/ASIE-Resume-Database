@@ -1,6 +1,17 @@
 let models  = require('../models'),
+	multer = require('multer'),
 	express = require('express'),
 	router  = express.Router();
+
+let profile_storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'client/public/profile/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '.jpg') //Appending .jpg
+  }
+});
+let profile_update = multer({ storage: profile_storage });
 
 router.post('/create', function(req, res) {
 	models.Candidate.create({
@@ -22,26 +33,21 @@ router.post('/create', function(req, res) {
 })
 
 router.get('/:user_id', function(req, res) {
-	console.log(req.params);
 	models.Candidate.findOne({
 		where: {
 			id: req.params.user_id
 		},
 		include: [models.User]
 	}).then(function(results) {
-		console.log(results);
 		let profile = {};
 		if(results) {
 			profile = {
-				fname: results.User.firstName,
-				lname: results.User.lastName,
-				street: results.street,
+				fname: results.user.firstName,
+				lname: results.user.lastName,
 				city: results.city,
-				state: results.state,
-				zip: results.zip,
-				phone: results.User.phone,
-				email: results.User.email,
-				birthday: results.User.dob,
+				phone: results.user.phone,
+				email: results.user.email,
+				birthday: results.user.dob,
 				regionalclient: results.regionalclient,
 				rehabclient: results.rehabclient,
 				conditions: [],
@@ -52,24 +58,18 @@ router.get('/:user_id', function(req, res) {
 	});
 });
 
-router.post('/:user_id/update', function(req, res) {
+router.post('/:user_id/update', profile_update.single("update_image"), function(req, res) {
+	console.log("profiles", req.body);
 	req.file = req.file || {};
 	let filename = req.file.filename;
-	if(req.body.update_zip === "")
-		req.body.update_zip = null;
 	if(req.body.update_phone === "")
 		req.body.update_phone = null;
-	if(req.body.update_state === "")
-		req.body.update_state = null;
 	if(req.body.update_regionalclient === "")
 		req.body.update_regionalclient = null;
 	if(req.body.update_rehabclient === "")
 		req.body.update_rehabclient = null;
 	models.Candidate.update({
-		street: req.body.update_street,
 		city: req.body.update_city,
-		state: req.body.update_state,
-		zip: req.body.update_zip,
 		regionalclient: req.body.update_regionalclient,
 		rehabclient: req.body.update_rehabclient,
 		profilepic: filename
@@ -81,7 +81,6 @@ router.post('/:user_id/update', function(req, res) {
 		models.User.update({
 			firstName: req.body.update_fname,
 			lastName: req.body.update_lname,
-			email: req.body.update_email,
 			phone: req.body.update_phone
 		}, {
 			where: {

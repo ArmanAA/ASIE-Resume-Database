@@ -10,7 +10,8 @@ export default class PortfolioAddModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      id: props.id
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,7 +31,7 @@ export default class PortfolioAddModal extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
     console.log(data);
-    fetch('/api/candidate/update/portfolio', {
+    fetch('/api/candidates/portfolios/' + this.state.id + '/update', {
       method: 'POST',
       body: data,
       credentials: 'include'

@@ -5,13 +5,13 @@ let models  = require('../models'),
 router.get('/:user_id', function(req, res) {
 	models.Skill.findAll({
 		where: {
-			'userId': req.params.user_id,
+			userId: req.params.user_id,
 		},
 		raw: true
 	}).then(function(results) {
 		var skills = [];
 		results.forEach(function(skill) {
-			skills.push(skill.skills);
+			skills.push(skill.skill);
 		})
 		res.json(skills);
 	});
@@ -20,11 +20,10 @@ router.get('/:user_id', function(req, res) {
 router.post('/:user_id/update', function(req, res) {
 	let skill = req.body.skill;
 	let type = req.body.type;
-	//console.log("skill:", skill);
 	if(type == "add") {
 		models.Skill.create({
-			'userId': req.params.user_id,
-			'skills': skill
+			userId: req.params.user_id,
+			skill: skill
 		}).then(results => {
 			res.json({message: 'successful'})
 		}).catch(error => {
@@ -34,8 +33,8 @@ router.post('/:user_id/update', function(req, res) {
 	else {
 		models.Skill.destroy({
 			where: {
-				'userId': req.params.user_id,
-				'skills': skill
+				userId: req.params.user_id,
+				skill: skill
 			}
 		})
 	}

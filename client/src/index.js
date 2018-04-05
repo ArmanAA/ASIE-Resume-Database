@@ -38,7 +38,7 @@ ReactDOM.render(
       <Route path="/contactus" component={ContactUs} />      
       <Route path="/tempemp" component={TempEmp}/>      
       <Route path="/facilitator" component={FacilitatorProfile}/>      
-      <NotFoundRoute/>
+      <Route component={NotFoundPage}/>
 
     </Switch>
   </BrowserRouter>,

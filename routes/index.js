@@ -6,7 +6,7 @@ let api = require('./api');
 
 router.post("/signup", (req, res) => {
 	models.Candidate.create({
-		User: {
+		user: {
 			firstName: req.body.firstName,
 			lastName: req.body.lastName,
 			email: req.body.email,
@@ -14,7 +14,7 @@ router.post("/signup", (req, res) => {
 		},
 		profilepic: "profilepic.jpg"
 	}, {
-		include: [{ model: models.User }]
+		include: [models.User]
 	}).then(candidate => {
 		res.redirect("/");
 	}).catch(error => {
@@ -24,7 +24,7 @@ router.post("/signup", (req, res) => {
 });
 
 router.post("/contactus", (req, res) => {
-	Employer.create({
+	models.Employer.create({
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
 		email: req.body.email,

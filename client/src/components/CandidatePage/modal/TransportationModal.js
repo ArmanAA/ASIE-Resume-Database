@@ -27,7 +27,8 @@ export default class BasicInfoModal extends Component {
       metro: metro,
       walk: walk,
       other: other,
-      distance: distance
+      distance: distance,
+      id: props.id
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -63,7 +64,7 @@ export default class BasicInfoModal extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
     console.log(data);
-    fetch('/api/candidate/update/transportation', {
+    fetch('/api/candidates/transportations/' + this.state.id + '/update', {
       method: 'POST',
       body: data,
       credentials: 'include'

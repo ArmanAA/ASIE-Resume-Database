@@ -1,23 +1,28 @@
-
 import React, {Component} from 'react';
 import Comment from './Comment'
 
 export default class CommentList extends Component {
- constructor(props){
+  constructor(props){
     super(props);
-    console.log(props.data.length);
+    this.state = {
+      comments: props.data
+    }
   }
-   
-  render() {
-    
-    var values = this.props.data;
-    var comments = values.map(({author, text})=>
-        <Comment author={author} text={text} />);
 
-    return (
-      <div className="comment-list">
-        {comments}  
-      </div>
-    );
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data) {
+      this.setState({
+        comments: nextProps.data
+      });
+    }
+  }
+
+  render() {
+    var values = this.state.comments || [];
+    var comments = values.map(({ name, comment }) => (
+      <Comment author={name} text={comment} />
+    ));
+
+    return <div className="comment-list">{comments}</div>;
   }
 }

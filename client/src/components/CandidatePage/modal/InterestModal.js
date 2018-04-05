@@ -20,6 +20,7 @@ export default class InterestModal extends Component {
 
     this.state = {
       open: false,
+      id: props.id,
       personal: personal_tags,
       career: career_tags
     };
@@ -49,7 +50,7 @@ export default class InterestModal extends Component {
 
   updateData(action, type, interest) {
     console.log("POST", action, type, interest);
-    fetch('/api/candidate/update/interest', {
+    fetch('/api/candidates/interests/' + this.state.id + '/update', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

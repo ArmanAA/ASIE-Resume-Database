@@ -11,7 +11,8 @@ export default class HoursModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      id: props.id
     }
     this.componentWillReceiveProps(props);
 
@@ -52,7 +53,7 @@ export default class HoursModal extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
     console.log(data);
-    fetch('/api/candidate/update/hours', {
+    fetch('/api/candidates/hours/' + this.state.id + '/update', {
       method: 'POST',
       body: data,
       credentials: 'include'

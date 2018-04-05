@@ -19,19 +19,17 @@ export default class SearchPage extends Component {
       user: null,
       profile: []
     }
+    // populate table
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
     this.onSetOpen = this.onSetOpen.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
-  componentDidMount() {
-  }
-
   componentWillMount() {
     mql.addListener(this.mediaQueryChanged);
     this.setState({mql: mql, docked: mql.matches});
+    this.search("", "");
   }
 
   componentWillUnmount() {
@@ -57,12 +55,9 @@ export default class SearchPage extends Component {
     }
   }
 
-  handleSubmit(event) {
+  search(interest, location) {
     const self = this;
-    event.preventDefault();
-    const data = new FormData(event.target);
-    console.log(event.target.interests.value);
-    var url = '/api/search/candidate?' + "interests=" + event.target.interests.value+ "&locations=" + event.target.locations.value;
+    var url = '/api/search/candidate?' + "interests=" + interest + "&locations=" + location;
     fetch(url, {
       method: 'GET',
       credentials: 'include'
@@ -74,6 +69,12 @@ export default class SearchPage extends Component {
         }
       })
     });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    this.search(event.target.interests.value, event.target.locations.value);
   }
 
   render() {

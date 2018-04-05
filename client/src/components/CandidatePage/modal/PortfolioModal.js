@@ -31,7 +31,8 @@ export default class PortfolioModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      id: props.id
     };
     this.componentWillReceiveProps(props);
 
@@ -64,7 +65,7 @@ export default class PortfolioModal extends Component {
       <div style={styles}>
         <h2 className="Link" onClick={this.onOpenModal}>+ Portfolio</h2>
         <Modal open={open} onClose={this.onCloseModal} little>
-          <PortfolioAddModal />
+          <PortfolioAddModal id={this.state.id}/>
           <div>
             <SortableList items={this.state.items} onSortEnd={this.onSortEnd} helperClass='sortableHelper'/>
           </div>

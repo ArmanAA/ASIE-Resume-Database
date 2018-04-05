@@ -12,12 +12,11 @@ const mql = window.matchMedia('(min-width: 800px)');
 export default class FacilitatorProfile extends Component{
 	constructor(props, context){
 		super(props, context);
-		
+
 		this.state = {
 				mql: mql,
-      
 				docked: true,
-	      		open: false,
+				open: false,
 				notesOpen: false,
 				firstname: '',
 				lastname: '',
@@ -25,91 +24,83 @@ export default class FacilitatorProfile extends Component{
 				registerDate: ''
 			};
 
-    const self = this;
+		const self = this;
 		var query = qs.parse(props.location.search);
-		
-		fetch('/api/facilitators/profile', {
-		  headers: {"Content-Type": "application/json"},
-	      method: 'POST',
-	      body: JSON.stringify({id: query.id}),
-	      credentials: 'include'
-	    }).then(response =>{
-	    	response.json().then(json =>{
-	    		if(json[0].lastOnline == null){
-	    			json[0].lastOnline = "Never";
-	    		}
-	    		this.setState({
-				firstname: json[0].firstName,
-				lastname: json[0].lastName, 
-				email: json[0].email,
-				lastOnline: json[0].lastOnline.slice(0,10),
-				registerDate: json[0].createdAt.slice(0,10)
-			});
-	    })
-	    	
-
-	    });
+		fetch('/api/facilitators/profile/' + query.id, {
+			headers: {"Content-Type": "application/json"},
+			method: 'GET',
+			credentials: 'include'
+		}).then(response =>{
+			response.json().then(json =>{
+				if(json.lastOnline == null){
+					json.lastOnline = "Never";
+				}
+				this.setState({
+					firstname: json.firstName,
+					lastname: json.lastName, 
+					email: json.email,
+					lastOnline: json.lastOnline.slice(0,10),
+					registerDate: json.createdAt.slice(0,10)
+				});
+			})
+		});
 
 		this.toggleOpen = this.toggleOpen.bind(this);
-    	this.onSetOpen = this.onSetOpen.bind(this);
+		this.onSetOpen = this.onSetOpen.bind(this);
 		this.toggleNotesOpen = this.toggleNotesOpen.bind(this);
-	
-    
 	}
 
-	  componentWillMount() {
-	    mql.addListener(this.mediaQueryChanged);
-	    this.setState({mql: mql, docked: mql.matches});
-	  }
+	componentWillMount() {
+		mql.addListener(this.mediaQueryChanged);
+		this.setState({mql: mql, docked: mql.matches});
+	}
 
-	  componentWillUnmount() {
-	    this.state.mql.removeListener(this.mediaQueryChanged);
-	  }
+	componentWillUnmount() {
+		this.state.mql.removeListener(this.mediaQueryChanged);
+	}
 
-	  onSetOpen(open) {
-	    this.setState({open: open});
-	  }
+	onSetOpen(open) {
+		this.setState({open: open});
+	}
 
-	  mediaQueryChanged() {
-	    this.setState({
-	      mql: mql,
-	      docked: this.state.mql.matches,
-	    });
-	  }
-	  
-	  toggleOpen(ev) {
-	    this.setState({open: true});
+	mediaQueryChanged() {
+		this.setState({
+			mql: mql,
+			docked: this.state.mql.matches,
+		});
+	}
+	
+	toggleOpen(ev) {
+		this.setState({open: true});
 
-	    if (ev) {
-	      ev.preventDefault();
-	    }
-	  }
+		if (ev) {
+			ev.preventDefault();
+		}
+	}
 
 
- 	toggleNotesOpen(ev) {
-	    this.setState( {notesOpen: !this.state.notesOpen});
-	    if (ev) {
-	      ev.preventDefault();
-	    }
-
-	  }
+	toggleNotesOpen(ev) {
+		this.setState( {notesOpen: !this.state.notesOpen});
+		if (ev) {
+			ev.preventDefault();
+		}
+	}
 
 
 	componentDidMount() {
-  		document.title="Facilitator Profile"; 
-
-  	}
+		document.title="Facilitator Profile"; 
+	}
 
 
 	render(){
 
 		const sidebar = <SidebarContent />;
 		const contentHeader = (
-		      <span>
-		        {!this.state.docked &&
-		         <button className="btn-toggle-menu" onClick={this.toggleOpen.bind(this)}>=</button>}
-		        <span></span>
-		      </span>);
+					<span>
+						{!this.state.docked &&
+						 <button className="btn-toggle-menu" onClick={this.toggleOpen.bind(this)}>=</button>}
+						<span></span>
+					</span>);
 
 		const mylist = {
 			count: 3,
@@ -148,7 +139,7 @@ export default class FacilitatorProfile extends Component{
 		}
 		var lists = mylist.lists;
 		var MyLists = lists.map((item)=>
-        <CollapseItem customClass={"mylists"}  list={item}/>
+				<CollapseItem customClass={"mylists"}  list={item}/>
 		);
 
 		
@@ -215,6 +206,6 @@ export default class FacilitatorProfile extends Component{
 			</MaterialTitlePanel>
 			</Sidebar>
 			</div>
-			);
+		);
 	}
 }

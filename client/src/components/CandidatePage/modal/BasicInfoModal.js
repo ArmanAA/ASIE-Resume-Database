@@ -18,24 +18,22 @@ const styles = {
 export default class BasicInfoModal extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       open: false,
       firstName: props.data.fname,
       lastName: props.data.lname,
       email: props.data.email,
-      street: props.data.street,
       city: props.data.city,
-      state: props.data.state,
-      zip: props.data.zip,
       phone: props.data.phone,
       regionalclient: props.data.regionalclient,
       rehabclient: props.data.rehabclient,
       id: props.id,
 
       options: [{value: "", name: ""},
-                          {value: "yes", name: "Yes"},
-                          {value: "no", name: "No"},
-                          {value: "idk", name: "I'm not sure"}]
+                {value: "yes", name: "Yes"},
+                {value: "no", name: "No"},
+                {value: "idk", name: "I'm not sure"}]
     };
     //this.fname = props.data.firstName;
 
@@ -48,10 +46,7 @@ export default class BasicInfoModal extends Component {
         firstName: nextProps.data.fname,
         lastName: nextProps.data.lname,
         email: nextProps.data.email,
-        street: nextProps.data.street,
         city: nextProps.data.city,
-        state: nextProps.data.state,
-        zip: nextProps.data.zip,
         phone: nextProps.data.phone,
         regionalclient: nextProps.data.regionalclient,
         rehabclient: nextProps.data.rehabclient
@@ -104,13 +99,9 @@ export default class BasicInfoModal extends Component {
             <form className="form-group" onSubmit={this.handleSubmit}>
               <label className='row'> First name: <input className="form-control"  type="text" name="update_fname" defaultValue={this.state.firstName}/></label>
               <label className='row'> Last name: <input className="form-control"  type="text" name="update_lname" defaultValue={this.state.lastName}/></label>
-              <label className='row'> Street: <input className="form-control"  type="text" name="update_street" defaultValue={this.state.street}/></label>
-              <label className='row'> City: <input  className="form-control" type="text" name="update_city" defaultValue={this.state.city}/></label>
-              <label className='row'> State: <input  className="form-control" type="text" name="update_state" defaultValue={this.state.state}/></label>
-              <label className='row'> Zip: <input className="form-control"  type="text" name="update_zip" defaultValue={this.state.zip}/></label>
+              <label className='row'> Region: <input  className="form-control" type="text" name="update_city" defaultValue={this.state.city}/></label>
               <label className='row'> Phone number: <input className="form-control"  type="text" name="update_phone" defaultValue={this.state.phone}/></label>
-              <label className='row'> Email address: <input className="form-control"  type="text" name="update_email" defaultValue={this.state.email}/></label>
-             
+
               <label className='row'>Regional Center Client: <select name="update_regionalclient" defaultValue={this.state.regionalclient}>{options}</select></label>
               <label className='row'>Department of Rehabilitation Client: <select name="update_rehabclient" defaultValue={this.state.rehabclient}>{options}</select></label>
 

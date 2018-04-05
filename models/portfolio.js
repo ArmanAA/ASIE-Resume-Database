@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-	var Portfolio = sequelize.define('Portfolio', {
+	var Portfolio = sequelize.define('portfolio', {
 		type: {
 			type: DataTypes.ENUM,
 			values: ['picture', 'video']

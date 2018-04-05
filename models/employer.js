@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  var Employer = sequelize.define('Employer', {
+  var Employer = sequelize.define('employer', {
     email: {
       type: DataTypes.STRING,
       allowNull: false,

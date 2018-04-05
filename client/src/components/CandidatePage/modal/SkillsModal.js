@@ -18,7 +18,8 @@ export default class SkillsModal extends Component {
     super(props);
     this.state = {
       open: false,
-      skills: props.data
+      skills: props.data,
+      id: props.id
     };
     //this.fname = props.data.firstName;
 
@@ -43,7 +44,7 @@ export default class SkillsModal extends Component {
   };
 
   updateData(type, skill) {
-    fetch('/api/candidate/update/skills', {
+    fetch('/api/candidates/skills/' + this.state.id + '/update', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

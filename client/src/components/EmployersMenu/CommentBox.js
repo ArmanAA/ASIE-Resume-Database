@@ -6,7 +6,7 @@ import CommentList from './CommentList.js';
 /* Original deprecated version from CodePen https://codepen.io/anon/pen/mxmvPE */
 var commentData = [
     { 
-      author:"Shawn Spencer", 
+      author:"Shawn Spencerasdf", 
       text:"I've heard it both ways"
     },
     { 
@@ -19,28 +19,58 @@ export default class CommentBox extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data: commentData
+      comments: []
     }
+    const self = this;
+
+    let currUrl = new URL(window.location.href);
+    let id = currUrl.searchParams.get("id");
+    fetch("/api/comments/" + id, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include"
+    }).then(comments => {
+      comments.json().then(comments_json => {
+        this.setState({comments: comments_json});
+      })
+    })
+
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
- 
   }
 
-  componentDidMount(){
+  AddCommentToDB(comment, next) {
+    var currUrl = new URL(window.location.href);
+    var url =
+      "/api/comments/" +
+      currUrl.searchParams.get("id") +
+      "/add"
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({comment: comment})
+    }).then(response => {
+      response.json().then(next)
+    });
+    //document.title = "Employer Profile"; //Change to employer message subject?
   }
 
   handleCommentSubmit(comment) {
-    this.state.data.push(comment);
-    var comments = this.state.data;
-    var newComments = comments.concat([comment]);
-    this.setState({data: this.state.data});
+    this.AddCommentToDB(comment, response => {
+      console.log(response);
+      if(!response.message) {
+        let current_comments = this.state.comments;
+        current_comments.push(response);
+        this.setState({ comments: current_comments });
+      }
+    });
   }
 
   render() {
     return (
       <div className="comment-box">
-        <CommentList data={this.state.data} />
-        <CommentForm data={this.state.data} onCommentSubmit={this.handleCommentSubmit} />
-        
+        <CommentList data={this.state.comments} />
+        <CommentForm data={this.state.comments} onCommentSubmit={this.handleCommentSubmit} />
       </div>
     );
   }
