@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import { Clickable, StopPropagation } from "react-clickable";
 import "react-table/react-table.css";
-import { CLIENT_RENEG_WINDOW } from "tls";
 
 export default class EmployerList extends Component {
   constructor(props) {

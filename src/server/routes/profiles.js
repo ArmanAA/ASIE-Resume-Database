@@ -5,7 +5,7 @@ let models  = require('../models'),
 
 let profile_storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'client/public/profile/')
+    cb(null, '../../../public/profile/')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '.jpg') //Appending .jpg

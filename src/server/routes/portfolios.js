@@ -7,7 +7,7 @@ let image_dir = "/portfolio/";
 
 let portfolio_storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'client/public/portfolio/')
+    cb(null, '../../../public/portfolio/')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '.jpg') //Appending .jpg

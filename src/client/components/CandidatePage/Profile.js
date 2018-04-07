@@ -15,7 +15,7 @@ export default class ProfileComponent extends Component {
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.data) {
 			this.setState({
-				profilepic: "profile/" + nextProps.data.profilepic,
+				profilepic: "/profile/" + nextProps.data.profilepic,
 				fname: nextProps.data.fname,
 				lname: nextProps.data.lname,
 				street: nextProps.data.street,

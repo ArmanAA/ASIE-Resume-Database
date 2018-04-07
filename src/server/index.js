@@ -5,6 +5,7 @@ let express = require("express"),
 	morgan = require("morgan"),
 	multer = require("multer"),
 	flash = require("connect-flash"),
+	path = require("path"),
 	bodyParser = require("body-parser"),
 	passport = require("passport"),
 	sequelize = require("sequelize"),
@@ -110,6 +111,7 @@ passport.deserializeUser(function(id, done) {
 	});
 });
 
+
 app.post("/login", passport.authenticate("local", {
 		successRedirect: "/gate",
 		failureRedirect: "/login",
@@ -149,7 +151,7 @@ app.use('/', routes);
 
 /*Page Authentications */
 //Commented for dev; Uncomment later
-app.use(
+/*app.use(
 	"/facilitators",
 	ensureAuthenticatedAdmin,
 	proxy("http://127.0.0.1:" + react_port + "/facilitators")
@@ -176,13 +178,16 @@ app.use(
 	"/candidate",
 	ensureAuthenticated,
 	proxy("http://127.0.0.1:" + react_port + "/candidate")
-);
+);*/
 
 app.get("/robots.txt", function(req, res) {
 	res.type("text/plain");
 	res.send("User-agent: *\nDisallow: /");
 });
 
-app.use("/", proxy("127.0.0.1:" + react_port + "/"));
+app.use(express.static("www"));
+app.use(express.static("public"));
+app.get("*", (req,res) => res.sendFile(path.resolve(__dirname + "/../../www/index.html"))); //serves the index.html
+//app.use("/", proxy("127.0.0.1:" + react_port + "/"));
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
