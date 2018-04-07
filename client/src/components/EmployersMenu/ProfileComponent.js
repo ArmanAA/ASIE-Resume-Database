@@ -94,8 +94,9 @@ export default class ProfileComponent extends Component {
 							<h6 onClick={this.toggleNotesOpen.bind(this)}> Notes</h6>
 						</div>
 						<div className="col-12 border" >
+							<CommentBox />
 							{/*<Collapse isOpened={this.state.notesOpen}>
-								<CommentBox />
+								
 							</Collapse>*/}
 						</div>
 						<div className="col-12 border sec-title">
