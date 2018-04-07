@@ -5,7 +5,8 @@ import SidebarContent from '../AdminComponents/MenuBar';
 import ProfileList from './ProfileList';
 import './FacilitatorStyle.css';
 import AccountBar from '../AccountBar.js'
-const mql = window.matchMedia('(min-width: 800px)');
+import { Button, Navbar, NavbarToggler } from 'reactstrap';
+const mql = window.matchMedia('(min-width: 768px)');
 
 export default class SearchPage extends Component {
   constructor(props) {
@@ -103,7 +104,13 @@ export default class SearchPage extends Component {
     return (
         <div style={{backgroundColor: '#111'}}>
            <Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
-            <MaterialTitlePanel  title={contentHeader}>
+            {
+              this.state.docked ? <span></span> :
+              
+              <Navbar style={{backgroundColor: "#4EB9BE"}}>
+                <Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
+              </Navbar>
+            }
              <AccountBar/>
               <div className="container">
               <div className="row">
@@ -124,7 +131,6 @@ export default class SearchPage extends Component {
                 </div>
               </div>
             </div>
-            </MaterialTitlePanel>
           </Sidebar>
         </div>
           
