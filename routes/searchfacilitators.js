@@ -26,13 +26,14 @@ router.use('/', (req, res) => {
 				firstName: {
 					[Op.iLike] : `%${firstName}%`
 				},
-				lastName:{
+				lastName: {
 					[Op.iLike] : `%${lastName}%`
 				},
-					email:{
-						[Op.iLike] : `%${email}%`
-					}
-				}
+				email: {
+					[Op.iLike] : `%${email}%`
+				},
+				isArchived: false
+			}
 		}]
 	}
 	

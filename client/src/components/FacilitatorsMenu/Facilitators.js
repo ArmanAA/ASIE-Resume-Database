@@ -3,8 +3,8 @@ import Sidebar from 'react-sidebar';
 import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel';
 import SidebarContent from '../AdminComponents/MenuBar';
 import ProfileList from './ProfileList';
-import AddFacilitatorModal from './AddFacilitatorModal';
 import './FacilitatorStyle.css';
+import AccountBar from '../AccountBar.js'
 const mql = window.matchMedia('(min-width: 800px)');
 
 export default class SearchPage extends Component {
@@ -16,6 +16,7 @@ export default class SearchPage extends Component {
       open: false,
       count: 0,
       user: null,
+      deleteClicked: false,
     }
 
 
@@ -38,7 +39,6 @@ export default class SearchPage extends Component {
     this.onSetOpen = this.onSetOpen.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
 
   componentDidMount() {
   }
@@ -104,6 +104,7 @@ export default class SearchPage extends Component {
         <div style={{backgroundColor: '#111'}}>
            <Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
             <MaterialTitlePanel  title={contentHeader}>
+             <AccountBar/>
               <div className="container">
               <div className="row">
                 <form className="col-12" onSubmit={this.handleSubmit}>
@@ -111,17 +112,15 @@ export default class SearchPage extends Component {
                     <input type="text" name="firstName" className="form-control col-sm-8" placeholder="Search by first name"/>
                     <input type="text" name="lastName" className="form-control col-sm-8" placeholder="Search by last name"/>
                     <input type="text" name="email" className="form-control col-sm-8" placeholder="Search by email"/>
-                    <input className="btn btn-default mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
+                    <input className="btn btn-primary mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
                   </div>
                 </form>
-                <div className="row px-3">
-                  <AddFacilitatorModal/>
-                  <button className="btn btn-secondary"> Delete facilitator</button>
-                </div>
+               
               </div>
               <div className="row">
                 <div className="col">
-                  <ProfileList data={this.state.profile}/>
+
+                  <ProfileList data={this.state.profile} />
                 </div>
               </div>
             </div>

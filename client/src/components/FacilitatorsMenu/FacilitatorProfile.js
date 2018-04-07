@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {Collapse} from 'react-collapse';
+//import {Collapse} from 'react-collapse';
 import qs from 'query-string';
 import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel.js';
 import SidebarContent from '../AdminComponents/MenuBar.js';
 import Sidebar from 'react-sidebar';
-import CollapseItem from './CollapseComponent.js';
+//import CollapseItem from './CollapseComponent.js';
 
 const mql = window.matchMedia('(min-width: 800px)');
 
@@ -138,10 +138,9 @@ export default class FacilitatorProfile extends Component{
 
 		}
 		var lists = mylist.lists;
-		var MyLists = lists.map((item)=>
-				<CollapseItem customClass={"mylists"}  list={item}/>
-		);
-
+		/*var MyLists = lists.map((item)=>
+			<CollapseItem customClass={"mylists"}  list={item}/>
+		);*/
 		
 		var message = `
 			BODY\t  Facilitator Mylists\n
@@ -187,7 +186,7 @@ export default class FacilitatorProfile extends Component{
 						</div>
 						
 						<div className="col-12 border-top msg ">
-								{MyLists}
+								{/*MyLists*/}
 						</div>
 
 						<div className="col-12 border subject rounded">

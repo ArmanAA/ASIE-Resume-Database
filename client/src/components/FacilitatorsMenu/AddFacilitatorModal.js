@@ -71,13 +71,13 @@ export default class AddFacilitator extends Component{
    
 
 		return(
-		<div style={styles}>
-		 <button className="btn btn-secondary" onClick={this.onOpenModal}>Add facilitator</button>
+		<div style={styles} className="float-left">
+		 <input className="btn btn-outline-primary mb-2  mx-1" onClick={this.onOpenModal} type="button" value="Add Facilitator"/>
           <Modal open={open} onClose={this.onCloseModal} style={styles.modal}>
           
            <h2>Facilitator registration</h2>
 
-            <form className="form-grou modal-form" onSubmit={this.handleSubmit}>
+            <form className="form-group modal-form" onSubmit={this.handleSubmit}>
               	<input name="firstname" className="form-control" type="text" placeholder="First Name"
 				/> 
 				<input name="lastname" className="form-control" type="text" placeholder="Last Name"

@@ -6,7 +6,6 @@ import SearchPotentialCandidatesModal from "./modal/SearchPotentialCandidatesMod
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import SearchPage from './SearchPage';
 
-
 export default class ProfileComponent extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -206,9 +205,7 @@ export default class ProfileComponent extends Component {
 								<h6 onClick={this.toggleNotesOpen}> Notes</h6>
 							</div>
 							<div className="col-12 border">
-								<Collapse isOpened={this.state.notesOpen}>
-									<CommentBox />
-								</Collapse>
+								<CommentBox />
 							</div>
 							<div className="col-12 border sec-title">
 								<h6>History</h6>
@@ -220,7 +217,6 @@ export default class ProfileComponent extends Component {
 							<div className="col-12 border sec-title">
 								<h6>Search Candidate</h6>
 							</div>
-
 							<div className="col-12 border">
 								<div className="row">
 									<Button className="col-12" onClick={this.toggleAddCandidatesModal}>Add Potential Candidates</Button>

@@ -95,6 +95,12 @@ router.post('/create', (req, res) => {
 		console.log("THEN ENTER");
 		transporter.sendMail(mailOptions, (error, info) =>{
 			if(error){
+				models.User.destroy({
+					where: {
+						id: facilitator.id
+					}
+				});
+				facilitator.destroy();
 				res.sendStatus(500);
 				return console.log(error, "EROR HERE");
 			}
@@ -110,7 +116,35 @@ router.post('/create', (req, res) => {
 });
 
 router.get('/delete', (req, res) => {
-	//Move to archive? 
+	//Move to archive?
+	console.log(req.body);
+	var keys = Object.keys(req.body);
+	console.log(keys);
+	for(var i = 0; i < keys.length; i++){
+		if(req.body[keys[i]]){
+			var id = parseInt(keys[i]);
+			Facilitators.destroy({
+				where: { 
+					id: id
+				}
+			}).then(facilitator =>{
+				User.update(
+				{
+					isArchived: true
+				},
+				{
+					where: {
+						id: id
+					}
+				}
+				);
+			}).catch(error=>{
+				console.log("ERROR @ ARCHIVE", error);
+				return res.sendStatus(500);
+			});
+		}
+		res.sendStatus(200);
+	}
 });
 
 module.exports = router;

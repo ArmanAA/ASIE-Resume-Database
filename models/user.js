@@ -18,14 +18,15 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 			unique: true,
 			allowNull: true,
-			validate: {
-				isNumeric: true
-			}
 		},
 		usertype: {
 			type: DataTypes.ENUM,
 			values: ['ADMIN', 'FAC', 'CAND'],
 			defaultValue: 'CAND'
+		},
+		isArchived: {
+			type: Sequelize.BOOLEAN, 
+			defaultValue: false
 		},
 		salt: DataTypes.STRING
 	}, {

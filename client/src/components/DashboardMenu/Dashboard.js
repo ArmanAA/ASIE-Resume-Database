@@ -19,6 +19,7 @@ export default class SearchPage extends Component {
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
     this.onSetOpen = this.onSetOpen.bind(this);
+    console.log(props);
   }
 
 

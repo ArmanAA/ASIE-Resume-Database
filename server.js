@@ -127,21 +127,22 @@ app.get("/protected", ensureAuthenticated, function(req, res) {
 
 /* Log in gateway */
 app.get("/gate", ensureAuthenticated, function(req, res){
-
+	if(req.user.isArchived){
+		req.logout(); 
+		res.redirect('/login');
+	}
 	if(req.user.usertype == 'FAC'){
 		models.Facilitator.update({
 			lastOnline: sequelize.fn('NOW'),
 		}, {where:
 			{id: req.user.id}
 		});
-
 		res.redirect('/dashboard');
 	}
 	if(req.user.usertype=='CAND'){
 		res.redirect('/candidate/' + req.user.id);
 	}
-
-})
+});
 
 app.use('/', routes);
 
@@ -152,6 +153,17 @@ app.use(
 	"/facilitators",
 	ensureAuthenticatedAdmin,
 	proxy("http://127.0.0.1:" + react_port + "/facilitators")
+);
+app.use(
+	"/dashboard",
+	ensureAuthenticatedAdmin,
+	proxy("http://127.0.0.1:3000/dashboard")
+);
+
+app.use(
+	"/employers",
+	ensureAuthenticatedAdmin,
+	proxy("http://127.0.0.1:3000/employers")
 );
 
 app.use(

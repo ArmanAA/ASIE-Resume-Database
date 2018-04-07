@@ -1,64 +1,72 @@
 import React, { Component } from 'react';
-import Modal from 'react-responsive-modal';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const styles = {
-  fontFamily: "sans-serif",
-  textAlign: "center"
+	fontFamily: "sans-serif",
+	textAlign: "center"
 };
 
 export default class PortfolioAddModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-      id: props.id
-    };
+	constructor(props) {
+		super(props);
+		this.state = {
+			modal: false,
+			id: props.id,
+			centered: true
+		};
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.toggle = this.toggle.bind(this);
+	}
 
-  componentWillReceiveProps(nextProps) {}
+	componentWillReceiveProps(nextProps) {}
 
-  onOpenModal = () => {
-    this.setState({ open: true });
-  };
+	toggle() {
+		this.setState({
+			modal:!this.state.modal
+		});
+	}
 
-  onCloseModal = () => {
-    this.setState({ open: false });
-  };
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    console.log(data);
-    fetch('/api/candidates/portfolios/' + this.state.id + '/update', {
-      method: 'POST',
-      body: data,
-      credentials: 'include'
-    }).then(function(response) {
-      if(response) {
-        window.location.reload();
-      }
-      else {
-        this.onCloseModal();
-      }
-    });
-  }
-
-  render() {
-    const { open } = this.state;
-    return (
-      <div style={styles}>
-        <button onClick={this.onOpenModal}>+ Add Portfolio</button>
-        <Modal open={open} onClose={this.onCloseModal} little>
-          <form onSubmit={this.handleSubmit}>
-            <label className='row'> Title: <input type="text" name="title"/></label>
-            <label className='row'> Description: <input type="text" name="description"/></label>
-            <label className='row'> Image: <input type="file" name="image"/></label>
-            <input className='row' type="submit" value="Submit" />
-          </form>
-        </Modal>
-      </div>
-    );
-  }
+	handleSubmit(event) {
+		event.preventDefault();
+		const data = new FormData(event.target);
+		console.log(data);
+		fetch('/api/candidates/portfolios/' + this.state.id + '/update', {
+			method: 'POST',
+			body: data,
+			credentials: 'include'
+		}).then(function(response) {
+			if(response) {
+				window.location.reload();
+			}
+			else {
+				this.onCloseModal();
+			}
+		});
+	}
+	render() {
+		const { modal, centered } = this.state;
+		return (
+			<div style={styles}>
+				<Button onClick={this.toggle}>+ Add Portfolio</Button>
+				<Modal centered={this.state.centered} isOpen={this.state.modal} toggle={this.toggle}>
+					<form className="form-group" onSubmit={this.handleSubmit}>
+						<ModalHeader toggle={this.toggle}>
+								<h5>Add detailed information about your work experience!</h5>
+						</ModalHeader>
+						<ModalBody>
+							<label className='row'> Title: <input className="form-control" type="text" name="title" required/></label>
+							<label className='row'> Description: <input className="form-control" type="text" name="description" required/></label>
+							<label className='row'> Image: <input className="form-control" type="file" name="image" required/></label>
+						
+						</ModalBody>
+						<ModalFooter>
+							<Button color="primary" type="submit">Submit Changes</Button>{' '}
+							<Button color="secondary" onClick={this.toggle}>Cancel</Button>
+						</ModalFooter>
+					</form>
+				</Modal>
+			</div>
+		);
+	}
 }

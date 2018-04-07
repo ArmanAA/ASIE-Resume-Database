@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
+import AddFacilitatorModal from './AddFacilitatorModal.js'
+import './FacilitatorStyle.css';
 
 export default class ProfileList extends Component {
   constructor(props) {
@@ -10,6 +12,7 @@ export default class ProfileList extends Component {
       selectAll: 0
     }
     this.toggleRow = this.toggleRow.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -22,13 +25,14 @@ export default class ProfileList extends Component {
 
   }
 
-  toggleRow(firstName) {
+  toggleRow(id) {
     const newSelected = Object.assign({}, this.state.selected);
-    newSelected[firstName] = !this.state.selected[firstName];
+    newSelected[id] = !this.state.selected[id];
     this.setState({
       selected: newSelected,
       selectAll: 2
     });
+    console.log(this.state.selected);
   }
 
   toggleSelectAll() {
@@ -36,13 +40,29 @@ export default class ProfileList extends Component {
 
     if (this.state.selectAll === 0) {
       this.state.profile.forEach(x => {
-        newSelected[x.firstName] = true;
+        newSelected[x.id] = true;
       });
     }
 
     this.setState({
       selected: newSelected,
       selectAll: this.state.selectAll === 0 ? 1 : 0
+    });
+  }
+
+  handleDelete(event){
+    console.log(Object.keys(this.state.selected));
+      fetch("/api/facilitators/delete", {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: 'POST',
+      body: JSON.stringify(this.state.selected),
+      credentials: 'include'
+    }).then(response => {
+      response.json().then(json => {
+        window.location.href = "/facilitators";
+      })
     });
   }
 
@@ -56,8 +76,8 @@ export default class ProfileList extends Component {
             <input
               type="checkbox"
               className="checkbox"
-              checked={this.state.selected[original.firstName] === true}
-              onChange={() => this.toggleRow(original.firstName)}
+              checked={this.state.selected[original.id] === true}
+              onChange={() => this.toggleRow(original.id)}
             />
           );
         },
@@ -97,20 +117,27 @@ export default class ProfileList extends Component {
       }
     ]
     return (
+      <div>
+
+      <AddFacilitatorModal/>
+       <input className="btn btn-outline-primary mb-2  mx-1" onClick={this.handleDelete} type="button" value="Delete Facilitator"/>
+      
       <ReactTable
         data={this.state.profile}
         columns={columns}
         defaultPageSize={10}
         className="-striped -highlight"
-        getTrProps={(state, rowInfo, column, instance) => {
+        getTdProps={(state, rowInfo, column, instance) => {
           return {onClick: e =>{
             //console.log(column);
-            var url = '/facilitator?id=' + rowInfo.original.id;
-            window.location.href = url;
+            if(column.id != 'checkbox'){
+              var url = '/facilitator?id=' + rowInfo.original.id;
+              window.location.href = url;
+          }
         }}
         }}
        
-      />
+      /></div>
     );
   }
 }
