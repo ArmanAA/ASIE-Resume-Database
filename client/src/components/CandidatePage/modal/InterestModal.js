@@ -205,15 +205,21 @@ export default class InterestModal extends Component {
 					<form onSubmit={this.handleSubmit}>
 						<ModalHeader toggle={this.toggle}>
 							<h2>Interest</h2>
+							<p>Add some personal interests and/or career interests!</p>
+							<p>"Personal" section is about your personal interests such as video gaming, photography, painting, etc.</p>
+							<p>"Career" section is about your career intersts such as construction, woodwork, veterinary, etc.</p>
+							<p>For more information about how to add interests to each section, put your cursor over the "Help" button.</p>
 						</ModalHeader>
 						<ModalBody>
+
 							<h3>
 								Personal
-								<label color="primary" data-for="personal" data-tip="React-tooltip"> <FaHelp /> </label>
-								<label><ReactTooltip id="personal" place="right" type="info" effect="solid"> 
-									<span>To add a personal interest, type a personal interest that you want to add and press "enter key" to create a new tag. To delete a personal interest, click the "x" button next to the personal interest you want to delete. Once you are finished adding or removing personal interests, click "Submit Changes"</span> 
-								</ReactTooltip></label>
 							</h3>
+							<Button disabled={true} color="primary" data-for="personal" data-tip="React-tooltip">Help</Button>
+							<label><ReactTooltip id="personal" place="right" type="info" effect="solid"> 
+								<span>To add a personal interest, type a personal interest that you want to add and press "enter key" to create a new tag. To delete a personal interest, click the "x" button next to the personal interest you want to delete. Once you are finished adding or removing personal interests, click "Submit Changes"</span> 
+							</ReactTooltip></label>
+							
 							
 							
 							<TagsInput
@@ -225,12 +231,12 @@ export default class InterestModal extends Component {
 							<br/>
 							<h3>
 								Career
-								<label color="primary" data-for="career" data-tip="React-tooltip"> <FaHelp /> </label>
-								<label><ReactTooltip id="career" place="right" type="info" effect="solid"> 
-									<span>To add a career interest, search through the career interest in the list when clicking on the input box that says "Select career interest" and click on the career interest that you want. To remove a career interest, simply click "x" next to the career interest you want to remove. Once you are finished selecting or removing career interests, click "Submit Changes"</span> 
-								</ReactTooltip>
-								</label>
 							</h3>
+							<Button disabled={true} color="primary" data-for="career" data-tip="React-tooltip">Help</Button>
+							<label><ReactTooltip id="career" place="right" type="info" effect="solid"> 
+								<span>To add a career interest, search through the career interest in the list when clicking on the input box that says "Select career interest" and click on the career interest that you want. To remove a career interest, simply click "x" next to the career interest you want to remove. Once you are finished selecting or removing career interests, click "Submit Changes"</span> 
+							</ReactTooltip>
+							</label>
 							
 							<Select
 								multi
