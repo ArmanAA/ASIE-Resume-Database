@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
+import AddFacilitatorModal from './AddFacilitatorModal.js'
+import './FacilitatorStyle.css';
 
 export default class ProfileList extends Component {
   constructor(props) {
@@ -59,7 +61,7 @@ export default class ProfileList extends Component {
       credentials: 'include'
     }).then(response => {
       response.json().then(json => {
-        
+        window.location.href = "/facilitators";
       })
     });
   }
@@ -116,7 +118,10 @@ export default class ProfileList extends Component {
     ]
     return (
       <div>
-      <button className="btn btn-secondary" onClick={this.handleDelete}> Delete facilitator</button>
+
+      <AddFacilitatorModal/>
+       <input className="btn btn-outline-primary mb-2  mx-1" onClick={this.handleDelete} type="button" value="Delete Facilitator"/>
+      
       <ReactTable
         data={this.state.profile}
         columns={columns}

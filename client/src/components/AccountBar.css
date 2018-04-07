@@ -1,16 +1,7 @@
 /* Common Themes */
 
 
-.btn-custom{
-	margin: 5px auto ;
-	width: 100%;
-	border-style: solid;
-	border-color: white;
-	border-width: 1px;
-	border-radius: 5px;
-	background-color: #57A;
 
-}
 
 	/* Main content */
 
@@ -37,7 +28,7 @@
 	float: right;
  }
 
- .account-btn{
+ .account-btn, #acct-popover{
  	background-color: transparent;
  	float: right;
  	border-radius:100%;
@@ -53,3 +44,7 @@
 
  }
 
+.pw-form{
+	margin: 15px;
+	float: none;
+}

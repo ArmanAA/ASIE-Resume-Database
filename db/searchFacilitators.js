@@ -14,8 +14,12 @@ let fillData = (req, res) =>{
     include: [
       {
         model:User,
-        attributes: ['firstName', 'lastName', 'email']
-      }]
+        attributes: ['firstName', 'lastName', 'email'],
+        where: {
+          isArchived: false
+        }
+      }
+      ]
   }
   Facilitators.findAll(query).then((response)=> {
    // console.log(response);
@@ -42,7 +46,10 @@ let search =  (req, res)=> {
   let user = {
     model: Facilitators,
     include: [{
-      model:User
+      model:User,
+      where: {
+        isArchived: false
+      }
     }]
   };
 
@@ -60,8 +67,9 @@ let search =  (req, res)=> {
                   },
                   email:{
                     [Op.like] : `%${req.query.email}%`
-                  }
-
+                  },
+                  
+                  isArchived: false
                 }
               }
            ]
