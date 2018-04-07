@@ -64,7 +64,7 @@ export default class CandidatePage extends Component {
 			interest: null,
 			hours: null,
 			transportation: null,
-			portfolio: null
+			portfolio: null,
 			id: this.props.match.params.id
 		}
 		this.componentDidMount = this.componentDidMount.bind(this);

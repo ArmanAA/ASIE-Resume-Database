@@ -18,7 +18,7 @@ export default class SkillsModal extends Component {
 			modal: false,
 			centered: true,
 			skills: props.data,
-			id: props.id
+			id: props.id,
 			disabled: true,
 		};
 

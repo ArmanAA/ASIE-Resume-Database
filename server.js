@@ -152,7 +152,7 @@ app.use('/', routes);
 app.use(
 	"/facilitators",
 	ensureAuthenticatedAdmin,
-	proxy("http://127.0.0.1:" + react_port + "/facilitators")
+	proxy("http://127.0.0.1:3000/facilitators")
 );
 app.use(
 	"/dashboard",
@@ -169,13 +169,13 @@ app.use(
 app.use(
 	"/facilitator",
 	ensureAuthenticatedAdmin,
-	proxy("http://127.0.0.1:" + react_port + "/facilitators")
+	proxy("http://127.0.0.1:3000/facilitators")
 );
 
 app.use(
 	"/candidate",
 	ensureAuthenticated,
-	proxy("http://127.0.0.1:" + react_port + "/candidate")
+	proxy("http://127.0.0.1:3000/candidate")
 );
 
 app.get("/robots.txt", function(req, res) {

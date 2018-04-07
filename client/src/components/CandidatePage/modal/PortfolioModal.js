@@ -50,7 +50,7 @@ export default class PortfolioModal extends Component {
 		super(props);
 		this.state = {
 			modal: false,
-			id: props.id
+			id: props.id,
 			centered: true
 		};
 		this.componentWillReceiveProps(props);

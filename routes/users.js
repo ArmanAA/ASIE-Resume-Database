@@ -67,6 +67,8 @@ let updateProfile = (req, res, next) => {
 	})
 }
 
+
+
 module.exports.User = User;
 module.exports.findByEP = findByEP;
 module.exports.findById = findById;

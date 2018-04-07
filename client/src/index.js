@@ -39,7 +39,6 @@ ReactDOM.render(
 			<Route path="/tempemp" component={TempEmp}/>
 			<Route path="/facilitator" component={FacilitatorProfile}/>
 			<Route component={NotFoundPage}/>
-			<Route path="/testlogout" component={Logout}/>
 		</Switch>
 	</BrowserRouter>,
 	document.getElementById("root")

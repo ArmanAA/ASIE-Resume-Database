@@ -56,13 +56,28 @@ export default class ProfileList extends Component {
       headers: {
         "Content-Type": "application/json"
       },
-      method: 'POST',
+      method: 'post',
       body: JSON.stringify(this.state.selected),
       credentials: 'include'
-    }).then(response => {
-      response.json().then(json => {
-        window.location.href = "/facilitators";
-      })
+    }).then(response=> {
+      console.log(response.status)
+      if(response.status == 200){
+          fetch('/api/search/facilitator', {
+            method: 'GET',
+            credentials: 'include'
+          }).then(response => {
+            response.json().then(json => {
+              console.log("SearchPage", json);
+              if(json) {
+                this.setState({profile: json});
+              }
+            })
+          });
+  
+    }
+    }).catch(error=> {
+        console.log(error);
+        window.alert("Deletion failed!");
     });
   }
 
@@ -129,12 +144,13 @@ export default class ProfileList extends Component {
         className="-striped -highlight"
         getTdProps={(state, rowInfo, column, instance) => {
           return {onClick: e =>{
-            //console.log(column);
-            if(column.id != 'checkbox'){
-              var url = '/facilitator?id=' + rowInfo.original.id;
-              window.location.href = url;
-          }
-        }}
+            if(rowInfo)
+            {  if(column.id != 'checkbox'){
+                          var url = '/facilitator?id=' + rowInfo.original.id;
+                          window.location.href = url;
+                      }
+            }
+          }}
         }}
        
       /></div>
