@@ -3,8 +3,9 @@ import Sidebar from "react-sidebar";
 import MaterialTitlePanel from "../AdminComponents/MaterialTitlePanel";
 import SidebarContent from "../AdminComponents/MenuBar";
 import EmployerList from "./EmployerList";
+import { Button, Navbar, NavbarToggler } from 'reactstrap';
 
-const mql = window.matchMedia("(min-width: 800px)");
+const mql = window.matchMedia("(min-width: 768px)");
 
 export default class EmployerSearchPage extends Component {
   constructor(props) {
@@ -97,7 +98,13 @@ export default class EmployerSearchPage extends Component {
           open={this.state.open}
           onSetOpen={this.onSetOpen}
         >
-          <MaterialTitlePanel title={contentHeader}>
+          {
+            this.state.docked ? <span></span> :
+            
+            <Navbar style={{backgroundColor: "#4EB9BE"}}>
+              <Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
+            </Navbar>
+          }
             <div className="container">
               <div className="row">
                 <form className="col-12" onSubmit={this.handleSubmit}>
@@ -123,7 +130,6 @@ export default class EmployerSearchPage extends Component {
                 </div>
               </div>
             </div>
-          </MaterialTitlePanel>
         </Sidebar>
       </div>
     );
