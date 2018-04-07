@@ -22,25 +22,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={Home}/>
-      <Route path="/login" component={Login}/>
-      <Route path="/signup" component={Signup}/>
-      <Route path="/candidate/:id" component={CanddiatePage}/>
-      <Route path="/whoareyou" component={WhoAreYou}/>
-      <Route path="/ideal" component={Ideal}/>
-      <Route path="/waiver" component={Waiver}/>
-      <Route path="/candidates" component={CandidatesMenu}/>
-      <Route path="/dashboard" component={DashBoardMenu}/>
-      <Route path="/employers" component={EmployersMenu}/>
-      <Route path="/facilitators" component={FacilitatorsMenu}/>
-      <Route path="/contactus" component={ContactUs} />
-      <Route path="/tempemp" component={TempEmp}/>
-      <Route path="/facilitator" component={FacilitatorProfile}/>
-      <Route component={NotFoundPage}/>
-      <Route path="/testlogout" component={Logout}/>
-    </Switch>
-  </BrowserRouter>,
-  document.getElementById("root")
+	<BrowserRouter>
+		<Switch>
+			<Route exact path="/" component={Home}/>
+			<Route path="/login" component={Login}/>
+			<Route path="/signup" component={Signup}/>
+			<Route path="/candidate/:id" component={CanddiatePage}/>
+			<Route path="/whoareyou" component={WhoAreYou}/>
+			<Route path="/ideal" component={Ideal}/>
+			<Route path="/waiver" component={Waiver}/>
+			<Route path="/candidates" component={CandidatesMenu}/>
+			<Route path="/dashboard" component={DashBoardMenu}/>
+			<Route path="/employers" component={EmployersMenu}/>
+			<Route path="/facilitators" component={FacilitatorsMenu}/>
+			<Route path="/contactus" component={ContactUs} />
+			<Route path="/tempemp" component={TempEmp}/>
+			<Route path="/facilitator" component={FacilitatorProfile}/>
+			<Route component={NotFoundPage}/>
+			<Route path="/testlogout" component={Logout}/>
+		</Switch>
+	</BrowserRouter>,
+	document.getElementById("root")
 );

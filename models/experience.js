@@ -1,19 +1,19 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Experience = sequelize.define('experience', {
-      title: DataTypes.STRING,
-      from: DataTypes.INTEGER,
-      company: DataTypes.STRING,
-      to: DataTypes.INTEGER,
-      currently: DataTypes.BOOLEAN,
-      description: DataTypes.STRING
-  }, {
-    omitNull: true
-  });
+	var Experience = sequelize.define('experience', {
+			title: DataTypes.STRING,
+			from: DataTypes.INTEGER,
+			company: DataTypes.STRING,
+			to: DataTypes.INTEGER,
+			currently: DataTypes.BOOLEAN,
+			description: DataTypes.STRING
+	}, {
+		omitNull: true
+	});
 
-  Experience.associate = function(models) {
-    models.Experience.belongsTo(models.Candidate, { foreignKey: "userId", targetKey: "id" });
-  };
+	Experience.associate = function(models) {
+		models.Experience.belongsTo(models.Candidate, { foreignKey: "userId", targetKey: "id" });
+	};
 
-  return Experience;
+	return Experience;
 };
