@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Modal from 'react-responsive-modal';
-
+//import Modal from 'react-responsive-modal';
+import {Modal, ModalHeader, ModalBody} from 'reactstrap';
 
 const styles = {
   fontFamily: "sans-serif",
@@ -23,16 +23,12 @@ export default class AddFacilitator extends Component{
       
       };
        this.handleSubmit = this.handleSubmit.bind(this);
-       this.onOpenModal = this.onOpenModal.bind(this);
-       this.onCloseModal = this.onCloseModal.bind(this);
+       this.toggle = this.toggle.bind(this);
+       
 	}
 
-  onOpenModal ()  {
-    this.setState({ open: true });
-  };
-
-  onCloseModal () {
-    this.setState({ open: false });
+  toggle ()  {
+    this.setState({ open: !this.state.open });
   };
 
   handleSubmit(event) {
@@ -53,8 +49,8 @@ export default class AddFacilitator extends Component{
 	    }).then(function(response) {
 	    	console.log(response.ok);
 	      if(response.ok) {
-	       window.alert("Facilitator invitation successful!");
-	       this.setState({open:false});
+	       window.alert("Facilitator invitation successful!", window.location);
+			window.location.href = "/facilitators";
 	      }
 	      else {
 	      	console.log(response);
@@ -67,26 +63,26 @@ export default class AddFacilitator extends Component{
 };
 	    
 	render(){
-    const { open } = this.state;
    
 
 		return(
 		<div style={styles} className="float-left">
-		 <input className="btn btn-outline-primary mb-2  mx-1" onClick={this.onOpenModal} type="button" value="Add Facilitator"/>
-          <Modal open={open} onClose={this.onCloseModal} style={styles.modal}>
-          
-           <h2>Facilitator registration</h2>
+		 <input className="btn btn-outline-primary mb-2  mx-1" onClick={this.toggle} type="button" value="Add Facilitator"/>
+          <Modal isOpen={this.state.open} toggle={this.toggle} >
+          <ModalHeader>
+           Facilitator registration
+           </ModalHeader>
+           <ModalBody>
+            <form className="form-group w-100 mx-auto" onSubmit={this.handleSubmit}>
+              	<label className='row'> First Name <input className="form-control"  type="text" name="firstname"/></label>
+				<label className='row'> Last Name  <input className="form-control"  type="text" name="lastname" /></label>
+				<label className='row'> Email <input className="form-control"  type="text" name="email"/></label>
+				<button className="btn btn-primary col-4" color="primary" type="submit"> Add </button>{' '}
+				<button className="btn btn-primary col-4" color="secondary" type="button" onClick={this.toggle}> Cancel</button>	
 
-            <form className="form-group modal-form" onSubmit={this.handleSubmit}>
-              	<input name="firstname" className="form-control" type="text" placeholder="First Name"
-				/> 
-				<input name="lastname" className="form-control" type="text" placeholder="Last Name"
-				/> 
-				<input name="email" className="form-control" type="text" placeholder="Email"
-				/> 
              
-              <input className='row' type="submit" value="Add" />
             </form>
+            </ModalBody>
         </Modal>
         </div>
 			);

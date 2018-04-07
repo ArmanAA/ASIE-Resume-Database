@@ -46,11 +46,7 @@ export default class ProfileComponent extends Component {
 									{this.state.profilepic ? <img src={this.state.profilepic} alt="Profile Pic" /> : <span></span>}
 								</div>
 								<div className='col-sm-6'>
-									<div className='row'>
-										<div className='col'>
-											<h1> {this.state.fname} {this.state.lname} </h1>
-										</div>
-									</div>
+									<h1> {this.state.fname} {this.state.lname} </h1>
 									{
 										this.state.city ?
 										<div className='row'>

@@ -1,9 +1,14 @@
-.Link {
-    color: #818181;
+.NavLink {
+    color: #A8ABAF;
 }
 
 
-.Link:hover {
-    color: #f1f1f1;
+.NavLink:hover {
+    color: #FFFFFF;
     text-decoration: none;
+}
+
+.active {
+	background-color: #1F2023;
+	color: #A8ABAF;
 }

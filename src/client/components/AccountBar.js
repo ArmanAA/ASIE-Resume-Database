@@ -99,7 +99,7 @@ export default class AccountBar extends Component{
 						
 						<div className="row">
 						<button className="btn btn-sm btn-primary" onClick={this.toggle}>Change Password </button>
-						<Modal zIndex={2000} backdrop={'static'} isOpen={this.state.modalOpen} toggle={this.toggle} >
+						<Modal zIndex={2000}  isOpen={this.state.modalOpen} toggle={this.toggle} >
 				          <ModalHeader toggle={this.toggle}> Change Password </ModalHeader>
 				          <ModalBody>
 				           	<form className="form-group pw-form" onSubmit={this.changePassword}>
@@ -115,7 +115,7 @@ export default class AccountBar extends Component{
 				      </div>
 					</PopoverBody>
 				 </Popover>
-				<img src="./newyork.jpg" class="account-img img-circle"/>
+				<img src="./assets/images/settings.png" class="account-img img-circle"/>
 				</Button>
 				
 			</div>

@@ -4,7 +4,7 @@ let models  = require('../models'),
 
 let candidates = require('./candidates'),
   facilitators = require('./facilitators'),
-	search = require('./search'),
+  search = require('./search'),
   comments = require('./comments'),
   employers = require('./employers');
 

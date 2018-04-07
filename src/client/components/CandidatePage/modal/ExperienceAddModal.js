@@ -67,8 +67,8 @@ export default class ExperienceAddModal extends Component {
 						
 							<label className='row'> What was your job title? <input className="form-control" type="text" name="title" required/></label>
 							<label className='row'> What company did you work at? <input className="form-control" type="text" name="company" required/></label>
-							<label className='row'> What year did you start working here? <input className="form-control" type="number" name="from" required/></label>
-							<label className='row'> What year did you stop working here? <input className="form-control" type="number" name="to" required/></label>
+							<label className='row'> What year did you start working here? <input className="form-control" type="number" name="from" min="1900" max={(new Date()).getFullYear()} required/></label>
+							<label className='row'> What year did you stop working here? (If you are currently working here, please put the current year) <input className="form-control" type="number" name="to" min="1900" max={(new Date()).getFullYear()} required/></label>
 							<label className='row'> Are you currently working here?</label>
 							<select className='row' name="currently" required>{options}</select>
 							<label className='row'> Briefly describe your job (optional): <textarea className="form-control" type="text" name="description"/></label>

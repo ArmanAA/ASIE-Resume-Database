@@ -15,20 +15,21 @@ import SkillsModal from './modal/SkillsModal';
 import InterestModal from './modal/InterestModal';
 import PortfolioModal from './modal/PortfolioModal';
 import MaterialTitlePanel from './MaterialTitlePanel';
-import { Jumbotron, Button } from 'reactstrap';
+import { Button, Navbar, NavbarToggler } from 'reactstrap';
 
 
-const mql = window.matchMedia('(min-width: 800px)');
+const mql = window.matchMedia('(min-width: 768px)');
 const styles = {
 	sidebar: {
 		width: 256,
-		height: '100%',
-		backgroundColor: '#111'
+		height: 'auto',
+	    minHeight: '100vh',
+	    backgroundColor: '#494D55',
+	    textAlign: 'center'
 	},
 	sidebarLink: {
 		display: 'block',
 		padding: '16px 0px',
-		color: '#757575',
 		textDecoration: 'none',
 	},
 	divider: {
@@ -122,7 +123,7 @@ export default class CandidatePage extends Component {
 
 	render() {
 		const sidebarContent =
-		<MaterialTitlePanel title="Describe Yourself More!" style={styles.content}>
+		<MaterialTitlePanel title="Describe Yourself!" style={styles.sidebar}>
 			<div>
 				<BasicInfoModal style={styles.sidebarLink} data={this.state.profile} id={this.state.id}></BasicInfoModal>
 				<TransportationModal style={styles.sidebarLink} data={this.state.transportation} id={this.state.id}></TransportationModal>
@@ -134,19 +135,19 @@ export default class CandidatePage extends Component {
 			</div>
 		</MaterialTitlePanel>;
 
-		const contentHeader = (
-			<span>
-				{!this.state.docked &&
-					<a onClick={this.toggleOpen.bind(this)} style={styles.contentHeaderMenuLink}>☰</a>}
-				<span> Menu </span>
-			</span>);
 		return (
 			!this.state.profile ?
 				<div>Loading...</div>
 			:
 				<div className="home">
 					<Sidebar sidebar={sidebarContent} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
-						<MaterialTitlePanel title={contentHeader}>
+						{
+							this.state.docked ? <span></span> :
+							
+							<Navbar style={{backgroundColor: "#4EB9BE"}}>
+								<Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
+							</Navbar>
+						}
 							<div>
 								<div className="mainpage" style={{maxWidth: 1000}}>
 									<Profile data={this.state.profile}/>
@@ -158,7 +159,6 @@ export default class CandidatePage extends Component {
 									<Portfolio data={this.state.portfolio}/>
 								</div>
 							</div>
-						</MaterialTitlePanel>
 					</Sidebar>
 				</div>
 		);

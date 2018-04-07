@@ -95,14 +95,15 @@ export default class SkillsModal extends Component {
 						<ModalHeader toggle={this.toggle}>
 							
 							<h2>Skills</h2>
-							<p>Add some skills that you have!</p>
+							<p>Add some skills that you have such as "Microsoft Office Excel", "Detail-Oriented", "Website Design", etc.</p>
+							<p>For more information about how to add a skill, put your cursor over the "Help" button.</p>
+
+						</ModalHeader>
+						<ModalBody>
 							<Button color="primary" disabled={this.state.disabled} data-tip="React-tooltip"> Help </Button>
 							<ReactTooltip place="right" type="info" effect="solid"> 
 								<span>To add a skill, type a skill that you want to add and press "enter key" to create a new tag. To delete a skill, click the "x" button next to the skill you want to delete. Once you are finished adding or removing skills, click "Submit Changes"</span> 
 							</ReactTooltip>
-
-						</ModalHeader>
-						<ModalBody>
 							<TagsInput
 								value={this.state.skills}
 								onChange={this.handleChange.bind(this)}

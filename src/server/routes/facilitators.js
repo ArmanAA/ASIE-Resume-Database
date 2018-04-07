@@ -115,20 +115,33 @@ router.post('/create', (req, res) => {
 	});
 });
 
-router.get('/delete', (req, res) => {
+router.post('/delete', (req, res) => {
 	//Move to archive?
-	console.log(req.body);
+	console.log("POST CALLED", req.body);
 	var keys = Object.keys(req.body);
+	var Ids = [];
 	console.log(keys);
+
+	/* 
+		TODO 
+	for(length)
+		if(body[keys[i]])
+			Ids.push(parseInt(keys[i]))
+	//or use map function 
+	
+	endfor
+	query where: id: Ids  //single query
+
+	*/
 	for(var i = 0; i < keys.length; i++){
 		if(req.body[keys[i]]){
 			var id = parseInt(keys[i]);
-			Facilitators.destroy({
+			models.Facilitator.destroy({
 				where: { 
 					id: id
 				}
 			}).then(facilitator =>{
-				User.update(
+				models.User.update(
 				{
 					isArchived: true
 				},
@@ -143,8 +156,8 @@ router.get('/delete', (req, res) => {
 				return res.sendStatus(500);
 			});
 		}
-		res.sendStatus(200);
 	}
+	res.sendStatus(200);
 });
 
 module.exports = router;
