@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './profile.css';
 import CommentBox from './CommentBox.js';
-import {Collapse} from 'react-collapse';
+//import {Collapse} from 'react-collapse';
 
 export default class ProfileComponent extends Component {
 	
@@ -94,9 +94,9 @@ export default class ProfileComponent extends Component {
 							<h6 onClick={this.toggleNotesOpen.bind(this)}> Notes</h6>
 						</div>
 						<div className="col-12 border" >
-							<Collapse isOpened={this.state.notesOpen}>
+							{/*<Collapse isOpened={this.state.notesOpen}>
 								<CommentBox />
-							</Collapse>
+							</Collapse>*/}
 						</div>
 						<div className="col-12 border sec-title">
 							<h6>History</h6>
