@@ -101,7 +101,7 @@ function ensureAuthenticated(req, res, next) {
 
   // denied. redirect to login
   console.log("not authorized", req.originalUrl);
-  res.redirect("/login");
+  res.redirect("/");
 }
 
 passport.use(
