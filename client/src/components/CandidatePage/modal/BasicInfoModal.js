@@ -27,6 +27,7 @@ export default class BasicInfoModal extends Component {
 		id: props.id,
 		modal: false,
 		centered: true,
+		phoneValidate: true,
 
 		options: [{value: "", name: ""},
 					{value: "yes", name: "Yes"},
@@ -38,6 +39,8 @@ export default class BasicInfoModal extends Component {
 	this.handleSubmit = this.handleSubmit.bind(this);
 	this.handleChange = this.handleChange.bind(this);
 	this.toggle = this.toggle.bind(this);
+	this.validate = this.validate.bind(this);
+	this.handleChangePhoneNumber = this.handleChangePhoneNumber.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -54,8 +57,23 @@ export default class BasicInfoModal extends Component {
 		}
 	}
 
+	handleChangePhoneNumber(event) {
+		var pattern = new RegExp("\d{3}[\-]\d{3}[\-]\d{4}");
+		if (pattern.test(event.target.value) || event.target.value == "") {
+			this.state.phoneValidate = true;
+		} else {
+			this.state.phoneValidate = false;
+		}
+	}
+
+	validate() {
+		if (this.state.phoneValidate) {
+			this.toggle();
+		}
+	}
+
 	handleChange = (selectedOption) => {
-	this.setState({city: selectedOption});
+		this.setState({city: selectedOption});
 	}
 
 	handleSubmit(event) {
@@ -134,7 +152,7 @@ export default class BasicInfoModal extends Component {
 
 						/>
 
-						<label className='row'> Phone number: <input className="form-control"  type="text" name="update_phone" defaultValue={this.state.phone}/></label>
+						<label className='row'> Phone number (format: XXX-XXX-XXXX): <input className="form-control" onChange={this.handleChangePhoneNumber} pattern="\d{3}[\-]\d{3}[\-]\d{4}" title="XXX-XXX-XXXX" type="text" name="update_phone" defaultValue={this.state.phone}/></label>
 						<label className='row'> Email address: <input className="form-control"  type="text" name="update_email" defaultValue={this.state.email}/></label>
 
 						<label className='row'>Regional Center Client: </label>
@@ -147,7 +165,7 @@ export default class BasicInfoModal extends Component {
 					
 				</ModalBody>
 				<ModalFooter>
-					<Button color="primary" onClick={this.toggle} type="submit">Submit Changes</Button>{' '}
+					<Button color="primary" onClick={this.validate} type="submit">Submit Changes</Button>{' '}
 					<Button color="secondary" onClick={this.toggle}>Cancel</Button>
 				</ModalFooter>
 				</form>
