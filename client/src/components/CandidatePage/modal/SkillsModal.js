@@ -18,8 +18,8 @@ export default class SkillsModal extends Component {
 			modal: false,
 			centered: true,
 			skills: props.data,
-			id: props.id
-			disabled: true,
+			id: props.id,
+			disabled: true
 		};
 
 		this.toggle = this.toggle.bind(this);

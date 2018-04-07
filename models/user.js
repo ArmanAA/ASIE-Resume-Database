@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
 			defaultValue: 'CAND'
 		},
 		isArchived: {
-			type: Sequelize.BOOLEAN, 
+			type: DataTypes.BOOLEAN, 
 			defaultValue: false
 		},
 		salt: DataTypes.STRING

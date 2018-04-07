@@ -161,7 +161,7 @@ export default class InterestModal extends Component {
 	// 	this.handleChange("career", tags, changed, changedIndexes);
 	// }
 
-	handleCareer(career) => {
+	handleCareer(career) {
 		let newCareer = [];
 		for (var i=0; i<career.length; i++) {
 			newCareer.push(career[i].value);
