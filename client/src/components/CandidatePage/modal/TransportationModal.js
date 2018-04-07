@@ -1,108 +1,138 @@
 import React, { Component } from 'react';
-import Modal from 'react-responsive-modal';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 import "../../MenuBar.css";
 
 const styles = {
-  fontFamily: "sans-serif",
-  textAlign: "center"
+	fontFamily: "sans-serif",
+	textAlign: "center"
 };
 
 export default class BasicInfoModal extends Component {
-  constructor(props) {
-    super(props);
-    if(props.data) {
-      var methods = props.data.methods;
-      var car = methods.includes("Car");
-      var bike = methods.includes("Bike");
-      var metro = methods.includes("Metro");
-      var walk = methods.includes("Walk");
-      var other = props.data.other;
-      var distance = props.data.distance;
+	constructor(props) {
+		super(props);
+		if(props.data) {
+			var methods = props.data.methods;
+			var car = methods.includes("Car");
+			var bike = methods.includes("Bike");
+			var metro = methods.includes("Metro");
+			var walk = methods.includes("Walk");
+			var other = props.data.other;
+			var distance = props.data.distance;
 
-    }
-    this.state = {
-      open: false,
-      car: car,
-      bike: bike,
-      metro: metro,
-      walk: walk,
-      other: other,
-      distance: distance
-    }
+		}
+		this.state = {
+			open: false,
+			car: car,
+			bike: bike,
+			metro: metro,
+			walk: walk,
+			other: other,
+			distance: distance,
+			modal: false,
+			centered: true,
+		}
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.toggle = this.toggle.bind(this);
 
-  onOpenModal = () => {
-    this.setState({ open: true });
-  };
+	}
 
-  onCloseModal = () => {
-    this.setState({ open: false });
-  };
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.data) {
-      var methods = nextProps.data.methods;
-      var car = methods.includes("Car");
-      var bike = methods.includes("Bike");
-      var metro = methods.includes("Metro");
-      var walk = methods.includes("Walk");
-      this.setState({
-        car: car,
-        bike: bike,
-        metro: metro,
-        walk: walk,
-        other: nextProps.data.other,
-        distance: nextProps.data.distance
-      })
-    }
-  }
+	componentWillReceiveProps(nextProps) {
+		if(nextProps.data) {
+			var methods = nextProps.data.methods;
+			var car = methods.includes("Car");
+			var bike = methods.includes("Bike");
+			var metro = methods.includes("Metro");
+			var walk = methods.includes("Walk");
+			this.setState({
+				car: car,
+				bike: bike,
+				metro: metro,
+				walk: walk,
+				other: nextProps.data.other,
+				distance: nextProps.data.distance
+			})
+		}
+	}
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    console.log(data);
-    fetch('/api/candidate/update/transportation', {
-      method: 'POST',
-      body: data,
-      credentials: 'include'
-    }).then(function(response) {
-      if(response) {
-        window.location.reload();
-      }
-      else {
-        this.onCloseModal();
-      }
-    });
-  }
+	handleSubmit(event) {
+		event.preventDefault();
+		const data = new FormData(event.target);
+		console.log("HANDLING SUBMIT", data);
+		fetch('/api/candidate/update/transportation', {
+			method: 'POST',
+			body: data,
+			credentials: 'include'
+		}).then(function(response) {
+			if(response) {
+				window.location.reload();
+			}
+			else {
+				this.onCloseModal();
+			}
+		});
+	}
 
-  render() {
-    const { open } = this.state;
-    return (
-      !this.props.data ?
-        <span></span>
-      :
-        <div style={styles}>
-          <h2 className="Link" onClick={this.onOpenModal}>+ Transporation</h2>
-          <Modal open={open} onClose={this.onCloseModal} little>
-            <h2>Basic Information</h2>
-            <form className="form-group" onSubmit={this.handleSubmit}>
-              <label>How to Travel?</label>
-              <div className="form-check form-check-inline">
-              <label className="form-check-input "><input type="checkbox" name="car" defaultChecked={this.state.car}/> Car</label>
-              <label className="form-check-input "><input type="checkbox" name="bike" defaultChecked={this.state.bike}/> Bike</label>
-              <label className="form-check-input "><input type="checkbox" name="metro" defaultChecked={this.state.metro}/> Metro</label>
-              <label className="form-check-input "><input type="checkbox" name="walk" defaultChecked={this.state.walk}/> Walk</label><br/>
-              </div>
-              <div className="form-group">
-              <label> Other <input className="form-control" type="text" name="other" defaultValue={this.state.other}/></label><br/>
-              <label> Distance <input className="form-control" type="text" name="distance" defaultValue={this.state.distance}/></label>
-              <input className='row' type="submit" value="Submit" />
-              </div>
-            </form>
-          </Modal>
-        </div>
-    )
-  }
+	toggle() {
+		this.setState({
+			modal:!this.state.modal
+		});
+	}
+
+	render() {
+		const { open } = this.state;
+		return (
+			!this.props.data ?
+				<span></span>
+			:
+			<div style={styles}>
+				<h2 className="Link" onClick={this.toggle}>+ Transporation</h2>
+				<Modal centered={this.state.centered} isOpen={this.state.modal} toggle={this.toggle}>
+					<form onSubmit={this.handleSubmit}>
+						<ModalHeader toggle={this.toggle}>
+							<h2>Transportation</h2>
+							<p>Add some information about how you will get to work!</p>
+						</ModalHeader>
+						<ModalBody>
+							<label className="row">How will you be traveling to work?</label>
+
+							<div className="row">
+								<FormGroup className="col-2" role="form" check inline>
+									<Label check>
+										<Input type="checkbox" name="car" defaultChecked={this.state.car}/> Car
+									</Label>
+								</FormGroup>
+								<FormGroup className="col-2" role="form" check inline>
+									<Label check>
+										<Input type="checkbox" name="bike" defaultChecked={this.state.bike}/> Bike
+									</Label>
+								</FormGroup>
+								<FormGroup className="col-2" role="form" check inline>
+									<Label check>
+										<Input type="checkbox" name="metro" defaultChecked={this.state.metro}/> Bus
+									</Label>
+								</FormGroup>
+								<FormGroup className="col-2" role="form" check inline>
+									<Label check>
+										<Input type="checkbox" name="walk" defaultChecked={this.state.walk}/> Walk
+									</Label>
+								</FormGroup>
+							</div>
+							<br/>
+
+							<label className="row"> Are there other ways of transporation that you take? <input className="form-control" type="text" name="other" defaultValue={this.state.other}/></label><br/>
+							<label className="row"> How many miles are you willing to travel? <input className="form-control" type="text" name="distance" defaultValue={this.state.distance}/></label>
+
+						</ModalBody>
+						<ModalFooter>
+							<Button color="primary" onClick={this.toggle} type="submit">Submit Changes</Button>{' '}
+							<Button color="secondary" onClick={this.toggle}>Cancel</Button>
+						</ModalFooter>
+					</form>
+				</Modal>
+			</div>
+		)
+	}
 }
