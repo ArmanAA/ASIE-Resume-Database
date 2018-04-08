@@ -5,7 +5,7 @@
   "author": "Jason Kwak <jasonkkw@usc.edu",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/server/index.js",
+    "start": "nodemon --watch src/server src/server/index.js",
     "webpack": "webpack -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
