@@ -26,7 +26,6 @@ export default class App extends Component {
 		return (
 			<BrowserRouter>
 				<Switch>
-					<Route exact path="/test" component={NotFound}/>
 					<Route exact path="/" component={Home}/>
 					<Route exact path="/login" component={Login}/>
 					<Route exact path="/signup" component={Signup}/>
@@ -42,6 +41,7 @@ export default class App extends Component {
 					<Route exact path="/tempemp" component={TempEmp}/>
 					<Route exact path="/facilitator" component={FacilitatorProfile}/>
 					<Route exact path="/testlogout" component={Logout}/>
+					<Route component={NotFound}/>
 				</Switch>
 			</BrowserRouter>
 		)
