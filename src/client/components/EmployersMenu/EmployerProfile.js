@@ -3,9 +3,11 @@ import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel.js';
 import SidebarContent from '../AdminComponents/MenuBar.js';
 import Sidebar from 'react-sidebar';
 import ProfileComponent from './ProfileComponent.js';
+import { Button, Navbar, NavbarToggler } from 'reactstrap';
 
 
-const mql = window.matchMedia('(min-width: 800px)');
+
+const mql = window.matchMedia('(min-width: 768px)');
 
 
 export default class EmployerProfile extends Component{
@@ -53,19 +55,18 @@ export default class EmployerProfile extends Component{
 
 	render(){
 		const sidebar = <SidebarContent />;
-		 const contentHeader = (
-		      <span>
-		        {!this.state.docked &&
-		         <button className="btn-toggle-menu" onClick={this.toggleOpen.bind(this)}>=</button>}
-		        <span></span>
-		      </span>);
 
 		return(
 			<div>
 			<Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
-			<MaterialTitlePanel  title={contentHeader}>
+			{
+				this.state.docked ? <span></span> :
+				
+				<Navbar style={{backgroundColor: "#4EB9BE"}}>
+					<Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
+				</Navbar>
+			}
 			<ProfileComponent />
-			</MaterialTitlePanel>
 			</Sidebar>
 			</div>
 
