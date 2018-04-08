@@ -31,10 +31,11 @@ router.post("/contactus", (req, res) => {
 		subject: req.body.subject,
 		message: req.body.message
 	}).then(user => {
-		res.redirect("/");
+		res.redirect("/contactus?success");
 	}).catch(error => {
 		console.log("ERROR: createEmployer", error);
-		res.json(error);
+		res.redirect("/contactus?error");
+		//res.json(error);
 	});
 });
 
