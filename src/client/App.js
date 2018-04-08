@@ -41,16 +41,9 @@ export default class App extends Component {
 					<Route exact path="/tempemp" component={TempEmp}/>
 					<Route exact path="/facilitator" component={FacilitatorProfile}/>
 					<Route exact path="/testlogout" component={Logout}/>
-					<Route component={NotFound}/>
+					<Route component={NotFoundPage}/>
 				</Switch>
 			</BrowserRouter>
 		)
 	}
-}
-
-const NotFound = () => {
-	<div>
-		<h1>Page Not Found</h1>
-		<p>Sorry, there is nothing to see here.</p>
-	</div>
 }
