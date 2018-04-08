@@ -78,16 +78,19 @@ passport.use(
 			models.User.findOne({
 				where: {
 					email: email,
-					password: password
 				}
 			}).then((user) => {
 				if (user == null) {
-					console.log("logged in failed - user");
+					console.log("logged in failed - user not found");
 					return done(null, false, { message: "Incorrect credentials." });
 				}
+				else if(bcrypt.compareSync(password, user.password_digest)) {
+					console.log("logged in successful");
+					return done(null, user);
+				}
 
-				console.log("logged in successful");
-				return done(null, user);
+				console.log("logged in failed - wrong password");
+				return done(null, false, { message: "Incorrect credentials." });
 			});
 		}
 	)
