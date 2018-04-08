@@ -12,3 +12,13 @@
 	background-color: #1F2023;
 	color: #A8ABAF;
 }
+
+.Link {
+    color: #A8ABAF;
+}
+
+
+.Link:hover {
+    color: #FFFFFF;
+    text-decoration: none;
+}
