@@ -5,7 +5,7 @@
   "author": "Jason Kwak <jasonkkw@usc.edu",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/server/index.js",
+    "start": "nodemon --watch src/server src/server/index.js",
     "webpack": "webpack -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +13,8 @@
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.0.0",
+    "client": "0.0.1",
     "connect-ensure-login": "^0.1.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
@@ -24,12 +26,8 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg-promise": "^7.5.4",
-    "query-string": "^6.0.0",
-    "sequelize": "^4.33.4",
-    "voucher-code-generator": "^1.1.1",
-    "bootstrap": "^4.0.0",
-    "client": "0.0.1",
     "prop-types": "^15.6.1",
+    "query-string": "^6.0.0",
     "react": "^16.3.1",
     "react-clickable": "^1.0.0",
     "react-collapse": "^4.0.3",
@@ -49,7 +47,9 @@
     "react-tooltip": "^3.4.0",
     "react-transition-group": "^2.2.1",
     "reactstrap": "^5.0.0-beta.3",
-    "rodal": "^1.6.3"
+    "rodal": "^1.6.3",
+    "sequelize": "^4.33.4",
+    "voucher-code-generator": "^1.1.1"
   },
   "devDependencies": {
     "babel": "^6.23.0",

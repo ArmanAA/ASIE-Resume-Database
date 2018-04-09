@@ -1,5 +1,7 @@
 'use strict';
 
+var bcrypt = require('bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
 	var User = sequelize.define('user', {
 		email: {
@@ -13,7 +15,19 @@ module.exports = (sequelize, DataTypes) => {
 		firstName: DataTypes.STRING,
 		lastName: DataTypes.STRING,
 		dob: DataTypes.DATE,
-		password: DataTypes.STRING,
+		password_digest: {
+			type: DataTypes.STRING,
+			validate: {
+				notEmpty: true
+			}
+		},
+		password: {
+			type: DataTypes.VIRTUAL,
+			allowNull: false,
+			validate: {
+				notEmpty: true
+			}
+		},
 		phone: {
 			type: DataTypes.STRING,
 			unique: true,
@@ -34,6 +48,27 @@ module.exports = (sequelize, DataTypes) => {
 	});
 
 	// TODO associations
+
+	let hashSecurePassword = (password) => {
+		return new Promise((resolve, reject) => {
+			bcrypt.hash(password, 10, function(err, hash) {
+				if (err) return callback(err);
+				console.log("HASH", hash);
+				resolve(hash);
+			});
+		});
+	};
+
+	User.beforeCreate(function(user, options) {
+		return hashSecurePassword(user.password).then(password => {
+			user.set('password_digest', password);
+		});
+	})
+	User.beforeUpdate(function(user, options) {
+		return hashSecurePassword(user.password).then(password => {
+			user.set('password_digest', password);
+		});
+	})
 
 	return User;
 }

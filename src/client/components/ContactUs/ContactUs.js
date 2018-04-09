@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Alert } from 'reactstrap';
 import MenuBar from "../Home/MenuBar.js";
 import "../Signup/css/Signup.css";
 
@@ -8,10 +9,31 @@ export default class ContactUs extends Component {
   }
 
   render() {
+    let url = new URL(window.location.href);
+    let params = new URLSearchParams(url.search.slice(1));
+
     return (
       <div>
         <MenuBar />
         <div className="container">
+          
+          {
+            (params.get('success') != null) ?
+                <Alert color="success">
+                  Success! Your message has been sent.
+                </Alert>
+            :
+              <span/>
+          }
+          {
+            (params.get('error') != null) ?
+                <Alert color="danger">
+                  Failed. Please try again later.
+                </Alert>
+            :
+              <span/>
+          }
+
           <div className="row">
             <div className="col-6 form-box">
               <div className="row">
