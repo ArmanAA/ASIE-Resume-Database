@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from 'react-sidebar';
 import Profile from './Profile';
+import Disability from './Disability';
 import Transportation from './Transportation';
 import Experience from './Experience'
 import Hours from './Hours';
@@ -8,6 +9,7 @@ import Skills from './Skills';
 import Interests from './Interests';
 import Portfolio from './Portfolio';
 import BasicInfoModal from './modal/BasicInfoModal';
+import DisabilityModal from './modal/DisabilityModal';
 import TransportationModal from './modal/TransportationModal';
 import ExperienceModal from './modal/ExperienceModal';
 import HoursModal from './modal/HoursModal';
@@ -59,6 +61,7 @@ export default class CandidatePage extends Component {
 			count: 0,
 			user: null,
 			profile: null,
+			disability: null,
 			experience: null,
 			education: null,
 			skills: null,
@@ -85,6 +88,7 @@ export default class CandidatePage extends Component {
 
 	componentDidMount() {
 		this.callApi('/api/candidates/profiles/' + this.state.id, 'profile');
+		this.callApi('/api/candidates/disabilities/' + this.state.id, 'disability');
 		this.callApi('/api/candidates/experiences/' + this.state.id, 'experience');
 		this.callApi('/api/candidates/skills/' + this.state.id, 'skills');
 		this.callApi('/api/candidates/interests/' + this.state.id, 'interest');
@@ -126,6 +130,7 @@ export default class CandidatePage extends Component {
 		<MaterialTitlePanel title="Describe Yourself!" style={styles.sidebar}>
 			<div>
 				<BasicInfoModal style={styles.sidebarLink} data={this.state.profile} id={this.state.id}></BasicInfoModal>
+				<DisabilityModal style={styles.sidebarLink} data={this.state.disability} id={this.state.id}></DisabilityModal>
 				<TransportationModal style={styles.sidebarLink} data={this.state.transportation} id={this.state.id}></TransportationModal>
 				<HoursModal style={styles.sidebarLink} data={this.state.hours} id={this.state.id}></HoursModal>
 				<ExperienceModal style={styles.sidebarLink} data={this.state.experience} id={this.state.id}></ExperienceModal>
@@ -151,6 +156,7 @@ export default class CandidatePage extends Component {
 							<div>
 								<div className="mainpage" style={{maxWidth: 1000}}>
 									<Profile data={this.state.profile}/>
+									<Disability data={this.state.disability}/>
 									<Transportation data={this.state.transportation}/>
 									<Hours data={this.state.hours}/>
 									<Experience data={this.state.experience}/>
