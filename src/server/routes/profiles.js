@@ -5,13 +5,23 @@ let models  = require('../models'),
 
 let profile_storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../../../public/profile/')
+    cb(null, __dirname + '/../../../public/profile/')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '.jpg') //Appending .jpg
   }
 });
 let profile_update = multer({ storage: profile_storage });
+
+router.get('/', function(req, res) {
+	var regions = models.Candidate.rawAttributes.regions.values;
+	var response = [];
+	for (var i=0; i<regions.length; i++) {
+		var entry = {label: regions[i], value: regions[i]};
+		response.push(entry);
+	}
+	res.json(response);
+})
 
 router.post('/create', function(req, res) {
 	models.Candidate.create({
@@ -62,6 +72,8 @@ router.post('/:user_id/update', profile_update.single("update_image"), function(
 	console.log("profiles", req.body);
 	req.file = req.file || {};
 	let filename = req.file.filename;
+	if(!req.body.update_city)
+		req.body.update_city = null;
 	if(req.body.update_phone === "")
 		req.body.update_phone = null;
 	if(req.body.update_regionalclient === "")

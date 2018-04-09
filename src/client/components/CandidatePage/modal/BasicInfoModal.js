@@ -14,33 +14,50 @@ const styles = {
 };
 
 export default class BasicInfoModal extends Component {
-	constructor(props) {
-	super(props);
-	this.state = {
-		firstName: props.data.fname,
-		lastName: props.data.lname,
-		email: props.data.email,
-		city: props.data.city,
-		phone: props.data.phone,
-		regionalclient: props.data.regionalclient,
-		rehabclient: props.data.rehabclient,
-		id: props.id,
-		modal: false,
-		centered: true,
-		phoneValidate: true,
+		constructor(props) {
+		super(props);
+		this.state = {
+			firstName: props.data.fname,
+			lastName: props.data.lname,
+			email: props.data.email,
+			city: props.data.city,
+			phone: props.data.phone,
+			regionalclient: props.data.regionalclient,
+			rehabclient: props.data.rehabclient,
+			id: props.id,
+			modal: false,
+			centered: true,
+			phoneValidate: true,
+			regions: [],
 
-		options: [{value: "", name: ""},
-					{value: "yes", name: "Yes"},
-					{value: "no", name: "No"},
-					{value: "idk", name: "I'm not sure"}]
-	};
-	//this.fname = props.data.firstName;
+			options: [{value: "", name: ""},
+						{value: "yes", name: "Yes"},
+						{value: "no", name: "No"},
+						{value: "idk", name: "I'm not sure"}]
+		};
+		//this.fname = props.data.firstName;
 
-	this.handleSubmit = this.handleSubmit.bind(this);
-	this.handleChange = this.handleChange.bind(this);
-	this.toggle = this.toggle.bind(this);
-	this.validate = this.validate.bind(this);
-	this.handleChangePhoneNumber = this.handleChangePhoneNumber.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.toggle = this.toggle.bind(this);
+		this.validate = this.validate.bind(this);
+		this.handleChangePhoneNumber = this.handleChangePhoneNumber.bind(this);
+	}
+
+	componentWillMount() {
+		fetch('/api/candidates/profiles/', {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+		}).then(res => {
+			return res.json();
+		}).then(json => {
+			if (json) {
+				this.setState({regions: json});
+			}
+		})
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -123,12 +140,7 @@ export default class BasicInfoModal extends Component {
 				</ModalHeader>
 				
 				<ModalBody>
-						
-					
 						<label className='row'> First name:
-							<p data-tip="React-tooltip"> <FaHelp />  </p>
-
-							<ReactTooltip place="right" type="info" effect="solid"> <span>You can modify your first name here</span> </ReactTooltip>
 							<input className="form-control"  type="text" name="update_fname" defaultValue={this.state.firstName}/>
 						</label>
 						<label className='row'> Last name: <input className="form-control"  type="text" name="update_lname" defaultValue={this.state.lastName}/></label>
@@ -138,16 +150,7 @@ export default class BasicInfoModal extends Component {
 							name="form-region"
 							value={this.state.city}
 							onChange={this.handleChange}
-							options={[
-								{value: 'High Desert', label: 'High Desert'},
-								{value: 'Mountains', label: 'Mountains'},
-								{value: 'Low Desert', label: 'Low Desert'},
-								{value: 'Southern Riverside County', label: 'Southern Riverside County'},
-								{value: 'Riverside/Corona', label: 'Riverside/Corona'},
-								{value: 'Western San Bernardino County', label: 'Western San Bernardino County'},
-								{value: 'San Bernardino City', label: 'San Bernardino City'},
-								{value: 'Eastern San Bernardino', label: 'Eastern San Bernardino'}
-							]}
+							options={this.state.regions}
 							name="update_city"
 
 						/>
@@ -160,7 +163,7 @@ export default class BasicInfoModal extends Component {
 						<label className='row'>Department of Rehabilitation Client: </label>
 						<select className='row' name="update_rehabclient" defaultValue={this.state.rehabclient}>{options}</select>
 
-						<label className='row'> Profile Image: <input type="file" name="update_image"/></label>
+						<label className='row'> Profile Image: <input type="file" accept="image/*" name="update_image"/></label>
 						
 					
 				</ModalBody>
