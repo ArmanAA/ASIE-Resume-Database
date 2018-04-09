@@ -51,7 +51,7 @@ export default class Education extends Component {
 					{
 						!other ? <span></span> :
 						<div>
-							<label style={labelStyle}>Other methods of transportation:/></label><br/>
+							<label style={labelStyle}>Other methods of transportation:</label><br/>
 							<label>{other}</label>
 						</div>
 					}
