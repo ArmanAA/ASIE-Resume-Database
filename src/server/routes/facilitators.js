@@ -1,42 +1,11 @@
-let Nodemailer = require('nodemailer'),
-		RandomPass = require('voucher-code-generator'),
-		models = require('../models'),
-		Sequelize = require('sequelize'),
-		express = require('express'),
-		router = express.Router();
+let RandomPass = require('voucher-code-generator'),
+	models = require('../models'),
+	transporter = require('./email'),
+	Sequelize = require('sequelize'),
+	express = require('express'),
+	router = express.Router();
 	
 const Op = Sequelize.Op;
-
-/* Email server for development provided by Ethereal Email */
-/* All emails sent can be found in ethereal.email and logging in with credentials in auth: */
-/* Email will not be delivered to actual receiver */
-const transporter = Nodemailer.createTransport({
-		host: 'smtp.ethereal.email',
-		port: 587,
-		auth: {
-				user: 'rd4ytheijcizd2jx@ethereal.email',
-				pass: 'tjAZuVfJzUhJZxwmEF'
-		},
-		tls: {
-				rejectUnauthorized: false
-		}
-});
-
-/* Actual email sent using Gmail server */
-/* Use your own Gmail account, 
-	Set  https://myaccount.google.com/lesssecureapps to ON*/
-/*Make sure you DON'T upload credentials to repository*/
-const gmailTransporter = Nodemailer.createTransport({
-	service: 'Gmail',
-	secure: false,
-	auth:{
-		user:'yourgmail',
-		pass: 'your gmail pw'
-	},
-	tls:{
-		rejectUnauthorized: false
-	}
-});
 
 router.get('/profile/:id', (req, res) => {
 	models.Facilitator.findOne({
