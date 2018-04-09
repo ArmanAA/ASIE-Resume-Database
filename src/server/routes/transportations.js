@@ -35,6 +35,8 @@ router.get('/:user_id', function(req, res) {
 })
 
 router.post('/:user_id/update', multer().array(), function(req, res) {
+  if(req.body.distance == "")
+    req.body.distance = null;
   models.Transportation.upsert({
     id: req.params.user_id,
     car: req.body.car != null,
