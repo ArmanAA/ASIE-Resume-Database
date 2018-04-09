@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
 
 
 
@@ -20,31 +19,29 @@ export default class Education extends Component {
 			var experiencelist = this.state.data.map((job) => {
 				return <div key={job.title}>
 					<hr/>
-					<Container fluid={true}>
-						<Row>
-							<Col sm="8">
+						<div className="row">
+							<div className="col-sm-8">
 								<h5>{job.title}</h5>
-							</Col>
-							<Col sm="4">
+							</div>
+							<div className="col-sm-4">
 								<h5>{job.from} - {job.currently ? "Present" : job.to}</h5>
-							</Col>
-						</Row>
-						<Row>
-							<Col>
-								<h6>{job.company}</h6>
-							</Col>
-						</Row>
-						<Row>
-							{
-								job.description ?
-									<Col>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col">
+								<h5>{job.company}</h5>
+							</div>
+						</div>
+						{
+							job.description ?
+								<div className="row">
+									<div className="col">
 										<p>{job.description}</p>
-									</Col>
-								:
-								<span></span>
-							}
-						</Row>
-					</Container>
+									</div>
+								</div>
+							:
+							<span></span>
+						}
 					<hr/>
 				</div>
 			});
