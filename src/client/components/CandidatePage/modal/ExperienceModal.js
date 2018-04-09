@@ -54,7 +54,8 @@ export default class ExperienceModal extends Component {
 		super(props);
 		this.state = {
 			modal: false,
-			centered: true
+			centered: true,
+			id: props.id
 		}
 		this.componentWillReceiveProps(props);
 		this.toggle = this.toggle.bind(this);
@@ -96,7 +97,7 @@ export default class ExperienceModal extends Component {
 							<div>
 								<SortableList items={experiences} onSortEnd={this.onSortEnd} helperClass='sortableHelper'/>
 							</div>
-							<ExperienceAddModal/>
+							<ExperienceAddModal id={this.state.id}/>
 						</ModalBody>
 						<ModalFooter>
 							<Button color="primary" onClick={this.toggle}>Close</Button>

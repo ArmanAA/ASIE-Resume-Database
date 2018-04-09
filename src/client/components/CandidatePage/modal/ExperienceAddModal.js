@@ -13,6 +13,7 @@ export default class ExperienceAddModal extends Component {
 		this.state = {
 			modal: false,
 			centered: true,
+			id: props.id,
 			options: [{value: "", name: ""},
 						{value: "yes", name: "Yes"},
 						{value: "no", name: "No"}]
@@ -29,7 +30,7 @@ export default class ExperienceAddModal extends Component {
 		event.preventDefault();
 		const data = new FormData(event.target);
 		console.log(data);
-		fetch('/api/candidate/update/experience', {
+		fetch('/api/candidates/experiences/'+ this.state.id +'/update', {
 			method: 'POST',
 			body: data,
 			credentials: 'include'
