@@ -2,7 +2,7 @@ let models = require('../models'),
 	express = require('express'),
 	router = express.Router();
 
-
+/* NOTE: As of the db_react branch, this file is dead code */
 
 let findByEP = (email, password, next) => {
 	User.findOne({
