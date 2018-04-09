@@ -16,10 +16,14 @@ router.post("/signup", (req, res) => {
 	}, {
 		include: [models.User]
 	}).then(candidate => {
-		res.redirect("/");
+		res.redirect("/login?signup");
 	}).catch(error => {
 		console.log("ERROR: createProfile", error);
-		res.json(error);
+		if(error.name === "SequelizeUniqueConstraintError")
+			res.redirect("/signup?email");
+		else
+			res.redirect("signup?error");
+			//res.json(error);
 	});
 });
 
