@@ -48,7 +48,8 @@ router.post('/create', function(req, res) {
 		res.json({message: "successful"});
 	}).catch(error => {
 		console.log("ERROR: createProfile", error);
-		res.json(error);
+		res.json({message: "failure"});
+		//res.json(error);
 	});
 })
 
@@ -111,10 +112,12 @@ router.post('/:user_id/update', profile_update.single("update_image"), function(
 		}).then(user_results => {
 			res.json({ message: "successful" });
 		}).catch(error => {
-			res.json(error);
+			res.json({message: "failure"});
+			//res.json(error);
 		});
 	}).catch(error => {
-		res.json(error);
+		res.json({message: "failure"});
+		//res.json(error);
 	});
 });
 
