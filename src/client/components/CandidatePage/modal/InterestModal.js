@@ -3,11 +3,9 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'
 import "../../MenuBar.css";
-import ReactTooltip from 'react-tooltip';
-import FaHelp from 'react-icons/lib/fa/question-circle-o';
-
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import { Tooltip } from 'reactstrap';
 
 const styles = {
 	fontFamily: "sans-serif",
@@ -31,6 +29,8 @@ export default class InterestModal extends Component {
 			personal: personal_tags,
 			career: career_tags,
 			disabled: true,
+			tooltipOpenPersonal: false,
+			tooltipOpenCareer: false
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,6 +38,8 @@ export default class InterestModal extends Component {
 		this.handlePersonal = this.handlePersonal.bind(this);
 		this.handleCareer = this.handleCareer.bind(this);
 		this.toggle = this.toggle.bind(this);
+		this.toggleTooltipPersonal = this.toggleTooltipPersonal.bind(this);
+		this.toggleTooltipCareer = this.toggleTooltipCareer.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -137,6 +139,18 @@ export default class InterestModal extends Component {
 		});
 	}
 
+	toggleTooltipPersonal() {
+		this.setState({
+			tooltipOpenPersonal: !this.state.tooltipOpenPersonal
+		});
+	}
+
+	toggleTooltipCareer() {
+		this.setState({
+			tooltipOpenCareer: !this.state.tooltipOpenCareer
+		});
+	}
+
 	render() {
 		const { open } = this.state;
 		return (
@@ -150,22 +164,20 @@ export default class InterestModal extends Component {
 						<ModalHeader toggle={this.toggle}>
 							<h2>Interest</h2>
 							<p>Add some personal interests and/or career interests!</p>
-							<p>"Personal" section is about your personal interests such as video gaming, photography, painting, etc.</p>
-							<p>"Career" section is about your career intersts such as construction, woodwork, veterinary, etc.</p>
-							<p>For more information about how to add interests to each section, put your cursor over the "Help" button.</p>
+							<p>"Personal" section is about your personal interests such as video gaming, photography, painting, etc. For more information about how to add a personal interest, put your cursor over <a href="#" id="helppersonal">here</a>.</p>
+							<p>"Career" section is about your career intersts such as construction, woodwork, veterinary, etc. For more information about how to add a career interest, put your cursor over <a href="#" id="helpcareer">here</a>.</p>
+							<Tooltip placement="right" target="helppersonal" isOpen={this.state.tooltipOpenPersonal} toggle={this.toggleTooltipPersonal}> 
+								To add a personal interest, type a personal interest that you want to add and press "enter key" to create a new tag. To delete a personal interest, click the "x" button next to the personal interest you want to delete. Once you are finished adding or removing personal interests, click "Submit Changes".
+							</Tooltip>
+							<Tooltip placement="right" target="helpcareer" isOpen={this.state.tooltipOpenCareer} toggle={this.toggleTooltipCareer}> 
+								To add a career interest, search through the career interest in the list when clicking on the input box that says "Select career interest" and click on the career interest that you want. To remove a career interest, simply click "x" next to the career interest you want to remove. Once you are finished selecting or removing career interests, click "Submit Changes".
+							</Tooltip>
 						</ModalHeader>
 						<ModalBody>
 
 							<h3>
 								Personal
 							</h3>
-							<Button disabled={true} color="primary" data-for="personal" data-tip="React-tooltip">Help</Button>
-							<label><ReactTooltip id="personal" place="right" type="info" effect="solid"> 
-								<span>To add a personal interest, type a personal interest that you want to add and press "enter key" to create a new tag. To delete a personal interest, click the "x" button next to the personal interest you want to delete. Once you are finished adding or removing personal interests, click "Submit Changes"</span> 
-							</ReactTooltip></label>
-							
-							
-							
 							<TagsInput
 								value={this.state.personal}
 								onChange={this.handlePersonal}
@@ -173,15 +185,10 @@ export default class InterestModal extends Component {
 								inputProps={{className: 'react-tagsinput-input',  placeholder: 'Enter skills'}}
 							/>
 							<br/>
+
 							<h3>
 								Career
 							</h3>
-							<Button disabled={true} color="primary" data-for="career" data-tip="React-tooltip">Help</Button>
-							<label><ReactTooltip id="career" place="right" type="info" effect="solid"> 
-								<span>To add a career interest, search through the career interest in the list when clicking on the input box that says "Select career interest" and click on the career interest that you want. To remove a career interest, simply click "x" next to the career interest you want to remove. Once you are finished selecting or removing career interests, click "Submit Changes"</span> 
-							</ReactTooltip>
-							</label>
-							
 							<Select
 								multi
 								value={this.state.career}

@@ -4,7 +4,7 @@ import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'
 import "../../MenuBar.css";
 import FaHelp from 'react-icons/lib/fa/question-circle-o';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from 'reactstrap';
 
 const styles = {
 	fontFamily: "sans-serif",
@@ -19,10 +19,12 @@ export default class SkillsModal extends Component {
 			centered: true,
 			skills: props.data,
 			id: props.id,
-			disabled: true
+			disabled: true,
+			tooltipOpen: false
 		};
 
 		this.toggle = this.toggle.bind(this);
+		this.toggleTooltip = this.toggleTooltip.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 	}
@@ -83,6 +85,12 @@ export default class SkillsModal extends Component {
 		});
 	}
 
+	toggleTooltip() {
+		this.setState({
+			tooltipOpen: !this.state.tooltipOpen
+		});
+	}
+
 	render() {
 		return (
 			!this.props.data ?
@@ -96,14 +104,15 @@ export default class SkillsModal extends Component {
 							
 							<h2>Skills</h2>
 							<p>Add some skills that you have such as "Microsoft Office Excel", "Detail-Oriented", "Website Design", etc.</p>
-							<p>For more information about how to add a skill, put your cursor over the "Help" button.</p>
+							<p>For more information about how to add a skill, put your cursor over <a href="#" id="help">here</a>.</p>
+							
+							<Tooltip placement="right" target="help" isOpen={this.state.tooltipOpen} toggle={this.toggleTooltip}> 
+								To add a skill, type a skill that you want to add and press "enter key" to create a new tag. To delete a skill, click the "x" button next to the skill you want to delete. Once you are finished adding or removing skills, click "Submit Changes".
+							</Tooltip>
 
 						</ModalHeader>
 						<ModalBody>
-							<Button color="primary" disabled={this.state.disabled} data-tip="React-tooltip"> Help </Button>
-							<ReactTooltip place="right" type="info" effect="solid"> 
-								<span>To add a skill, type a skill that you want to add and press "enter key" to create a new tag. To delete a skill, click the "x" button next to the skill you want to delete. Once you are finished adding or removing skills, click "Submit Changes"</span> 
-							</ReactTooltip>
+							
 							<TagsInput
 								value={this.state.skills}
 								onChange={this.handleChange.bind(this)}
