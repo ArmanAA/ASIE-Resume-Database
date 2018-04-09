@@ -12,11 +12,15 @@ export default class PortfolioAddModal extends Component {
 		this.state = {
 			modal: false,
 			id: props.id,
-			centered: true
+			centered: true,
+			imageDisable: false,
+			videoDisable: false
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.toggle = this.toggle.bind(this);
+		this.disableImage = this.disableImage.bind(this);
+		this.disableVideo = this.disableVideo.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {}
@@ -25,6 +29,26 @@ export default class PortfolioAddModal extends Component {
 		this.setState({
 			modal:!this.state.modal
 		});
+		this.setState({imageDisable: false});
+		this.setState({videoDisable: false});
+
+	}
+
+	disableImage(event) {
+		if (event.target.value) {
+			this.setState({videoDisable: true});
+		} else {
+			this.setState({videoDisable: false});
+		}
+	}
+
+	disableVideo(event) {
+		
+		if (event.target.value.length > 0) {
+			this.setState({imageDisable: true});
+		} else {
+			this.setState({imageDisable: false});
+		}
 	}
 
 	handleSubmit(event) {
@@ -57,7 +81,8 @@ export default class PortfolioAddModal extends Component {
 						<ModalBody>
 							<label className='row'> Title: <input className="form-control" type="text" name="title" required/></label>
 							<label className='row'> Description: <input className="form-control" type="text" name="description" required/></label>
-							<label className='row'> Image: <input className="form-control" type="file" name="image" required/></label>
+							<label className='row'> Video Link: <input className="form-control" type="text" name="video" onChange={this.disableVideo} disabled={this.state.videoDisable} required/></label>
+							<label className='row'> Image: <input className="form-control" accept="image/*" type="file" onChange={this.disableImage} disabled={this.state.imageDisable} name="image" required/></label>
 						
 						</ModalBody>
 						<ModalFooter>

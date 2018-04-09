@@ -91,7 +91,7 @@ export default class PortfolioModal extends Component {
 							<div>
 								<SortableList items={this.state.items} onSortEnd={this.onSortEnd} helperClass='sortableHelper'/>
 							</div>
-							<PortfolioAddModal />
+							<PortfolioAddModal id={this.state.id}/>
 						</ModalBody>
 						<ModalFooter>
 							<Button color="primary" onClick={this.toggle}>Close</Button>
