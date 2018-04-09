@@ -15,76 +15,6 @@ const styles = {
 };
 
 
-const options = [
-	{ label: 'Accounting', value: 'Accounting' },
-	{ label: 'Administrative', value: 'Administrative' },
-	{ label: 'Advertising', value: 'Advertising' },
-	{ label: 'Aerospace', value: 'Aerospace' },
-	{ label: 'Agriculture', value: 'Agriculture' },
-	{ label: 'Architecture', value: 'Architecture' },
-	{ label: 'Automotive', value: 'Automotive' },
-	{ label: 'Banking', value: 'Banking' },
-	{ label: 'Biotech', value: 'Biotech' },
-	{ label: 'Business', value: 'Business' },
-	{ label: 'Clothing', value: 'Clothing' },
-	{ label: 'Communications', value: 'Communications' },
-	{ label: 'Construction', value: 'Construction' },
-	{ label: 'Creative Design', value: 'Creative Design' },
-	{ label: 'Customer Service', value: 'Customer Service' },
-	{ label: 'Defense', value: 'Defense' },
-	{ label: 'Editorial', value: 'Editorial' },
-	{ label: 'Food Services', value: 'Food Services' },
-	{ label: 'Government', value: 'Government' },
-	{ label: 'Healthcare', value: 'Healthcare' },
-	{ label: 'Hospitality', value: 'Hospitality' },
-	{ label: 'Human Resources', value: 'Human Resources' },
-	{ label: 'Information and Arts', value: 'Information and Arts' },
-	{ label: 'Information Technology', value: 'Information Technology' },
-	{ label: 'Inspection and Compliance', value: 'Inspection and Compliance' },
-	{ label: 'Installations', value: 'Installations' },
-	{ label: 'Insurance', value: 'Insurance' },
-	{ label: 'Law Enforcement', value: 'Law Enforcement' },
-	{ label: 'Legal', value: 'Legal' },
-	{ label: 'Library', value: 'Library' },
-	{ label: 'Logistics', value: 'Logistics' },
-	{ label: 'Maintenance', value: 'Maintenance' },
-	{ label: 'Management', value: 'Management' },
-	{ label: 'Manufacturing', value: 'Manufacturing' },
-	{ label: 'Education', value: 'Education' },
-	{ label: 'Engineering', value: 'Engineering' },
-	{ label: 'Environmental', value: 'Environmental' },
-	{ label: 'Equipment and Facilities', value: 'Equipment and Facilities' },
-	{ label: 'Finance', value: 'Finance' },
-	{ label: 'Fishing', value: 'Fishing' },
-	{ label: 'Marketing', value: 'Marketing' },
-	{ label: 'Media', value: 'Media' },
-	{ label: 'Medical', value: 'Medical' },
-	{ label: 'Non-Profit', value: 'Non-Profit' },
-	{ label: 'Packing and Processing', value: 'Packing and Processing' },
-	{ label: 'Painting', value: 'Painting' },
-	{ label: 'Personal Services', value: 'Personal Services' },
-	{ label: 'Plumbing', value: 'Plumbing' },
-	{ label: 'Printing', value: 'Printing' },
-	{ label: 'Project Management', value: 'Project Management' },
-	{ label: 'Quality Assurance', value: 'Quality Assurance' },
-	{ label: 'Real Estate', value: 'Real Estate' },
-	{ label: 'Research and Development', value: 'Research and Development' },
-	{ label: 'Retail', value: 'Retail' },
-	{ label: 'Sales', value: 'Sales' },
-	{ label: 'Science', value: 'Science' },
-	{ label: 'Security', value: 'Security' },
-	{ label: 'Social Sciences/Services', value: 'Social Sciences/Services' },
-	{ label: 'Software', value: 'Software' },
-	{ label: 'Supply', value: 'Supply' },
-	{ label: 'Telecommunications', value: 'Telecommunications' },
-	{ label: 'Transportation', value: 'Transportation' },
-	{ label: 'Veterinary', value: 'Veterinary' },
-	{ label: 'Warehouse', value: 'Warehouse' },
-	{ label: 'Woodwork', value: 'Woodwork' },
-
-
-];
-
 export default class InterestModal extends Component {
 	constructor(props) {
 		super(props);
@@ -94,15 +24,13 @@ export default class InterestModal extends Component {
 			var career_tags = props.data.career_interest || [];
 		}
 
-
-
 		this.state = {
 			modal: false,
 			id: props.id,
 			centered: true,
 			personal: personal_tags,
 			career: career_tags,
-			disabled: true
+			disabled: true,
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -119,6 +47,22 @@ export default class InterestModal extends Component {
 				career: nextProps.data.career_interest
 			});
 		}
+	}
+
+	componentWillMount() {
+		fetch('/api/candidates/interests/', {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+		}).then(res => {
+			return res.json();
+		}).then(json => {
+			if (json) {
+				this.setState({options: json});
+			}
+		})
 	}
 
 	updateData(action, type, interest) {
@@ -242,7 +186,7 @@ export default class InterestModal extends Component {
 								multi
 								value={this.state.career}
 								onChange={this.handleCareer}
-								options={options}
+								options={this.state.options}
 							/>
 						</ModalBody>
 						<ModalFooter>
