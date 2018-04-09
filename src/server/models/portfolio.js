@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		url: DataTypes.STRING,
 		title: DataTypes.STRING,
-		thumbnail: DataTypes.STRING,
 		description: DataTypes.STRING
 	}, {
 		omitNull: true
