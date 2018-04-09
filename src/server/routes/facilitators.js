@@ -73,6 +73,11 @@ router.post('/create', (req, res) => {
 				res.sendStatus(500);
 				return console.log(error, "EROR HERE");
 			}
+			else {
+				models.Emaillist.upsert({
+					id: facilitator.id
+				});
+			}
 		});
 		console.log("RES SENT HERE");
 		res.sendStatus(200);
