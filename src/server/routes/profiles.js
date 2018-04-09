@@ -13,8 +13,18 @@ let profile_storage = multer.diskStorage({
 });
 let profile_update = multer({ storage: profile_storage });
 
+var regions = [
+		'High Desert',
+		'Mountains',
+		'Low Desert',
+		'Southern Riverside County',
+		'Riverside/Corona',
+		'Western San Bernardino County',
+		'San Bernardino City',
+		'Eastern San Bernardino'
+	];
+
 router.get('/', function(req, res) {
-	var regions = models.Candidate.rawAttributes.regions.values;
 	var response = [];
 	for (var i=0; i<regions.length; i++) {
 		var entry = {label: regions[i], value: regions[i]};

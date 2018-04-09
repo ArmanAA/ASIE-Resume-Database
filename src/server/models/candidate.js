@@ -18,19 +18,6 @@ module.exports = (sequelize, DataTypes) => {
 			defaultValue: false
 		},
 		profilepic: DataTypes.STRING,
-		regions: {
-			type: DataTypes.ENUM,
-			values: [
-				'High Desert',
-				'Mountains',
-				'Low Desert',
-				'Southern Riverside County',
-				'Riverside/Corona',
-				'Western San Bernardino County',
-				'San Bernardino City',
-				'Eastern San Bernardino'
-			]
-		}
 	}, {
 		omitNull: true
 	});
