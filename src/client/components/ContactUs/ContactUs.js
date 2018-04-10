@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Alert } from 'reactstrap';
 import MenuBar from "../Home/MenuBar.js";
 import "../Signup/css/Signup.css";
-import "./ContactUs.css"
 
 export default class ContactUs extends Component {
   componentDidMount() {
