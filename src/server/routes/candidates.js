@@ -3,6 +3,7 @@ let models  = require('../models'),
 	router  = express.Router();
 
 let profiles = require('./profiles'),
+	disabilities = require('./disabilities');
 	experiences = require('./experiences'),
 	skills = require('./skills'),
 	interests = require('./interests'),
@@ -11,6 +12,7 @@ let profiles = require('./profiles'),
 	portfolios = require('./portfolios');
 
 router.use('/profiles', profiles);
+router.use('/disabilities', disabilities);
 router.use('/experiences', experiences);
 router.use('/skills', skills);
 router.use('/interests', interests);

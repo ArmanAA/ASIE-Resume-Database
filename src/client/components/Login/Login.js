@@ -13,6 +13,14 @@ export default class Login extends Component {
       <div className="container">
         
         {
+          (params.get('signup') != null) ?
+              <Alert color="success">
+                Sign up was successful! Please login.
+              </Alert>
+          :
+            <span/>
+        }
+        {
           (params.get('error') != null) ?
               <Alert color="danger">
                 Login credientials were not found

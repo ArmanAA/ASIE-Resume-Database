@@ -26,6 +26,8 @@ router.post('/password',(req, res)=>{
 	
 });
 /*
+=======
+/* NOTE: As of the db_react branch, this file is dead code */
 
 let findByEP = (email, password, next) => {
 	User.findOne({
