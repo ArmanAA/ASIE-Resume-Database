@@ -68,8 +68,7 @@ export default class AccountBar extends Component{
 
 	changePassword(e){
 		e.preventDefault();
-   	 	const data = new FormData(e.target);
-    	console.log(e.target[0].value);
+  
     	// Validate 
 
     	// Update

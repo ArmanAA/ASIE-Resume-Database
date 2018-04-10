@@ -5,13 +5,10 @@ let models = require('../models'),
 
 
 router.post('/password',(req, res)=>{
-	console.log("password api ", req.body.new);
-
 	if(bcrypt.compareSync(req.body.old, req.user.password_digest)){
 		models.User.update(
 			{ 
 				password: req.body.new,
-				
 			 },
 			{
 			where: {
@@ -19,11 +16,11 @@ router.post('/password',(req, res)=>{
 			},
 			individualHooks: true
 		}).then(response=> {
-			console.log("Password update successful", response);
+			res.sendStatus(200);
 		}).catch(error=>{
-			console.log("Password update error");
+			res.sendStatus(500);
 		});
-		res.sendStatus(200);
+		
 	}
 	
 });
