@@ -5,25 +5,22 @@ let models = require('../models'),
 
 
 router.post('/password',(req, res)=>{
-	console.log("password api ");
 
 	if(bcrypt.compareSync(req.body.old, req.user.password_digest)){
 		models.User.update(
 			{ 
 				password: req.body.new,
-				
 			 },
 			{
 			where: {
-				id : req.user.id,
-				salt: null
+				id : req.user.id
 			}
 		}).then(response=> {
-			console.log("Password update successful", response);
+			res.sendStatus(200);
 		}).catch(error=>{
-			console.log("Password update error");
+			res.sendStatus(500);
 		});
-		res.sendStatus(200);
+		
 	}
 	
 });
