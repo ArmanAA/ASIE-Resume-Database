@@ -23,9 +23,9 @@ export default class ProfileList extends Component {
 
   }
 
-  toggleRow(firstName) {
+  toggleRow(id) {
     const newSelected = Object.assign({}, this.state.selected);
-    newSelected[firstName] = !this.state.selected[firstName];
+    newSelected[id] = !this.state.selected[id];
     this.setState({
       selected: newSelected,
       selectAll: 2
@@ -37,7 +37,7 @@ export default class ProfileList extends Component {
 
     if (this.state.selectAll === 0) {
       this.state.profile.forEach(x => {
-        newSelected[x.firstName] = true;
+        newSelected[x.userId] = true;
       });
     }
 
@@ -57,8 +57,8 @@ export default class ProfileList extends Component {
             <input
               type="checkbox"
               className="checkbox"
-              checked={this.state.selected[original.firstName] === true}
-              onChange={() => this.toggleRow(original.firstName)}
+              checked={this.state.selected[original.userId] === true}
+              onChange={() => this.toggleRow(original.userId)}
             />
           );
         },
@@ -121,7 +121,21 @@ export default class ProfileList extends Component {
         columns={columns}
         defaultPageSize={10}
         className="-striped -highlight"
-        
+        getTdProps={(state, rowInfo, column, instance) => {
+          return {
+            onClick: (e, handleOriginal) => {
+              if(rowInfo) {
+                if(column.id != 'checkbox'){
+                  var url = '/candidate/' + rowInfo.original.userId;
+                  window.open(url);
+                }
+              }
+              if (handleOriginal) {
+                handleOriginal();
+              }
+            }
+          }
+        }}
       />
     );
   }
