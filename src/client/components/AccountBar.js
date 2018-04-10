@@ -23,12 +23,13 @@ export default class AccountBar extends Component{
 	constructor(props){
 		super(props);
 		console.log("props", props);
+	
 		this.state = {
 			name: "name",
 			popoverOpen: false,
 			modalOpen:false
 		};
-
+		//console.log(props.match.params);
 		this.toggleTooltip = this.toggleTooltip.bind(this);
 		this.changePassword = this.changePassword.bind(this);
 		this.logout = this.logout.bind(this);

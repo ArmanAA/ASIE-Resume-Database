@@ -90,7 +90,7 @@ let updateProfile = (req, res, next) => {
 	}).catch(error => {
 		res.json({message: 'failed'})
 	})
-}*/
+}
 
 module.exports = router;
 /*module.exports.User = User;*/
