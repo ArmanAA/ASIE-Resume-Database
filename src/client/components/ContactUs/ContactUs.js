@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Alert } from 'reactstrap';
 import MenuBar from "../Home/MenuBar.js";
 import "../Signup/css/Signup.css";
+import "./ContactUs.css"
 
 export default class ContactUs extends Component {
   componentDidMount() {
@@ -33,6 +34,13 @@ export default class ContactUs extends Component {
             :
               <span/>
           }
+          <div className="row">
+            <div className="col">
+              <p>Individuals with disabilities face challenges every day and are accustomed to working harder to demonstrate their abilities. It may surprise you to learn that people with disabilities now represent 10-20% of the population, an influential market that continues to grow with the aging of America.</p>
+              <p>Studies show that people with disabilities are more loyal to their employers and tend to stay on their jobs longer. Consider that employee turnover can cost up to 200%.  Save money, enhance productivity, and gain access to a largely untapped source of hard-working and qualified job candidates.</p>
+              <p>Contact us today to learn more about this untapped workforce.</p>
+            </div>
+          </div>
 
           <div className="row">
             <div className="col-6 form-box">
