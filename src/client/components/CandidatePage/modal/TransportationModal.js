@@ -89,7 +89,7 @@ export default class BasicInfoModal extends Component {
 				<span></span>
 			:
 			<div style={styles}>
-				<h2 className="Link" onClick={this.toggle}>+ Transporation</h2>
+				<h2 className="Link" onClick={this.toggle}>+ Transportation</h2>
 				<Modal centered={this.state.centered} isOpen={this.state.modal} toggle={this.toggle}>
 					<form onSubmit={this.handleSubmit}>
 						<ModalHeader toggle={this.toggle}>
