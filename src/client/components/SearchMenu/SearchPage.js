@@ -3,6 +3,8 @@ import Sidebar from 'react-sidebar';
 import SidebarContent from '../AdminComponents/MenuBar';
 import ProfileList from './ProfileList';
 import { Button, Navbar, NavbarToggler } from 'reactstrap';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 const mql = window.matchMedia('(min-width: 768px)');
 
@@ -16,6 +18,10 @@ export default class SearchPage extends Component {
 			open: false,
 			count: 0,
 			user: null,
+			interest: null,
+			location: null,
+			interestOptions: [],
+			locationOptions: [],
 			profile: []
 		}
 		// populate table
@@ -29,6 +35,19 @@ export default class SearchPage extends Component {
 		mql.addListener(this.mediaQueryChanged);
 		this.setState({mql: mql, docked: mql.matches});
 		this.search("", "");
+		fetch('/api/search/candidate/options', {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+		}).then(res => {
+			return res.json();
+		}).then(json => {
+			if (json) {
+				this.setState({interestOptions: json.interests, locationOptions: json.locations});
+			}
+		})
 	}
 
 	componentWillUnmount() {
@@ -54,6 +73,20 @@ export default class SearchPage extends Component {
 		}
 	}
 
+	handleChangeInterest = (selectedOption) => {
+		this.setState({interest: selectedOption});
+		if (!this.state.interest && !this.state.location) {
+			this.search("", "");
+		}
+	}
+
+	handleChangeLocation = (selectedOption) => {
+		this.setState({location: selectedOption});
+		if (!this.state.interest && !this.state.location) {
+			this.search("", "");
+		}
+	}
+
 	search(interest, location) {
 		const self = this;
 		var url = '/api/search/candidate?' + "interests=" + interest + "&locations=" + location;
@@ -72,8 +105,12 @@ export default class SearchPage extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		const data = new FormData(event.target);
-		this.search(event.target.interests.value, event.target.locations.value);
+		
+		let interest = this.state.interest ? this.state.interest.value : "";
+		let location = this.state.location ? this.state.location.value : "";
+
+		this.search(interest, location);
+		
 	}
 
 	render() {
@@ -94,10 +131,31 @@ export default class SearchPage extends Component {
 							<div className="container">
 								<div className="row">
 									<form className="col-12" onSubmit={this.handleSubmit}>
-										<div className="input-group">
-											<input type="text" name="interests" className="form-control col-sm-8" placeholder="Search by interests"/>
-											<input type="text" name="locations" className="form-control col-sm-8" placeholder="Search by locations"/>
-											<input className="btn btn-default mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
+										<div className="row">
+											<div className="col-sm-5">
+												<Select
+													
+													value={this.state.interest}
+													placeholder="Search by interest"
+													onChange={this.handleChangeInterest}
+													options={this.state.interestOptions}
+													name="interests"
+
+												/>
+											</div>
+											<div className="col-sm-5">
+												<Select
+													value={this.state.location}
+													placeholder="Search by location"
+													onChange={this.handleChangeLocation}
+													options={this.state.locationOptions}
+													name="locations"
+
+												/>
+											</div>
+											<div className="col-sm-2">
+												<Button color="primary" type="submit">Search</Button>
+											</div>
 										</div>
 									</form>
 								</div>
