@@ -1,8 +1,45 @@
 let models = require('../models'),
 	express = require('express'),
-	router = express.Router();
+	router = express.Router(),
+	bcrypt = require("bcrypt");
 
 
+router.post('/password',(req, res)=>{
+	console.log("password api ");
+
+	if(bcrypt.compareSync(req.body.old, req.user.password_digest)){
+		models.User.update(
+			{ 
+				password: req.body.new,
+				
+			 },
+			{
+			where: {
+				id : req.user.id,
+				salt: null
+			}
+		}).then(response=> {
+			console.log("Password update successful", response);
+		}).catch(error=>{
+			console.log("Password update error");
+		});
+		res.sendStatus(200);
+	}
+	
+});
+
+router.post ('/userinfo', (req, res)=>{
+	res.send({
+		email: req.user.email,
+		id: req.user.id,
+		firstName: req.user.firstName,
+		lastName: req.user.lastName,
+		usertype: req.user.usertype
+	});
+})
+/*
+=======
+/* NOTE: As of the db_react branch, this file is dead code */
 
 let findByEP = (email, password, next) => {
 	User.findOne({
@@ -67,11 +104,10 @@ let updateProfile = (req, res, next) => {
 	})
 }
 
-
-
-module.exports.User = User;
-module.exports.findByEP = findByEP;
+module.exports = router;
+/*module.exports.User = User;*/
+/*module.exports.findByEP = findByEP;
 module.exports.findById = findById;
 module.exports.findByIdRes = findByIdRes;
 module.exports.createUser = createUser;
-module.exports.updateProfile = updateProfile;
+module.exports.updateProfile = updateProfile;*/

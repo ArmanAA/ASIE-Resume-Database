@@ -19,6 +19,7 @@ export default class SearchPage extends Component {
       user: null,
       deleteClicked: false,
     }
+    console.log(props.match.params);
 
 
     const self = this;

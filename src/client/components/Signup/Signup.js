@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Alert } from 'reactstrap';
 import MenuBar from '../Home/MenuBar.js'
 import Waiver from './Waiver.js';
 import './css/Signup.css';
@@ -9,12 +10,32 @@ export default class Login extends Component {
 		document.title = "Register - ASIE Resume Database"
 	}
 	render() {
+		let url = new URL(window.location.href);
+		let params = new URLSearchParams(url.search.slice(1));
 		return (
 				<div>
 					 <MenuBar/>
 
 				<div className="container">
-				<div className="row">   
+
+				{
+					(params.get('email') != null) ?
+						<Alert color="danger">
+							This email is already registered! Please try another one.
+						</Alert>
+					:
+						<span/>
+				}
+				{
+					(params.get('error') != null) ?
+						<Alert color="danger">
+							An error has occured. Please try again later.
+						</Alert>
+					:
+						<span/>
+				}
+
+				<div className="row">
 				<div className="col-sm-10 col-md-8 col-lg-6 form-box">
 		 
 					<form className="signup-form" action="/signup" method="post">

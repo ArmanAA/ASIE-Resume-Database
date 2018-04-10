@@ -142,12 +142,13 @@ app.get("/gate", ensureAuthenticated, function(req, res){
 		}, {where:
 			{id: req.user.id}
 		});
-		res.redirect('/dashboard');
+		res.redirect('/facilitators');
 	}
 	if(req.user.usertype=='CAND'){
 		res.redirect('/candidate/' + req.user.id);
 	}
 });
+
 
 app.use('/', routes);
 

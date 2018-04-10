@@ -1,42 +1,11 @@
-let Nodemailer = require('nodemailer'),
-		RandomPass = require('voucher-code-generator'),
-		models = require('../models'),
-		Sequelize = require('sequelize'),
-		express = require('express'),
-		router = express.Router();
+let RandomPass = require('voucher-code-generator'),
+	models = require('../models'),
+	transporter = require('./email'),
+	Sequelize = require('sequelize'),
+	express = require('express'),
+	router = express.Router();
 	
 const Op = Sequelize.Op;
-
-/* Email server for development provided by Ethereal Email */
-/* All emails sent can be found in ethereal.email and logging in with credentials in auth: */
-/* Email will not be delivered to actual receiver */
-const transporter = Nodemailer.createTransport({
-		host: 'smtp.ethereal.email',
-		port: 587,
-		auth: {
-				user: 'rd4ytheijcizd2jx@ethereal.email',
-				pass: 'tjAZuVfJzUhJZxwmEF'
-		},
-		tls: {
-				rejectUnauthorized: false
-		}
-});
-
-/* Actual email sent using Gmail server */
-/* Use your own Gmail account, 
-	Set  https://myaccount.google.com/lesssecureapps to ON*/
-/*Make sure you DON'T upload credentials to repository*/
-const gmailTransporter = Nodemailer.createTransport({
-	service: 'Gmail',
-	secure: false,
-	auth:{
-		user:'yourgmail',
-		pass: 'your gmail pw'
-	},
-	tls:{
-		rejectUnauthorized: false
-	}
-});
 
 router.get('/profile/:id', (req, res) => {
 	models.Facilitator.findOne({
@@ -62,6 +31,7 @@ router.get('/profile/:id', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
+	//ADD USER AUTH
 	var password = RandomPass.generate({length: 8, count: 1});
 	var mailOptions={
 		from: '"ASIE DB Team" <0lime.box0@gmail.com>',
@@ -104,6 +74,11 @@ router.post('/create', (req, res) => {
 				res.sendStatus(500);
 				return console.log(error, "EROR HERE");
 			}
+			else {
+				models.Emaillist.upsert({
+					id: facilitator.id
+				});
+			}
 		});
 		console.log("RES SENT HERE");
 		res.sendStatus(200);
@@ -115,8 +90,10 @@ router.post('/create', (req, res) => {
 	});
 });
 
+
+
 router.post('/delete', (req, res) => {
-	//Move to archive?
+	//ADD USER AUTH
 	console.log("POST CALLED", req.body);
 	var keys = Object.keys(req.body);
 	var Ids = [];

@@ -4,6 +4,7 @@ import qs from 'query-string';
 import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel.js';
 import SidebarContent from '../AdminComponents/MenuBar.js';
 import Sidebar from 'react-sidebar';
+import AccountBar from '../AccountBar';
 //import CollapseItem from './CollapseComponent.js';
 
 const mql = window.matchMedia('(min-width: 800px)');
@@ -156,6 +157,7 @@ export default class FacilitatorProfile extends Component{
 			<div>
 			<Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
 			<MaterialTitlePanel  title={contentHeader}>
+			  <AccountBar />
 			<div className="container-fluid mx-auto profile">
 			<div className="row border rounded">
 				<div className="col-12 mx-auto " id="employer-id">

@@ -10,7 +10,7 @@ export default class MenuBar extends Component {
 					<div className="row">
 						<div className="col-12">
 							<div className="ASIE">
-								<a href='/' > <img alt="Logo" src='./assets/images/logo.png' width="200" /> </a>
+								<a href='/' > <img alt="Logo" src='/assets/images/logo.png' width="200" /> </a>
 							</div>
 							<form action="/login" method="POST">
 							
