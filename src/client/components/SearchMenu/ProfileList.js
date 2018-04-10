@@ -108,11 +108,6 @@ export default class ProfileList extends Component {
         accessor: 'email',
         style: { textAlign: 'center' }
       },
-      {
-        Header: 'Location',
-        accessor: 'zip',
-        style: { textAlign: 'center' }
-      },
 
     ]
     return (
