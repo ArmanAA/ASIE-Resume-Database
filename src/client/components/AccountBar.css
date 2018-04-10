@@ -4,7 +4,14 @@
 
 
 	/* Main content */
+.nohover:hover {
+	background: #17a2b8;
+	color: white;
+}
+.switch.on{
+	background: rgb(78, 185, 190) !important;
 
+}
 .main-content{
 	width: 100%;
 	margin-right: 0;

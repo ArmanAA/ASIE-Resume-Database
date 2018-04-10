@@ -31,6 +31,7 @@ router.get('/profile/:id', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
+	//ADD USER AUTH
 	var password = RandomPass.generate({length: 8, count: 1});
 	var mailOptions={
 		from: '"ASIE DB Team" <0lime.box0@gmail.com>',
@@ -89,7 +90,10 @@ router.post('/create', (req, res) => {
 	});
 });
 
+
+
 router.post('/delete', (req, res) => {
+	//ADD USER AUTH
 	console.log("POST CALLED", req.body);
 	var keys = Object.keys(req.body);
 	var Ids = [];

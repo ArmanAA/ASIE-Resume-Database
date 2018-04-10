@@ -5,19 +5,21 @@ let models = require('../models'),
 
 
 router.post('/password',(req, res)=>{
-	console.log(req.body);
 	console.log("password api ");
-	console.log(req.user);
 
 	if(bcrypt.compareSync(req.body.old, req.user.password_digest)){
 		models.User.update(
-			{ password: req.body.new },
+			{ 
+				password: req.body.new,
+				
+			 },
 			{
 			where: {
-				id : req.user.id
+				id : req.user.id,
+				salt: null
 			}
 		}).then(response=> {
-			console.log("Password update successful");
+			console.log("Password update successful", response);
 		}).catch(error=>{
 			console.log("Password update error");
 		});
@@ -25,6 +27,16 @@ router.post('/password',(req, res)=>{
 	}
 	
 });
+
+router.post ('/userinfo', (req, res)=>{
+	res.send({
+		email: req.user.email,
+		id: req.user.id,
+		firstName: req.user.firstName,
+		lastName: req.user.lastName,
+		usertype: req.user.usertype
+	});
+})
 /*
 =======
 /* NOTE: As of the db_react branch, this file is dead code */

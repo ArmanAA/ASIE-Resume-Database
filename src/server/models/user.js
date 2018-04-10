@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
 	let hashSecurePassword = (password) => {
 		return new Promise((resolve, reject) => {
 			bcrypt.hash(password, 10, function(err, hash) {
-				//if (err) return callback(err);
+				if (err) return console.log(err);
 				console.log("HASH", hash);
 				resolve(hash);
 			});
@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
 			user.set('password_digest', password);
 		});
 	})
-	
+
 	User.beforeBulkUpdate(function(user, options) {
 		console.log("CALLS BEFORE UPDATE");
 		return hashSecurePassword(user.password).then(password => {
