@@ -16,6 +16,7 @@ router.post("/signup", (req, res) => {
 	}, {
 		include: [models.User]
 	}).then(candidate => {
+		console.log(req.body.password);
 		res.redirect("/");
 	}).catch(error => {
 		console.log("ERROR: createProfile", error);

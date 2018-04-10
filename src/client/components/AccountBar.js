@@ -17,12 +17,6 @@ const styles = {
   }
 };
 
-const zindex = {
-	zIndex : 1100
-};
-const zeroindex={
-	zIndex : 2
-};
 
 export default class AccountBar extends Component{ 
 
@@ -46,6 +40,20 @@ export default class AccountBar extends Component{
 		e.preventDefault();
    	 	const data = new FormData(e.target);
     	console.log(e.target[0].value);
+    	// Validate 
+
+    	// Update
+    	fetch('/api/users/password', {
+    		headers: { "Content-Type": "application/json" },
+	     	method: 'POST',
+	     	body: JSON.stringify({
+	     		old: e.target[0].value,
+	     		new: e.target[1].value
+	     	}),
+	     	credentials: 'include'
+	    }).then(function(response) {
+	    	console.log(response);
+    	});
 		this.setState({
 			modalOpen: !this.state.modalOpen,
 			popoverOpen: false
@@ -115,7 +123,7 @@ export default class AccountBar extends Component{
 				      </div>
 					</PopoverBody>
 				 </Popover>
-				<img src="./assets/images/settings.png" class="account-img img-circle"/>
+				<img src="/assets/images/settings.png" class="account-img img-circle"/>
 				</Button>
 				
 			</div>

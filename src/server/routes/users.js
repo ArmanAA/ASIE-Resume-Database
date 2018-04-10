@@ -1,8 +1,31 @@
 let models = require('../models'),
 	express = require('express'),
-	router = express.Router();
+	router = express.Router(),
+	bcrypt = require("bcrypt");
 
 
+router.post('/password',(req, res)=>{
+	console.log(req.body);
+	console.log("password api ");
+	console.log(req.user);
+
+	if(bcrypt.compareSync(req.body.old, req.user.password_digest)){
+		models.User.update(
+			{ password: req.body.new },
+			{
+			where: {
+				id : req.user.id
+			}
+		}).then(response=> {
+			console.log("Password update successful");
+		}).catch(error=>{
+			console.log("Password update error");
+		});
+		res.sendStatus(200);
+	}
+	
+});
+/*
 
 let findByEP = (email, password, next) => {
 	User.findOne({
@@ -65,13 +88,12 @@ let updateProfile = (req, res, next) => {
 	}).catch(error => {
 		res.json({message: 'failed'})
 	})
-}
+}*/
 
-
-
-module.exports.User = User;
-module.exports.findByEP = findByEP;
+module.exports = router;
+/*module.exports.User = User;*/
+/*module.exports.findByEP = findByEP;
 module.exports.findById = findById;
 module.exports.findByIdRes = findByIdRes;
 module.exports.createUser = createUser;
-module.exports.updateProfile = updateProfile;
+module.exports.updateProfile = updateProfile;*/

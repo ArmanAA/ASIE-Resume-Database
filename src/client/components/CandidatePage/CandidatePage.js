@@ -16,7 +16,7 @@ import InterestModal from './modal/InterestModal';
 import PortfolioModal from './modal/PortfolioModal';
 import MaterialTitlePanel from './MaterialTitlePanel';
 import { Button, Navbar, NavbarToggler } from 'reactstrap';
-
+import AccountBar from '../AccountBar';
 
 const mql = window.matchMedia('(min-width: 768px)');
 const styles = {
@@ -148,6 +148,7 @@ export default class CandidatePage extends Component {
 								<Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
 							</Navbar>
 						}
+						<AccountBar/>
 							<div>
 								<div className="mainpage" style={{maxWidth: 1000}}>
 									<Profile data={this.state.profile}/>

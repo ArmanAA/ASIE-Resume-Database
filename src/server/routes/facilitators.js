@@ -116,7 +116,6 @@ router.post('/create', (req, res) => {
 });
 
 router.post('/delete', (req, res) => {
-	//Move to archive?
 	console.log("POST CALLED", req.body);
 	var keys = Object.keys(req.body);
 	var Ids = [];

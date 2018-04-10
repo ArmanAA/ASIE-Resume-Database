@@ -149,6 +149,7 @@ app.get("/gate", ensureAuthenticated, function(req, res){
 	}
 });
 
+
 app.use('/', routes);
 
 
