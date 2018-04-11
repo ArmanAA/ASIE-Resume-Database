@@ -43,6 +43,7 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
+    document.title = "Facilitators - ASIE Resume Database"
   }
 
   componentWillMount() {

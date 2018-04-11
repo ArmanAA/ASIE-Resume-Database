@@ -50,7 +50,6 @@ router.post('/create', (req, res) => {
 	};
 
 	//Change transporterer according to which email server you're using
-	console.log("body", req.body);
 	models.Facilitator.create({
 		user: {
 			firstName: req.body.firstname,
@@ -94,46 +93,31 @@ router.post('/create', (req, res) => {
 
 router.post('/delete', (req, res) => {
 	//ADD USER AUTH
-	console.log("POST CALLED", req.body);
 	var keys = Object.keys(req.body);
-	var Ids = [];
-	console.log(keys);
-
-	/* 
-		TODO 
-	for(length)
-		if(body[keys[i]])
-			Ids.push(parseInt(keys[i]))
-	//or use map function 
+	const Ids = keys.filter( key => req.body[key]);
+	const IdsParsed = Ids.map(val => parseInt(val));
 	
-	endfor
-	query where: id: Ids  //single query
-
-	*/
-	for(var i = 0; i < keys.length; i++){
-		if(req.body[keys[i]]){
-			var id = parseInt(keys[i]);
-			models.Facilitator.destroy({
-				where: { 
-					id: id
-				}
-			}).then(facilitator =>{
-				models.User.update(
-				{
-					isArchived: true
-				},
-				{
-					where: {
-						id: id
-					}
-				}
-				);
-			}).catch(error=>{
-				console.log("ERROR @ ARCHIVE", error);
-				return res.sendStatus(500);
-			});
+	models.Facilitator.destroy({
+		where: { 
+			id: IdsParsed
 		}
-	}
+	}).then(facilitator =>{
+		models.User.update(
+		{
+			isArchived: true
+		},
+		{
+			where: {
+				id: IdsParsed
+			}
+		}
+		);
+	}).catch(error=>{
+		console.log("ERROR @ ARCHIVE", error);
+		return res.sendStatus(500);
+	});
+	
+
 	res.sendStatus(200);
 });
 
