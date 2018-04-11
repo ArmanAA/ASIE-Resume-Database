@@ -3,7 +3,6 @@ let models = require('../models'),
 	router = express.Router(),
 	bcrypt = require("bcrypt");
 
-
 router.post('/password',(req, res)=>{
 	if(bcrypt.compareSync(req.body.old, req.user.password_digest)){
 		models.User.update(

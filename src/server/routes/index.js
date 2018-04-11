@@ -1,6 +1,7 @@
 let models  = require('../models'),
 	express = require('express'),
 	router  = express.Router(),
+	RandomPass = require('voucher-code-generator'),
 	transporter = require('./email');
 
 let api = require('./api');
@@ -71,6 +72,59 @@ router.post("/contactus", (req, res) => {
 		res.redirect("/contactus?error");
 		//res.json(error);
 	});
+});
+
+
+router.post('/forgot', (req,res)=>{
+	var email = req.body.email.trim();
+	console.log(email);
+	models.User.findOne({
+		where:{
+			email: email
+		}
+	}).then(user=>{
+		if(user == null){
+			res.redirect("/forgot?email");
+		}else{
+			var password = RandomPass.generate({length: 8, count: 1});
+			var mailOptions={
+					from: '"ASIE DB Team" <0lime.box0@gmail.com>',
+					to: `"${user.firstname} ${user.lastname}", <${user.email}>`,
+					subject: 'Change password at ASIE DB Team', 
+					text: `
+					Hello, ${user.firstname} ${user.lastname}.
+					Here is your new password:
+
+					${password}
+					
+					Please make sure to change the password once you log in.
+
+					Thank you.`
+				};
+
+			models.User.update({
+				password: password[0]
+			}, 
+			{
+				where:{
+					id: user.id
+				},
+				individualHooks: true
+			}).then(result=>{
+				transporter.sendMail(mailOptions, (error, info) =>{
+					if(error){
+						res.redirect("/forgot?error");
+					}
+					else {
+						res.redirect("/forgot?success");
+					}
+				});
+			});
+		}
+	}).catch(error=>{
+		console.log("ERROR: password");
+		res.redirect("/forgot?error");
+	})
 });
 
 router.use('/api', api);

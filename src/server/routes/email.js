@@ -5,7 +5,7 @@ let env = process.env.NODE_ENV || 'development';
 /* Actual email sent using Gmail server */
 /* Use your own Gmail account, 
 	Set  https://myaccount.google.com/lesssecureapps to ON*/
-/*Make sure you DON'T upload credentials to repository*/
+/*Make sure you DON'T upload credentials to public repository*/
 
 const transporter_config = {
 	development: {
