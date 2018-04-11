@@ -37,7 +37,7 @@ export default class ProfileList extends Component {
       credentials: 'include'
     }).then(response => {
       response.json().then(json => {
-        
+        window.location.reload();
       })
     });
   }
@@ -84,11 +84,19 @@ export default class ProfileList extends Component {
         defaultPageSize={10}
         className="-striped -highlight"
         getTdProps={(State, rowInfo, column, instance) => {
-          return {onClick: e => {
-            if (column.id != 'addButton') {
-
+          return {
+            onClick: (e, handleOriginal) => {
+              if(rowInfo) {
+                if(column.id != 'addButton'){
+                  var url = '/candidate/' + rowInfo.original.userId;
+                  window.open(url);
+                }
+              }
+              if (handleOriginal) {
+                handleOriginal();
+              }
             }
-          }}
+          }
         }}
       />
     );

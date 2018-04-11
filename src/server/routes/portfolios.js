@@ -34,7 +34,8 @@ router.get('/:user_id', function(req, res) {
 				title: result.title,
 				url: url,
 				thumbnail: thumbnail,
-				description: result.description
+				description: result.description,
+				id: result.id
 			};
 			portfolio.push(portfolio_elem);
 		})
@@ -51,10 +52,10 @@ router.post('/:user_id/update', portfolio_upload.single("image"), function(req, 
 	}
 	else {
 		var type = 'video';//req.body.type;
+		var youtubeRegexp = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
 		let url_raw = req.body.video;
-		let link = URL.parse(url_raw, true);
-		let query = link.query;
-		var url = query.v;
+		var matches = youtubeRegexp.exec(url_raw);
+		var url = matches[5];
 	}
 	let title = req.body.title;
 	let description = req.body.description;
@@ -81,6 +82,19 @@ router.post('/:user_id/update', portfolio_upload.single("image"), function(req, 
 			}
 		})
 	}
+});
+
+router.post('/:user_id/remove', function(req, res) {
+	models.Portfolio.destroy({
+		where: {
+			userId: req.params.user_id,
+			id: req.body.id
+		}
+	}).then(results => {
+		res.json({ message: "successful" });
+	}).catch(error => {
+		res.json(error);
+	});
 });
 
 module.exports = router;

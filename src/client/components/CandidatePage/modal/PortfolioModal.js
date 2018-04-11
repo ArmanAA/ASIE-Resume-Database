@@ -11,39 +11,7 @@ const styles = {
 	textAlign: "center"
 };
 
-const SortableItem = SortableElement(({value}) =>
-	<div className="noselect">
-		<hr/>
-		<Container fluid={true}>
-			<Row>
-				<Col xs="8">
-					<h4>
-						{value.title}
-					</h4>
-				</Col>
-				<Col xs="4">
-					<Button color="danger">Delete</Button>
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					<p>{value.description}</p>
-				</Col>
-			</Row>
-		</Container>
-		<hr/>
-	</div>
-);
 
-const SortableList = SortableContainer(({items}) => {
-	return (
-		<ul>
-			{items.map((value, index) => (
-				<SortableItem key={`item-${index}`} index={index} value={value} />
-			))}
-		</ul>
-	);
-});
 
 export default class PortfolioModal extends Component {
 	constructor(props) {
@@ -51,12 +19,14 @@ export default class PortfolioModal extends Component {
 		this.state = {
 			modal: false,
 			id: props.id,
-			centered: true
+			centered: true,
+			removed: false
 		};
 		this.componentWillReceiveProps(props);
 
 		this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
 		this.toggle = this.toggle.bind(this);
+		this.handleRemove = this.handleRemove.bind(this);
 	}
 
 	onSortEnd = ({oldIndex, newIndex}) => {
@@ -72,19 +42,82 @@ export default class PortfolioModal extends Component {
 	}
 
 	toggle() {
+		if (this.state.removed) {
+			window.location.reload();
+			this.setState({
+				removed: false
+			})
+		}
 		this.setState({
 			modal:!this.state.modal
 		});
 	}
 
+	handleRemove(portfolio_id, entry_id) {
+		fetch('/api/candidates/portfolios/' + this.state.id + '/remove', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({id: portfolio_id}),
+			credentials: 'include'
+		}).then(response => {
+			return response.json()
+		}).then(result => {
+			if(result.message === "successful") {
+				let items = this.state.items || [];
+				if (entry_id > -1) {
+					items.splice(entry_id, 1);
+				}
+				this.setState({items: items, removed: true});
+			}
+		})
+	}
+
 	render() {
 		const { modal, centered } = this.state;
+
+		const SortableItem = SortableElement(({value, sortIndex}) =>
+			<div className="noselect">
+				<hr/>
+				<Container fluid={true}>
+					<Row>
+						<Col xs="8">
+							<h4>
+								{value.title}
+							</h4>
+						</Col>
+						<Col xs="4">
+							<Button color="danger" onClick={() => this.handleRemove(value.id, sortIndex)}>Delete</Button>
+						</Col>
+					</Row>
+					<Row>
+						<Col>
+							<p>{value.description}</p>
+						</Col>
+					</Row>
+				</Container>
+				<hr/>
+			</div>
+		);
+
+		const SortableList = SortableContainer(({items}) => {
+			return (
+				<ul>
+					{items.map((value, index) => (
+						<SortableItem key={`item-${index}`} index={index} sortIndex={index} value={value} />
+					))}
+				</ul>
+			);
+		});
+
 		return (
 			<div style={styles}>
 				<h2 className="Link" onClick={this.toggle}>+ Portfolio</h2>
 					<Modal centered={centered} isOpen={modal} toggle={this.toggle}>
 						<ModalHeader toggle={this.toggle}>
-							<h2>Experience</h2>
+							<h2>Portfolio</h2>
 							<p>Show your skills by adding images of videos of your portfolio!</p>
 						</ModalHeader>
 						<ModalBody>

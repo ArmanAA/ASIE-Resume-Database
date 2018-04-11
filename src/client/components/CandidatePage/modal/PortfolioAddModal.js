@@ -81,7 +81,18 @@ export default class PortfolioAddModal extends Component {
 						<ModalBody>
 							<label className='row'> Title: <input className="form-control" type="text" name="title" required/></label>
 							<label className='row'> Description: <input className="form-control" type="text" name="description" required/></label>
-							<label className='row'> Video Link: <input className="form-control" type="text" name="video" onChange={this.disableVideo} disabled={this.state.videoDisable} required/></label>
+							<label className='row'> YouTube Video Link: 
+								<input 
+									className="form-control" 
+									type="url" 
+									name="video" 
+									onChange={this.disableVideo} 
+									disabled={this.state.videoDisable} 
+									pattern="^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
+									title="The URL must be a YouTube link"
+									required
+								/>
+							</label>
 							<label className='row'> Image: <input className="form-control" accept="image/*" type="file" onChange={this.disableImage} disabled={this.state.imageDisable} name="image" required/></label>
 						
 						</ModalBody>

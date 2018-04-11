@@ -19,13 +19,15 @@ router.get('/:user_id', function(req, res) {
 				let company = result.company;
 				let currently = result.currently;
 				let description = result.description;
+				let id = result.id;
 				let experience = {
 					title: title,
 					from: from,
 					to: to,
 					company: company,
 					currently: currently,
-					description: description
+					description: description,
+					id: id
 				}
 				experiences.push(experience);
 			})
@@ -35,14 +37,32 @@ router.get('/:user_id', function(req, res) {
 })
 
 router.post('/:user_id/update', multer().array(), function(req, res) {
+
+	let currently = true;
+	if (req.body.currently == 'no') {
+		currently = false;
+	}
 	models.Experience.upsert({
 		userId: req.params.user_id,
 		title: req.body.title,
 		from: req.body.from,
 		company: req.body.company,
 		to: req.body.to,
-		currently: req.body.currently != null,
+		currently: currently,
 		description: req.body.description
+	}).then(results => {
+		res.json({ message: "successful" });
+	}).catch(error => {
+		res.json(error);
+	});
+});
+
+router.post('/:user_id/remove', function(req, res) {
+	models.Experience.destroy({
+		where: {
+			userId: req.params.user_id,
+			id: req.body.id
+		}
 	}).then(results => {
 		res.json({ message: "successful" });
 	}).catch(error => {
