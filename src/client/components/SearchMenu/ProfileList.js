@@ -15,7 +15,6 @@ export default class ProfileList extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data) {
-      console.log("ProfileList", nextProps.data);
       this.setState({
         profile: nextProps.data
       })
@@ -84,7 +83,6 @@ export default class ProfileList extends Component {
         id: "pic",
         accessor: "",
         Cell: ({ original }) => {
-          console.log(original);
           return (
             <img src={ "profile/" + original.profilepic } align="middle" width="80" height="80"  />
           );
