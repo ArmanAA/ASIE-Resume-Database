@@ -34,7 +34,8 @@ router.get('/:user_id', function(req, res) {
 				title: result.title,
 				url: url,
 				thumbnail: thumbnail,
-				description: result.description
+				description: result.description,
+				id: result.id
 			};
 			portfolio.push(portfolio_elem);
 		})
@@ -81,6 +82,19 @@ router.post('/:user_id/update', portfolio_upload.single("image"), function(req, 
 			}
 		})
 	}
+});
+
+router.post('/:user_id/remove', function(req, res) {
+	models.Portfolio.destroy({
+		where: {
+			userId: req.params.user_id,
+			id: req.body.id
+		}
+	}).then(results => {
+		res.json({ message: "successful" });
+	}).catch(error => {
+		res.json(error);
+	});
 });
 
 module.exports = router;
