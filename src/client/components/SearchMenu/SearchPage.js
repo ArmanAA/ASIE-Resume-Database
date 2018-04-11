@@ -2,9 +2,21 @@ import React, { Component } from 'react';
 import Sidebar from 'react-sidebar';
 import SidebarContent from '../AdminComponents/MenuBar';
 import ProfileList from './ProfileList';
+import SavedCandidatesList from './SavedCandidatesList';
 import { Button, Navbar, NavbarToggler } from 'reactstrap';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import {
+    Nav,
+    NavItem,
+    NavDropdown, // optional
+    MenuItem, // optional
+    TabContent,
+    TabPane
+} from '@trendmicro/react-navs';
+ 
+// Be sure to include styles at some point, probably during your bootstraping
+import '@trendmicro/react-navs/dist/react-navs.css';
 
 const mql = window.matchMedia('(min-width: 768px)');
 
@@ -22,7 +34,8 @@ export default class SearchPage extends Component {
 			location: null,
 			interestOptions: [],
 			locationOptions: [],
-			profile: []
+			profile: [],
+			activeTab: 1
 		}
 		// populate table
 		this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
@@ -129,43 +142,62 @@ export default class SearchPage extends Component {
 							</Navbar>
 						}
 							<div className="container">
-								<div className="row">
-									<form className="col-12" onSubmit={this.handleSubmit}>
+								<Nav
+									navStyle="tabs"
+									activeKey={this.state.activeTab}
+									onSelect={(eventKey, event) => {
+										this.setState({ activeTab: eventKey });
+									}}
+									style={{
+										borderBottomColor: 'transparent' // Make a transparent bottom border
+									}}
+								>
+									<NavItem eventKey={1}>Search</NavItem>
+									<NavItem eventKey={2}>My List</NavItem>
+								</Nav>
+								<TabContent activeKey={this.state.activeTab}>
+									<TabPane eventKey={1}>
 										<div className="row">
-											<div className="col-sm-5">
-												<Select
-													
-													value={this.state.interest}
-													placeholder="Search by interest"
-													onChange={this.handleChangeInterest}
-													options={this.state.interestOptions}
-													name="interests"
+											<form className="col-12" onSubmit={this.handleSubmit}>
+												<div className="row">
+													<div className="col-sm-5">
+														<Select
+															
+															value={this.state.interest}
+															placeholder="Search by interest"
+															onChange={this.handleChangeInterest}
+															options={this.state.interestOptions}
+															name="interests"
 
-												/>
-											</div>
-											<div className="col-sm-5">
-												<Select
-													value={this.state.location}
-													placeholder="Search by location"
-													onChange={this.handleChangeLocation}
-													options={this.state.locationOptions}
-													name="locations"
+														/>
+													</div>
+													<div className="col-sm-5">
+														<Select
+															value={this.state.location}
+															placeholder="Search by location"
+															onChange={this.handleChangeLocation}
+															options={this.state.locationOptions}
+															name="locations"
 
-												/>
-											</div>
-											<div className="col-sm-2">
-												<Button color="primary" type="submit">Search</Button>
+														/>
+													</div>
+													<div className="col-sm-2">
+														<Button color="primary" type="submit">Search</Button>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div className="row">
+											<div className="col">
+												<ProfileList data={this.state.profile}/>
 											</div>
 										</div>
-									</form>
-								</div>
-								<div className="row">
-									<div className="col">
-										<ProfileList data={this.state.profile}/>
-									</div>
-								</div>
+									</TabPane>
+									<TabPane eventKey={2}>
+										<SavedCandidatesList/>
+									</TabPane>
+								</TabContent>
 							</div>
-							
 					</Sidebar>
 				</div>
 		);
