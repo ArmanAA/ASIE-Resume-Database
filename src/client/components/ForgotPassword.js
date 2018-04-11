@@ -2,18 +2,18 @@ import React, {Component} from 'react';
 import { Alert,  } from 'reactstrap';
 import MenuBar from "./Home/MenuBar.js";
 import "./Signup/css/Signup.css";
+import { FormGroup, Input, FormFeedback } from 'reactstrap';
 
 
 export default class ForgotPassword extends Component {
  	
   constructor(props){
   	 super(props);
-  	 this.handleSubmit = this.handleSubmit.bind(this);
+  	 this.state={
+  	 	invalid:false
+  	 }
   }
 
-  handleSubmit(e){
-
-  }
 
  componentDidMount() {
     document.title = "Forgot Password - ASIE Resume Database";
@@ -59,7 +59,7 @@ export default class ForgotPassword extends Component {
                   <h1>Forgot Password?</h1>
                   <div>
                     <label>Enter email you used for registration</label>
-                    <input className="form-control" type="text" name="email" />
+                    <input invalid={this.state.invalid} className="form-control" type="email" name="email" required/>
                   </div>
               
                   <div>

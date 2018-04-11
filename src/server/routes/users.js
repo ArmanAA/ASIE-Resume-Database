@@ -15,11 +15,13 @@ router.post('/password',(req, res)=>{
 			},
 			individualHooks: true
 		}).then(response=> {
-			res.sendStatus(200);
+			res.json({confirm:true});
 		}).catch(error=>{
 			res.sendStatus(500);
 		});
 		
+	}else{
+		res.json({confirm: false});
 	}
 	
 });

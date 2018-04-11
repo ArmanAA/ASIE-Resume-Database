@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import Modal from 'react-responsive-modal';
 import {Modal, ModalHeader, ModalBody} from 'reactstrap';
 
 const styles = {
@@ -20,45 +19,53 @@ export default class AddFacilitator extends Component{
 		super(props);
     	this.state = {
      	 open: false,
+     	 fnInvalid: false,
+     	 lnInvalid: false,
+     	 emailInvalid: false
       
       };
        this.handleSubmit = this.handleSubmit.bind(this);
        this.toggle = this.toggle.bind(this);
-       
 	}
 
   toggle ()  {
-    this.setState({ open: !this.state.open });
+    this.setState({ 
+    	open: !this.state.open,
+    	fnInvalid: false,
+    	lnInvalid: false,
+    	emailInvalid: false });
   };
 
-  handleSubmit(event) {
-  	var confirm = window.confirm("Are you sure you want to add new facilitator?");
-  	if(confirm){
-	    event.preventDefault();
-	    const data = {
-	    	firstname: event.target.firstname.value,
-	    	lastname: event.target.lastname.value,
-	    	email: event.target.email.value	    
-	    };
 
-	    fetch('/api/facilitators/create', {
-	      headers: { "Content-Type": "application/json" },
-	      method: 'POST',
-	      body: JSON.stringify(data),
-	      credentials: 'include'
-	    }).then(function(response) {
-	    	console.log(response.ok);
-	      if(response.ok) {
-	       window.alert("Facilitator invitation successful!", window.location);
-			window.location.href = "/facilitators";
-	      }
-	      else {
-	      	console.log(response);
-	       window.alert("Invitation failed. Something went wrong.");
-	        this.onCloseModal();
-	      }
-   		});
-	}
+  handleSubmit(event) {
+  	
+  	  	var confirm = window.confirm("Are you sure you want to add new facilitator?");
+  	  	if(confirm){
+  		    event.preventDefault();
+  		    const data = {
+  		    	firstname: event.target.firstname.value,
+  		    	lastname: event.target.lastname.value,
+  		    	email: event.target.email.value	    
+  		    };
+  	
+  		    fetch('/api/facilitators/create', {
+  		      headers: { "Content-Type": "application/json" },
+  		      method: 'POST',
+  		      body: JSON.stringify(data),
+  		      credentials: 'include'
+  		    }).then(function(response) {
+  		    	console.log(response.ok);
+  		      if(response.ok) {
+  		       window.alert("Facilitator invitation successful!", window.location);
+  				window.location.href = "/facilitators";
+  		      }
+  		      else {
+  		      	console.log(response);
+  		       window.alert("Invitation failed. Something went wrong.");
+  		        this.onCloseModal();
+  		      }
+  	   		});
+  		}
 	
 };
 	    
@@ -74,9 +81,12 @@ export default class AddFacilitator extends Component{
            </ModalHeader>
            <ModalBody>
             <form className="form-group w-100 mx-auto" onSubmit={this.handleSubmit}>
-              	<label className='row'> First Name <input className="form-control"  type="text" name="firstname"/></label>
-				<label className='row'> Last Name  <input className="form-control"  type="text" name="lastname" /></label>
-				<label className='row'> Email <input className="form-control"  type="text" name="email"/></label>
+              	<label className='row'> First Name <input className="form-control"  type="text" name="firstname" required/>
+              	</label>
+				<label className='row'> Last Name  <input className="form-control"  type="text" name="lastname" required />
+				</label>
+				<label className='row'> Email <input className="form-control"  type="email" name="email"/>
+				</label>
 				<button className="btn btn-primary col-4" color="primary" type="submit"> Add </button>{' '}
 				<button className="btn btn-primary col-4" color="secondary" type="button" onClick={this.toggle}> Cancel</button>	
 

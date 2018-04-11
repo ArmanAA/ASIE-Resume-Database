@@ -60,14 +60,12 @@ module.exports = (sequelize, DataTypes) => {
 	};
 
 	User.beforeCreate(function(user, options) {
-		console.log("CALLS BEFORE CREATE", user);
 		return hashSecurePassword(user.password).then(password => {
 			user.set('password_digest', password);
 		});
 	})
 
 	User.beforeUpdate(function(user, options) {
-		console.log("CALLS BEFORE UPDATE", user);
 		return hashSecurePassword(user.password).then(password => {
 			user.set('password_digest', password);
 		});

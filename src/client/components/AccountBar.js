@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './AccountBar.css';
 import { Button, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { FormGroup, Input, FormFeedback } from 'reactstrap';
 import Switch from 'react-toggle-switch';
 import "../../../node_modules/react-toggle-switch/dist/css/switch.min.css";
 
@@ -28,7 +29,10 @@ export default class AccountBar extends Component{
 			popoverOpen: false,
 			modalOpen:false,
 			user:{},
-			subscribed: null
+			subscribed: null,
+			pwInvalid: false,
+			confirmInvalid: false,
+			lenInvalid: false
 		};
 		//console.log(props.match.params);
 
@@ -68,25 +72,44 @@ export default class AccountBar extends Component{
 
 	changePassword(e){
 		e.preventDefault();
-  
-    	// Validate 
+ 
+    	var confirm = (e.target[1].value !== e.target[2].value);
+    	var len = (e.target[1].value.length < 8);
+    	console.log("flags", confirm, len);
 
-    	// Update
-    	fetch('/api/users/password', {
-    		headers: { "Content-Type": "application/json" },
-	     	method: 'POST',
-	     	body: JSON.stringify({
-	     		old: e.target[0].value,
-	     		new: e.target[1].value
-	     	}),
-	     	credentials: 'include'
-	    }).then(function(response) {
-	    	console.log(response);
-    	});
-		this.setState({
-			modalOpen: !this.state.modalOpen,
-			popoverOpen: false
-		})
+    	if(!confirm && !len){
+
+	    	// Update
+	    	fetch('/api/users/password', {
+	    		headers: { "Content-Type": "application/json" },
+		     	method: 'POST',
+		     	body: JSON.stringify({
+		     		old: e.target[0].value,
+		     		new: e.target[1].value
+		     	}),
+		     	credentials: 'include'
+		    }).then(response => {
+		    	console.log(response)
+		    	response.json().then(json=>{
+		    		console.log(json);
+		    		if(json.confirm){
+		    			this.setState({
+							modalOpen: !this.state.modalOpen,
+							popoverOpen: false
+						});
+		    		}else{
+		    			this.setState({
+		    				pwInvalid: true
+		    			});
+		    		}
+		    	})
+	    	});
+		}else{
+			this.setState({
+				confirmInvalid: confirm,
+				lenInvalid: len
+			})
+		}
 	}
 
 	subscribe(){
@@ -125,14 +148,13 @@ export default class AccountBar extends Component{
 	toggle(){
 		this.setState({
 			modalOpen: !this.state.modalOpen,
+			confirmInvalid: false,
+			lenInvalid: false,
+			pwInvalid: false
 		})
 	}
 
-	clossModal(){
-		this.setState({
-			modalOpen: false
-		})
-	}
+	
 	toggleTooltip(e){
 
 		if(this.state.modalOpen){
@@ -179,11 +201,20 @@ export default class AccountBar extends Component{
 				          <ModalHeader toggle={this.toggle}> Change Password </ModalHeader>
 				          <ModalBody>
 				           	<form className="form-group pw-form" onSubmit={this.changePassword}>
-				              <label className='row'> Enter Original Password <input className="form-control"  type="password" name="orig_password"/></label>
-				              <label className='row'> Enter New Password <input className="form-control"  type="password" name="new_password" /></label>
-				              <label className='row'> Confirm New Password <input className="form-control"  type="password" name="confirm_password"/></label>
+				            <FormGroup>
+				              <label className='row'> Enter Original Password </label> <Input invalid={this.state.pwInvalid} className="form-control"  type="password" name="orig_password"/>
+				              <FormFeedback invalid={this.state.pwInvalid}> Wrong password! </FormFeedback>
+				            </FormGroup>
+				            <FormGroup>
+				              <label className='row'> Enter New Password </label> <Input invalid={this.state.lenInvalid} className="form-control"  type="password" name="new_password" />
+				              <FormFeedback invalid={this.state.lenInvalid}> Password must be 8 characters or longer! </FormFeedback>
+				            </FormGroup>
+				            <FormGroup>
+				              <label className='row'> Confirm New Password</label> <Input invalid={this.state.confirmInvalid} className="form-control"  type="password" name="confirm_password"/>
+				              <FormFeedback invalid={this.state.confirmInvalid}> Confirm password does not match the new password! </FormFeedback>
+				             </FormGroup>
 				          	  <button className="btn btn-primary" color="primary" type="submit"> Change Password </button>{' '}
-				              <button className="btn btn-primary" color="secondary" type="cancel" onClick={this.closeModal}> Cancel</button>
+				              <button className="btn btn-primary" color="secondary" type="button" onClick={this.toggle}> Cancel</button>
 				            </form> 
 				         
 				          </ModalBody>

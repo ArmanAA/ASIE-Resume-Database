@@ -120,7 +120,7 @@ export default class SearchPage extends Component {
                   <div className="input-group">
                     <input type="text" name="firstName" className="form-control col-sm-8" placeholder="Search by first name"/>
                     <input type="text" name="lastName" className="form-control col-sm-8" placeholder="Search by last name"/>
-                    <input type="text" name="email" className="form-control col-sm-8" placeholder="Search by email"/>
+                    <input type="text" name="email" className="form-control col-sm-8 rounded-right" placeholder="Search by email"/>
                     <input className="btn btn-primary mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
                   </div>
                 </form>
