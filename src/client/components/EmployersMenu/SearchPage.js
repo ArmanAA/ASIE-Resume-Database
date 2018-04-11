@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import styles from './SearchPage.css';
 import ProfileList from './ProfileList';
+import { Button } from 'reactstrap';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 
 const mql = window.matchMedia('(min-width: 800px)');
@@ -20,7 +23,36 @@ export default class SearchPage extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillMount() {
+    this.search("", "");
+    fetch('/api/search/candidate/options', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(res => {
+      return res.json();
+    }).then(json => {
+      if (json) {
+        this.setState({interestOptions: json.interests, locationOptions: json.locations});
+      }
+    })
+  }
 
+  handleChangeInterest = (selectedOption) => {
+    this.setState({interest: selectedOption});
+    if (!this.state.interest && !this.state.location) {
+      this.search("", "");
+    }
+  }
+
+  handleChangeLocation = (selectedOption) => {
+    this.setState({location: selectedOption});
+    if (!this.state.interest && !this.state.location) {
+      this.search("", "");
+    }
+  }
 
   search(interest, location) {
     const self = this;
@@ -40,8 +72,12 @@ export default class SearchPage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const data = new FormData(event.target);
-    this.search(event.target.interests.value, event.target.locations.value);
+    
+    let interest = this.state.interest ? this.state.interest.value : "";
+    let location = this.state.location ? this.state.location.value : "";
+
+    this.search(interest, location);
+    
   }
 
   render() {
@@ -50,21 +86,46 @@ export default class SearchPage extends Component {
 
         <div>
 					<div className="container">
-						<div className="row">
-							<form className="col-12" onSubmit={this.handleSubmit}>
-								<div className="input-group">
-									<input type="text" name="interests" className="form-control col-sm-8" placeholder="Search by interests"/>
-									<input type="text" name="locations" className="form-control col-sm-8" placeholder="Search by locations"/>
-									<input className="btn btn-default mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
-								</div>
-							</form>
-						</div>
-						<div className="row">
-							<div className="col">
-								<ProfileList data={this.state.profile}/>
-							</div>
-						</div>
-					</div>
+                <div className="row">
+                  <form className="col-12" onSubmit={this.handleSubmit}>
+                    <div className="row">
+                      <div className="col-12">
+                        <Select
+                          
+                          value={this.state.interest}
+                          placeholder="Search by interest"
+                          onChange={this.handleChangeInterest}
+                          options={this.state.interestOptions}
+                          name="interests"
+
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-12">
+                        <Select
+                          value={this.state.location}
+                          placeholder="Search by location"
+                          onChange={this.handleChangeLocation}
+                          options={this.state.locationOptions}
+                          name="locations"
+
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-12">
+                        <Button color="primary" type="submit">Search</Button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <ProfileList data={this.state.profile}/>
+                  </div>
+                </div>
+              </div>
 				  
         </div>
     );

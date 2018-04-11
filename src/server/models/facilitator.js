@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
 
 	Facilitator.associate = function(models) {
 		models.Facilitator.belongsTo(models.User, { foreignKey: "id", targetKey: "id" });
+		Facilitator.hasMany(models.Folder, {
+      foreignKey: "userId",
+      targetKey: "id"
+		});
 	};
 
 	return Facilitator;

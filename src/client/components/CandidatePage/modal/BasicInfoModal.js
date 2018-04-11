@@ -96,7 +96,6 @@ export default class BasicInfoModal extends Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		const data = new FormData(event.target);
-		console.log(data);
 		let url = '/api/candidates/profiles/' + this.state.id + '/update';
 		console.log(url);
 		fetch(url , {

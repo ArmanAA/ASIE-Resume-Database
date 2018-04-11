@@ -8,7 +8,8 @@ let candidates = require('./candidates'),
   emaillist = require('./emaillist.js'),
   comments = require('./comments'),
   employers = require('./employers');
-  users = require('./users');
+  users = require('./users'),
+  folders = require('./folders');
 
 router.use('/search', search);
 router.use('/candidates', candidates);
@@ -17,5 +18,6 @@ router.use('/comments', comments);
 router.use('/emaillist', emaillist)
 router.use('/employers', employers);
 router.use('/users', users);
+router.use('/folders', folders);
 
 module.exports = router;

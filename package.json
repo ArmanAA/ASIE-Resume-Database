@@ -13,6 +13,7 @@
   },
   "keywords": [],
   "dependencies": {
+    "@trendmicro/react-navs": "^0.11.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0",
