@@ -18,7 +18,8 @@ export default class ExperienceModal extends Component {
 		this.state = {
 			modal: false,
 			centered: true,
-			id: props.id
+			id: props.id,
+			removed: false
 		}
 		this.componentWillReceiveProps(props);
 		this.toggle = this.toggle.bind(this);
@@ -41,9 +42,6 @@ export default class ExperienceModal extends Component {
 	}
 
 	handleRemove(experience_id, entry_id) {
-		console.log("experience id ", experience_id);
-		console.log("entry id ", entry_id);
-		event.preventDefault();
 		fetch('/api/candidates/experiences/' + this.state.id + '/remove', {
 			method: 'POST',
 			headers: {
@@ -56,18 +54,22 @@ export default class ExperienceModal extends Component {
 			return response.json()
 		}).then(result => {
 			if(result.message === "successful") {
-				console.log("successful!");
 				let experiences = this.state.experiences || [];
 				if (entry_id > -1) {
 					experiences.splice(entry_id, 1);
 				}
-				console.log("experiences after delete ", experiences);
-				this.setState({experiences: experiences});
+				this.setState({experiences: experiences, removed: true});
 			}
 		})
 	}
 
 	toggle() {
+		if (this.state.removed) {
+			window.location.reload();
+			this.setState({
+				removed: false
+			})
+		}
 		this.setState({
 			modal:!this.state.modal
 		});
