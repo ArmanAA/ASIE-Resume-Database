@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Collapse} from 'react-collapse';
+import {Collapse, Button, CardBody, Card} from 'reactstrap';
 
 
 export default class CollapseComponent extends Component{
@@ -33,7 +33,7 @@ export default class CollapseComponent extends Component{
 		<div className={this.props.customClass, "border rounded m-auto"} onClick={this.toggleOpen.bind(this)}>
 			<h5 className="my-auto p-2"> {this.props.list.listName }</h5>
 		</div>
-		<Collapse isOpened={this.state.open}> 
+		<Collapse isOpen={this.state.open}> 
 		<div className="list-group list-group-flush">
 			{li}
 		</div>

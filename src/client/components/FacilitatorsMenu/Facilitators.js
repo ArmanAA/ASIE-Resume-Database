@@ -126,7 +126,7 @@ export default class SearchPage extends Component {
                 </form>
                
               </div>
-              <div className="row">
+              <div className="row mb-5">
                 <div className="col">
 
                   <ProfileList data={this.state.profile} />

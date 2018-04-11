@@ -123,7 +123,7 @@ export default class EmployerSearchPage extends Component {
                   </div>
                 </form>
 
-                <div className="row">
+                <div className="row mb-5">
                   <div className="col">
                     <EmployerList data={this.state.profile} />
                   </div>

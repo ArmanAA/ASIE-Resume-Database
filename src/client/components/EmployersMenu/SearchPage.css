@@ -7,10 +7,10 @@
     outline:none;
 }
 
-
-.center-horizontal {
+.-pagination button{
+    height: auto !important;
+    padding: 10px;
 }
-
 
 .profile-list {
   list-style-type: none;
