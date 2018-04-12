@@ -12,7 +12,8 @@ let express = require("express"),
 	LocalStrategy = require("passport-local").Strategy,
 	bcrypt = require("bcrypt"),
 	models = require('./models'),
-	routes = require('./routes');
+	routes = require('./routes'),
+	auth = require('./routes/auth'),
 	app = express();
 
 app.use(cookieParser());
@@ -40,33 +41,6 @@ app.use(function(req, res, next) {
 const port = process.env.PORT || 3001;
 const react_port = 3000;
 
-function ensureAuthenticatedAdmin(req, res, next) {
-	console.log("AUTH", req.user);
-	//ADMIN auth given to FAC for dev; Change to ADMIN later
-	if (req.isAuthenticated() && (req.user.usertype == 'FAC')) {
-		// req.user is available for use here
-		console.log("authorized ADMIN", req.originalUrl);
-		return next();
-	}
-
-	// denied. redirect to login
-	console.log("not authorized as ADMIN", req.originalUrl);
-	res.redirect("/candidate");
-}
-
-
-function ensureAuthenticated(req, res, next) {
-	if (req.isAuthenticated()) {
-		// req.user is available for use here
-
-		console.log("authorized", req.originalUrl);
-		return next();
-	}
-
-	// denied. redirect to login
-	console.log("not authorized", req.originalUrl);
-	res.redirect("/login");
-}
 
 passport.use(
 	new LocalStrategy(
@@ -126,12 +100,12 @@ app.get("/logout", function(req, res) {
 	req.logout();
 	res.redirect("/");
 });
-app.get("/protected", ensureAuthenticated, function(req, res) {
+app.get("/protected", auth.user, function(req, res) {
 	res.send("access granted. secure stuff happens here " + req.user.id);
 });
 
 /* Log in gateway */
-app.get("/gate", ensureAuthenticated, function(req, res){
+app.get("/gate", auth.user, function(req, res){
 	if(req.user.isArchived){
 		req.logout(); 
 		res.redirect('/login');
