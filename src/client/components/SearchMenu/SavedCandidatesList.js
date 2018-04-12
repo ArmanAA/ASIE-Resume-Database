@@ -3,7 +3,7 @@ import { Button, Form, Input,
          ListGroup, ListGroupItem, Badge,
          Modal, ModalHeader, ModalBody, ModalFooter
        } from 'reactstrap';
-import ProfileList from './ProfileList';
+import ProfileList from './SavedProfileList';
 
 export default class SavedCandidatesList extends React.Component {
   constructor(props) {
@@ -14,6 +14,7 @@ export default class SavedCandidatesList extends React.Component {
       modal: false
     }
     this.toggle.bind(this);
+    this.updateCount.bind(this);
   }
 
   componentWillMount() {
@@ -27,6 +28,7 @@ export default class SavedCandidatesList extends React.Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
+      credentials: 'include'
     }).then(res => {
       return res.json();
     }).then(json => {
@@ -37,10 +39,33 @@ export default class SavedCandidatesList extends React.Component {
   }
 
   handleClick(event) {
+    console.log(this.state.folders);
     if(event.target.tagName == "LI") {
       let entry_row = event.target.getAttribute('entry');
       this.setState({current_candidate: entry_row});
     }
+  }
+
+  updateCount(entryId) {
+    let newFolders = this.state.folders || [];
+    let curr = this.state.current_candidate;
+    let entries = newFolders[curr].entry;
+
+    let index = -1;
+    for (var i=0; i<entries.length; i++) {
+      if (entries[i].entryId == entryId) {
+        index = i;
+        break;
+      }
+    }
+    if (index > -1) {
+      entries.splice(index, 1);
+    }
+    newFolders[curr].entry = entries;
+    this.setState({
+      folders: newFolders
+    })
+
   }
 
   toggle() {
@@ -66,7 +91,7 @@ export default class SavedCandidatesList extends React.Component {
         <ListGroup>
           {folders}
         </ListGroup>
-        <ProfileList data={candidate_list}/>
+        <ProfileList updateCount={this.updateCount.bind(this)} data={candidate_list}/>
       </div>
     );
   }
@@ -87,6 +112,7 @@ class AddFolderModal extends React.Component {
       if (json.message === "success") {
         this.setState({folders: json});
         this.props.toggle();
+        window.location.reload();
       }
     })
   }
@@ -100,11 +126,11 @@ class AddFolderModal extends React.Component {
             <p>Please enter a new folder name</p>
           </ModalHeader>
           <ModalBody>
-            <Input className="form-control"  type="text" name="folderName"/>
+            <Input className="form-control"  type="text" name="folderName" required/>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.validate} type="submit">Add</Button>
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button color="primary" type="submit">Add</Button>
+            <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
           </ModalFooter>
         </Form>
       </Modal>
