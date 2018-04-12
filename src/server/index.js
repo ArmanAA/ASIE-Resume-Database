@@ -123,38 +123,6 @@ app.get("/gate", auth.user, function(req, res){
 
 app.use('/', routes);
 
-
-/*Page Authentications */
-//Commented for dev; Uncomment later
-/*app.use(
-	"/facilitators",
-	ensureAuthenticatedAdmin,
-	proxy("http://127.0.0.1:3000/facilitators")
-);
-app.use(
-	"/dashboard",
-	ensureAuthenticatedAdmin,
-	proxy("http://127.0.0.1:3000/dashboard")
-);
-
-app.use(
-	"/employers",
-	ensureAuthenticatedAdmin,
-	proxy("http://127.0.0.1:3000/employers")
-);
-
-app.use(
-	"/facilitator",
-	ensureAuthenticatedAdmin,
-	proxy("http://127.0.0.1:3000/facilitators")
-);
-
-app.use(
-	"/candidate",
-	ensureAuthenticated,
-<<<<<<< HEAD:src/server/index.js
-	proxy("http://127.0.0.1:" + react_port + "/candidate")
-);*/
 app.use('/candidate', auth.user, express.static("www"));
 app.use('/candidates', auth.admin, express.static("www"));
 app.use('/employers', auth.admin, express.static("www"));
@@ -170,6 +138,5 @@ app.get("/robots.txt", function(req, res) {
 app.use(express.static("www"));
 app.use(express.static("public"));
 app.get("*", (req,res) => res.sendFile(path.resolve(__dirname + "/../../www/index.html"))); //serves the index.html
-//app.use("/", proxy("127.0.0.1:" + react_port + "/"));
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
