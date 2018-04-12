@@ -17,6 +17,9 @@ module.exports = (sequelize, DataTypes) => {
 		omitNull: true
 	});
 
+	Employer.beforeCreate((employer, options) => {
+		employer.email = employer.email.toLowerCase();
+	})
 
 	return Employer;
 };
