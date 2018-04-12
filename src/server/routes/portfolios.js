@@ -1,6 +1,8 @@
 let models  = require('../models'),
 	URL = require('url'),
 	multer = require('multer'),
+	path = require('path'),
+	crypto = require('crypto'),
 	express = require('express'),
 	router  = express.Router();
 
@@ -10,14 +12,25 @@ let youtube_end = "/0.jpg";
 let youtube_url = "https://www.youtube.com/watch?v=";
 
 let portfolio_storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, __dirname + '/../../../public/portfolio/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '.jpg') //Appending .jpg
-  }
+	destination: function (req, file, cb) {
+		cb(null, __dirname + '/../../../public/portfolio/')
+	},
+	filename: function (req, file, cb) {
+		crypto.randomBytes(16, function(err, raw) {
+			if (err) return cb(err);
+
+			cb(null, raw.toString('hex') + path.extname(file.originalname));
+		});
+	}
 });
-let portfolio_upload = multer({ storage: portfolio_storage });
+let portfolio_upload = multer({
+	storage: portfolio_storage,
+	fileFilter: function (req, file, cb) {
+		const allowedImagesExts = ['.jpg', '.png', '.gif', '.jpeg'];
+		var ext = path.extname(file.originalname);
+		cb(null, allowedImagesExts.includes(ext));
+	}
+});
 
 router.get('/:user_id', function(req, res) {
 	models.Portfolio.findAll({

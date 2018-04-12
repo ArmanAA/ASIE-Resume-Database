@@ -1,6 +1,8 @@
 let models  = require('../models'),
 	auth = require('./auth'),
 	multer = require('multer'),
+	path = require('path'),
+	crypto = require('crypto'),
 	express = require('express'),
 	router  = express.Router();
 
@@ -9,10 +11,21 @@ let profile_storage = multer.diskStorage({
     cb(null, __dirname + '/../../../public/profile/')
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '.jpg') //Appending .jpg
+    crypto.randomBytes(16, function(err, raw) {
+			if (err) return cb(err);
+
+			cb(null, raw.toString('hex') + path.extname(file.originalname));
+		});
   }
 });
-let profile_update = multer({ storage: profile_storage });
+let profile_update = multer({
+	storage: profile_storage,
+	fileFilter: function (req, file, cb) {
+		const allowedImagesExts = ['.jpg', '.png', '.gif', '.jpeg'];
+		var ext = path.extname(file.originalname);
+		cb(null, allowedImagesExts.includes(ext));
+	}
+});
 
 var regions = [
 		'High Desert',
