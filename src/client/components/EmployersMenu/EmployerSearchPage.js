@@ -4,6 +4,14 @@ import MaterialTitlePanel from "../AdminComponents/MaterialTitlePanel";
 import SidebarContent from "../AdminComponents/MenuBar";
 import EmployerList from "./EmployerList";
 import { Button, Navbar, NavbarToggler } from 'reactstrap';
+import {
+    Nav,
+    NavItem,
+    NavDropdown, // optional
+    MenuItem, // optional
+    TabContent,
+    TabPane
+} from '@trendmicro/react-navs';
 
 const mql = window.matchMedia("(min-width: 768px)");
 
@@ -15,7 +23,8 @@ export default class EmployerSearchPage extends Component {
       docked: true,
       open: false,
       count: 0,
-      user: null
+      user: null,
+      activeTab: 1
     };
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
@@ -93,11 +102,7 @@ export default class EmployerSearchPage extends Component {
     return (
       <div style={{ backgroundColor: "#111" }}>
         <Sidebar
-          sidebar={sidebar}
-          docked={this.state.docked}
-          open={this.state.open}
-          onSetOpen={this.onSetOpen}
-        >
+          sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
           {
             this.state.docked ? <span></span> :
             
@@ -106,29 +111,49 @@ export default class EmployerSearchPage extends Component {
             </Navbar>
           }
             <div className="container">
-              <div className="row">
-                <form className="col-12" onSubmit={this.handleSubmit}>
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      name="name"
-                      className="form-control col-sm-10"
-                      placeholder="Search for employees"
-                    />
-                    <input
-                      className="btn btn-default mb-2 col-sm-2 mx-1"
-                      type="submit"
-                      value="Search"
-                    />
-                  </div>
-                </form>
+              <Nav
+                navStyle="tabs"
+                activeKey={this.state.activeTab}
+                onSelect={(eventKey, event) => {
+                  this.setState({ activeTab: eventKey });
+                }}
+                style={{
+                  borderBottomColor: 'transparent' // Make a transparent bottom border
+                }}
+              >
+                <NavItem eventKey={1}>Search</NavItem>
+                <NavItem eventKey={2}>My List</NavItem>
+              </Nav>
+              <TabContent activeKey={this.state.activeTab}>
+                  <TabPane eventKey={1}>
+                    <div className="row">
+                      <form className="col-12" onSubmit={this.handleSubmit}>
+                        <div className="input-group">
+                          <input
+                            type="text"
+                            name="name"
+                            className="form-control col-sm-10"
+                            placeholder="Search for employees"
+                          />
+                          <input
+                            className="btn btn-default mb-2 col-sm-2 mx-1"
+                            type="submit"
+                            value="Search"
+                          />
+                        </div>
+                      </form>
 
-                <div className="row mb-5">
-                  <div className="col">
-                    <EmployerList data={this.state.profile} />
-                  </div>
-                </div>
-              </div>
+                      <div className="row mb-5">
+                        <div className="col">
+                          <EmployerList data={this.state.profile} />
+                        </div>
+                      </div>
+                    </div>
+                  </TabPane>
+                  <TabPane eventKey={2}>
+                    
+                  </TabPane>
+                </TabContent>
             </div>
         </Sidebar>
       </div>
