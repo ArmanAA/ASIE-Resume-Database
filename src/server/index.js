@@ -39,8 +39,6 @@ app.use(function(req, res, next) {
 });
 
 const port = process.env.PORT || 3001;
-const react_port = 3000;
-
 
 passport.use(
 	new LocalStrategy(
