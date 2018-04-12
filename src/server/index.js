@@ -49,6 +49,7 @@ passport.use(
 			passwordField: "password"
 		},
 		function(email, password, done) {
+			email = email.toLowerCase();
 			models.User.findOne({
 				where: {
 					email: email,
