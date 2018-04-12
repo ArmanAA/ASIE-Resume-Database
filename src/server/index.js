@@ -87,7 +87,6 @@ passport.deserializeUser(function(id, done) {
 	});
 });
 
-
 app.post("/login", passport.authenticate("local", {
 		successRedirect: "/gate",
 		failureRedirect: "/login?error",
@@ -121,7 +120,6 @@ app.get("/gate", auth.user, function(req, res){
 		res.redirect('/candidate/' + req.user.id);
 	}
 });
-
 
 app.use('/', routes);
 
