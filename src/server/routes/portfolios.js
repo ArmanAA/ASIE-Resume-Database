@@ -42,7 +42,7 @@ router.get('/:user_id', function(req, res) {
 		let portfolio = [];
 		results.forEach((result) => {
 			let thumbnail = result.type == "picture" ? image_dir + result.url : youtube_start + result.url + youtube_end;
-			let url = results.type == "picture" ? image_dir + result.url : youtube_url + result.url;
+			let url = result.type == "picture" ? image_dir + result.url : youtube_url + result.url;
 			let portfolio_elem = {
 				title: result.title,
 				url: url,
