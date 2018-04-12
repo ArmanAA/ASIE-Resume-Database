@@ -1,4 +1,5 @@
 let models  = require('../models'),
+	auth = require('./auth'),
 	express = require('express'),
 	router  = express.Router();
 
@@ -11,13 +12,13 @@ let candidates = require('./candidates'),
   users = require('./users'),
   folders = require('./folders');
 
-router.use('/search', search);
+router.use('/search', auth.admin, search);
 router.use('/candidates', candidates);
-router.use('/facilitators', facilitators);
-router.use('/comments', comments);
-router.use('/emaillist', emaillist)
-router.use('/employers', employers);
+router.use('/facilitators', auth.admin, facilitators);
+router.use('/comments', auth.admin, comments);
+router.use('/emaillist', auth.admin, emaillist)
+router.use('/employers', auth.admin, employers);
 router.use('/users', users);
-router.use('/folders', folders);
+router.use('/folders', auth.admin, folders);
 
 module.exports = router;

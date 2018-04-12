@@ -1,4 +1,5 @@
 let models = require('../models'),
+	auth = require('./auth'),
 	express = require('express'),
 	router = express.Router(),
 	bcrypt = require("bcrypt");
@@ -32,7 +33,7 @@ router.post('/password',(req, res)=>{
 	
 });
 
-router.post ('/userinfo', (req, res)=>{
+router.post ('/userinfo', auth.user, (req, res)=>{
 	res.send({
 		email: req.user.email,
 		id: req.user.id,

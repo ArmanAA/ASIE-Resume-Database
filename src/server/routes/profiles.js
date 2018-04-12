@@ -1,4 +1,5 @@
 let models  = require('../models'),
+	auth = require('./auth'),
 	multer = require('multer'),
 	express = require('express'),
 	router  = express.Router();
@@ -33,7 +34,7 @@ router.get('/', function(req, res) {
 	res.json(response);
 })
 
-router.post('/create', function(req, res) {
+router.post('/create', auth.user, function(req, res) {
 	models.Candidate.create({
 		User: {
 			firstName: req.body.firstName,
@@ -53,7 +54,7 @@ router.post('/create', function(req, res) {
 	});
 })
 
-router.get('/:user_id', function(req, res) {
+router.get('/:user_id', auth.user, function(req, res) {
 	models.Candidate.findOne({
 		where: {
 			id: req.params.user_id
@@ -79,8 +80,7 @@ router.get('/:user_id', function(req, res) {
 	});
 });
 
-router.post('/:user_id/update', profile_update.single("update_image"), function(req, res) {
-	console.log("profiles", req.body);
+router.post('/:user_id/update', auth.user, profile_update.single("update_image"), function(req, res) {
 	req.file = req.file || {};
 	let filename = req.file.filename;
 	if(!req.body.update_city)

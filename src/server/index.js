@@ -158,6 +158,12 @@ app.use(
 <<<<<<< HEAD:src/server/index.js
 	proxy("http://127.0.0.1:" + react_port + "/candidate")
 );*/
+app.use('/candidate', auth.user, express.static("www"));
+app.use('/candidates', auth.admin, express.static("www"));
+app.use('/employers', auth.admin, express.static("www"));
+app.use('/facilitators', auth.admin, express.static("www"));
+app.use('/facilitator', auth.admin, express.static("www"));
+app.use('/tempemp', auth.admin, express.static("www"));
 
 app.get("/robots.txt", function(req, res) {
 	res.type("text/plain");

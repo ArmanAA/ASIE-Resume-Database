@@ -1,4 +1,5 @@
 let models  = require('../models'),
+	auth = require('./auth'),
 	express = require('express'),
 	router  = express.Router();
 
@@ -19,7 +20,7 @@ router.get('/', function(req, res) {
 	res.json(response);
 })
 
-router.get('/:user_id', function(req, res) {
+router.get('/:user_id', auth.user, function(req, res) {
 	models.Disability.findAll({
 		where: {
 			userId: req.params.user_id,
@@ -34,7 +35,7 @@ router.get('/:user_id', function(req, res) {
 	});
 })
 
-router.post('/:user_id/update', function(req, res) {
+router.post('/:user_id/update', auth.user, function(req, res) {
 	let disability = req.body.disability;
 	let type = req.body.type;
 	if(type == "add") {

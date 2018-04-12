@@ -1,4 +1,5 @@
 let models  = require('../models'),
+	auth = require('./auth'),
 	express = require('express'),
 	router  = express.Router();
 
@@ -14,12 +15,12 @@ let profiles = require('./profiles'),
 
 router.use('/profiles', profiles);
 router.use('/disabilities', disabilities);
-router.use('/supports', supports);
-router.use('/experiences', experiences);
-router.use('/skills', skills);
+router.use('/supports', auth.user, supports);
+router.use('/experiences', auth.user, experiences);
+router.use('/skills', auth.user, skills);
 router.use('/interests', interests);
-router.use('/hours', hours);
-router.use('/transportations', transportations);
-router.use('/portfolios', portfolios);
+router.use('/hours', auth.user, hours);
+router.use('/transportations', auth.user, transportations);
+router.use('/portfolios', auth.user, portfolios);
 
 module.exports = router;
