@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import "react-table/react-table.css";
+import {Button} from 'reactstrap';
 
 export default class ProfileList extends Component {
   constructor(props) {
@@ -11,6 +12,37 @@ export default class ProfileList extends Component {
       selectAll: 0
     }
     this.toggleRow = this.toggleRow.bind(this);
+  }
+
+  handleClick(entryId) {
+    fetch('/api/folders/remove', {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: 'POST',
+      body: JSON.stringify({entryId: entryId}),
+      credentials: 'include'
+    }).then(response => {
+      return response.json();
+    }).then(result => {
+      if(result.message === "successful") {
+        let index = -1;
+        let newProfile = this.state.profile || [];
+        for (var i=0; i<newProfile.length; i++) {
+          if (newProfile[i].entryId == entryId) {
+            index = i;
+            break;
+          }
+        }
+        if (index > -1) {
+          newProfile.splice(index, 1);
+        }
+        this.setState({
+          profile: newProfile
+        });
+        this.props.updateCount(entryId);
+      }
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,11 +57,6 @@ export default class ProfileList extends Component {
   toggleRow(id) {
     const newSelected = Object.assign({}, this.state.selected);
     newSelected[id] = !this.state.selected[id];
-    var keys = Object.keys(newSelected);
-    var ids = keys.filter(function(key) {
-      return newSelected[key];
-    })
-    this.props.getSelectedRows(ids);
     this.setState({
       selected: newSelected,
       selectAll: 2
@@ -44,11 +71,7 @@ export default class ProfileList extends Component {
         newSelected[x.userId] = true;
       });
     }
-    var keys = Object.keys(newSelected);
-    var ids = keys.filter(function(key) {
-      return newSelected[key];
-    })
-    this.props.getSelectedRows(ids);
+
     this.setState({
       selected: newSelected,
       selectAll: this.state.selectAll === 0 ? 1 : 0
@@ -58,34 +81,13 @@ export default class ProfileList extends Component {
   render() {
     const columns = [
       {
-        id: "checkbox",
+        id: "removeButton",
         accessor: "",
         Cell: ({ original }) => {
           return (
-            <input
-              type="checkbox"
-              className="checkbox"
-              checked={this.state.selected[original.userId] === true}
-              onChange={() => this.toggleRow(original.userId)}
-            />
+            <Button color="danger" onClick={() => this.handleClick(original.entryId)}> Remove </Button>
           );
         },
-        Header: x => {
-          return (
-            <input
-              type="checkbox"
-              className="checkbox"
-              checked={this.state.selectAll === 1}
-              ref={input => {
-                if (input) {
-                  input.indeterminate = this.state.selectAll === 2;
-                }
-              }}
-              onChange={() => this.toggleSelectAll()}
-            />
-          );
-        },
-        sortable: false,
         style: { textAlign: 'center' }
       },
       {
@@ -127,7 +129,7 @@ export default class ProfileList extends Component {
           return {
             onClick: (e, handleOriginal) => {
               if(rowInfo) {
-                if(column.id != 'checkbox'){
+                if(column.id != 'removeButton'){
                   var url = '/candidate/' + rowInfo.original.userId;
                   window.open(url);
                 }

@@ -3,6 +3,7 @@ import Sidebar from 'react-sidebar';
 import SidebarContent from '../AdminComponents/MenuBar';
 import ProfileList from './ProfileList';
 import SavedCandidatesList from './SavedCandidatesList';
+import AddCandidatesModal from './AddCandidatesModal';
 import { Button, Navbar, NavbarToggler } from 'reactstrap';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -35,13 +36,15 @@ export default class SearchPage extends Component {
 			interestOptions: [],
 			locationOptions: [],
 			profile: [],
-			activeTab: 1
+			activeTab: 1,
+			selected: []
 		}
 		// populate table
 		this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
 		this.toggleOpen = this.toggleOpen.bind(this);
 		this.onSetOpen = this.onSetOpen.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.getSelectedRows = this.getSelectedRows.bind(this);
 	}
 
 	componentWillMount() {
@@ -126,6 +129,12 @@ export default class SearchPage extends Component {
 		
 	}
 
+	getSelectedRows(selectedIds) {
+		this.setState({
+			selected: selectedIds
+		})
+	}
+
 	render() {
 		const sidebar = <SidebarContent />;
 
@@ -187,9 +196,15 @@ export default class SearchPage extends Component {
 												</div>
 											</form>
 										</div>
+										<hr/>
 										<div className="row">
 											<div className="col">
-												<ProfileList data={this.state.profile}/>
+												<AddCandidatesModal data={this.state.selected}/>
+											</div>
+										</div>
+										<div className="row">
+											<div className="col">
+												<ProfileList getSelectedRows={this.getSelectedRows} data={this.state.profile}/>
 											</div>
 										</div>
 									</TabPane>
