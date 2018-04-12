@@ -1,0 +1,35 @@
+.btn-toggle-menu {
+	background-color: black;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+.center-horizontal {
+}
+
+
+.profile-list {
+  list-style-type: none;
+}
+
+.btn-search {
+	background-color: black;
+}
+
+.btn-no-style {
+	background-color: transparent;
+	color: black;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.btn-no-style:hover {
+	text-decoration: underline;
+}
