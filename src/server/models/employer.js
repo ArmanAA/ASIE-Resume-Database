@@ -17,10 +17,6 @@ module.exports = (sequelize, DataTypes) => {
 		omitNull: true
 	});
 
-	// TODO associations
-	Employer.associate = function(models) {
-		
-	}
 
 	return Employer;
 };
