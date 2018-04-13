@@ -76,7 +76,7 @@ export default class SavedCandidatesList extends React.Component {
 		return (
 			<div>
 				<Button onClick={this.toggle.bind(this)} color="primary">Add Folder</Button>
-				<AddFolderModal isOpen={this.state.modal} toggle={this.toggle.bind(this)}/>
+				<AddFolderModal isOpen={this.state.modal} toggle={this.toggle.bind(this)} updateFolders={this.props.updateFolders}/>
 				<ListGroup>
 					{folders}
 				</ListGroup>
@@ -99,9 +99,8 @@ class AddFolderModal extends React.Component {
 			return res.json();
 		}).then(json => {
 			if (json.message === "success") {
-				this.setState({folders: json});
+				this.props.updateFolders();
 				this.props.toggle();
-				window.location.reload();
 			}
 		})
 	}

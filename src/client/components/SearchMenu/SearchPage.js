@@ -69,7 +69,6 @@ export default class SearchPage extends Component {
 	}
 
 	getfoldentries() {
-		console.log("GETFOLENTRIES");
 		fetch('/api/folders/', {
 			method: 'GET',
 			headers: {
@@ -229,7 +228,7 @@ export default class SearchPage extends Component {
 										</div>
 									</TabPane>
 									<TabPane eventKey={2}>
-										<SavedCandidatesList data={this.state.folders}/>
+										<SavedCandidatesList updateFolders={this.getfoldentries} data={this.state.folders}/>
 									</TabPane>
 								</TabContent>
 							</div>
