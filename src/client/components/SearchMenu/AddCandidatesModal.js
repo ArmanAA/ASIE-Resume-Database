@@ -92,7 +92,7 @@ export default class AddCandidatesModal extends Component {
 		event.preventDefault();
 		console.log('folder id ', event.target.value);
 		this.setState({
-			selectFolder: event.target.value
+			selectedFolder: event.target.value
 		})
 	}
 
