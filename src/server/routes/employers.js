@@ -5,6 +5,78 @@ let	models = require('../models'),
 	
 const Op = Sequelize.Op;
 
+router.get('/savedemployers/inmylist/:id', (req, res) => {
+	models.Savedemployer.findOne({
+		where: {
+			userId: req.user.id,
+			employerId: req.params.id
+		},
+	}).then(result => {
+		if (result) {
+			res.json({inMyList: true});
+		} else {
+			res.json({inMyList: false});
+		}
+	}).catch(result => {
+		res.json({message: "failed"});
+	});
+})
+
+router.get('/savedemployers/', (req, res) => {
+	models.Savedemployer.findAll({
+		where: {
+			userId: req.user.id
+		},
+		include: [models.Employer]
+	}).then(employers => {
+		let results = [];
+		if(employers) {
+			results = employers.map(employer => {
+				return {
+					id: employer.employerId,
+					firstName: employer.employer.firstName,
+					lastName: employer.employer.lastName,
+					email: employer.employer.email,
+					subject: employer.employer.subject,
+					message: employer.employer.message
+				}
+			});
+		}
+		res.json(results);
+	}).catch(error => {
+		res.json(error);
+	});
+})
+
+router.post('/savedemployers/save', (req, res) => {
+	models.Savedemployer.findOrCreate({
+		where: {
+			userId: req.user.id,
+			employerId: req.body.employerId
+		}
+	}).spread((user, created) => {
+		if(created)
+			res.json({message: "successful"});
+		else
+			res.json({message: "failure"});
+	}).catch(error => {
+		res.json(error);
+	})
+})
+
+router.post('/savedemployers/remove', (req, res) => {
+	models.Savedemployer.destroy({
+		where: {
+			userId: req.user.id,
+			employerId: req.body.employerId
+		}
+	}).then(result => {
+		res.json({message: "successful"});
+	}).catch(result => {
+		res.json({message: "failed"});
+	});
+})
+
 
 router.get('/profile/:id', (req, res) => {
   models.Employer.findOne({
