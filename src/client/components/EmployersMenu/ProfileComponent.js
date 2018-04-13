@@ -12,7 +12,6 @@ export default class ProfileComponent extends Component {
 		this.state = {
 			notesOpen: true,
 			historyOpen: false,
-			inMyList: false,
 			searchpotentialcandidates: false,
 			addCandidatesModal: false
 		};
@@ -52,6 +51,20 @@ export default class ProfileComponent extends Component {
 
 		var addedCandidatesUrl = "/api/employers/profile/" + currUrl.searchParams.get("id") + "/matches"; 
 		this.callApi(addedCandidatesUrl, "addedCandidates");
+
+		const self = this;
+		var url = "/api/employers/savedemployers/inmylist/"+currUrl.searchParams.get("id");
+		fetch(url, {
+			method: "GET",
+			headers: { "Content-Type": "application/json" },
+			credentials: "include"
+		}).then(response => {
+			response.json().then(json => {
+				if (json) {
+					self.setState({ inMyList: json.inMyList });
+				}
+			});
+		});
 	}
 
 	deleteMatch(match_id, entry_id) {
@@ -84,14 +97,32 @@ export default class ProfileComponent extends Component {
 
 	addRemoveToMyList() {
 		this.setState({ inMyList: !this.state.inMyList });
-		if (this.state.inMyList) {
+		if (!this.state.inMyList) {
 			var currUrl = new URL(window.location.href);
-			var removeurl = "/api/removeemployer/" + currUrl.searchParams.get("id");
-			this.callApi(removeurl, "facilitatorsemployerlists");
+			var url = "/api/employers/savedemployers/save"
+			fetch(url, {
+				headers: {
+					"Content-Type": "application/json"
+				},
+				method: 'POST',
+				body: JSON.stringify({employerId: currUrl.searchParams.get("id")}),
+				credentials: 'include'
+			}).then(response => {
+				return response.json();
+			});
 		} else {
 			var currUrl = new URL(window.location.href);
-			var addurl = "/api/addemployer/" + currUrl.searchParams.get("id");
-			this.callApi(addurl, "facilitatorsemployerlists");
+			var url = "/api/employers/savedemployers/remove"
+			fetch(url, {
+				headers: {
+					"Content-Type": "application/json"
+				},
+				method: 'POST',
+				body: JSON.stringify({employerId: currUrl.searchParams.get("id")}),
+				credentials: 'include'
+			}).then(response => {
+				return response.json();
+			});
 		}
 	}
 	searchForCandidates() {
