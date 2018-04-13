@@ -45,12 +45,14 @@ export default class SearchPage extends Component {
 		this.onSetOpen = this.onSetOpen.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.getSelectedRows = this.getSelectedRows.bind(this);
+		this.getfoldentries = this.getfoldentries.bind(this);
 	}
 
 	componentWillMount() {
 		mql.addListener(this.mediaQueryChanged);
 		this.setState({mql: mql, docked: mql.matches});
 		this.search("", "");
+		this.getfoldentries();
 		fetch('/api/search/candidate/options', {
 			method: 'GET',
 			headers: {
@@ -62,6 +64,24 @@ export default class SearchPage extends Component {
 		}).then(json => {
 			if (json) {
 				this.setState({interestOptions: json.interests, locationOptions: json.locations});
+			}
+		});
+	}
+
+	getfoldentries() {
+		console.log("GETFOLENTRIES");
+		fetch('/api/folders/', {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			credentials: 'include'
+		}).then(res => {
+			return res.json();
+		}).then(json => {
+			if (json) {
+				this.setState({folders: json});
 			}
 		})
 	}
@@ -199,7 +219,7 @@ export default class SearchPage extends Component {
 										<hr/>
 										<div className="row">
 											<div className="col">
-												<AddCandidatesModal data={this.state.selected}/>
+												<AddCandidatesModal updateFolders={this.getfoldentries} data={this.state.selected}/>
 											</div>
 										</div>
 										<div className="row">
@@ -209,7 +229,7 @@ export default class SearchPage extends Component {
 										</div>
 									</TabPane>
 									<TabPane eventKey={2}>
-										<SavedCandidatesList/>
+										<SavedCandidatesList data={this.state.folders}/>
 									</TabPane>
 								</TabContent>
 							</div>

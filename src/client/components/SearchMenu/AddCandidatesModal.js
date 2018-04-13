@@ -38,8 +38,7 @@ export default class AddCandidatesModal extends Component {
 		for (var i=0; i<this.state.selected.length; i++) {
 			this.saveCandidate(this.state.selected[i], this.state.selectedFolder);
 		}
-		window.location.reload();
-		this.toggle();
+		
 	}
 
 	saveCandidate(candidateId, folderId) {
@@ -56,7 +55,12 @@ export default class AddCandidatesModal extends Component {
 			credentials: 'include'
 		}).then(res => {
 			return res.json();
-		});
+		}).then(json => {
+			if (json.message =="successful") {
+				this.props.updateFolders();
+			}
+			this.toggle();
+		})
 	}
 	
 	componentWillMount() {
