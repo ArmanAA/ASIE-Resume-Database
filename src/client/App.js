@@ -10,7 +10,6 @@ import WhoAreYou from './components/WhoAreYou';
 import Ideal from './components/Ideal';
 import Waiver from './components/Waiver';
 import CandidatesMenu from './components/SearchMenu/SearchPage';
-import DashBoardMenu from './components/DashboardMenu/Dashboard';
 import EmployersMenu from './components/EmployersMenu/EmployerSearchPage';
 import FacilitatorsMenu from './components/FacilitatorsMenu/Facilitators';
 import TempEmp from './components/EmployersMenu/EmployerProfile';
@@ -34,7 +33,6 @@ export default class App extends Component {
 					<Route exact path="/ideal" component={Ideal}/>
 					<Route exact path="/waiver" component={Waiver}/>
 					<Route exact path="/candidates" component={CandidatesMenu}/>
-					<Route exact path="/dashboard" component={DashBoardMenu}/>
 					<Route exact path="/employers" component={EmployersMenu}/>
 					<Route exact path="/facilitators" component={FacilitatorsMenu}/>
 					<Route exact path="/contactus" component={ContactUs} />
