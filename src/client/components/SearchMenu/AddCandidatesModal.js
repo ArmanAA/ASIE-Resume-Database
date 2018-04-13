@@ -57,6 +57,7 @@ export default class AddCandidatesModal extends Component {
 			return res.json();
 		}).then(json => {
 			if (json.message =="successful") {
+				alert("Adding candidates successful!");
 				this.props.updateFolders();
 			}
 			this.toggle();
