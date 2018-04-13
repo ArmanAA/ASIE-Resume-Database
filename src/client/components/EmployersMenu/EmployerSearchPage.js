@@ -3,6 +3,7 @@ import Sidebar from "react-sidebar";
 import MaterialTitlePanel from "../AdminComponents/MaterialTitlePanel";
 import SidebarContent from "../AdminComponents/MenuBar";
 import EmployerList from "./EmployerList";
+import SavedEmployerList from "./SavedEmployerList";
 import { Button, Navbar, NavbarToggler } from 'reactstrap';
 import {
     Nav,
@@ -31,11 +32,13 @@ export default class EmployerSearchPage extends Component {
     this.onSetOpen = this.onSetOpen.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.search = this.search.bind(this);
+    this.getSaved = this.getSaved.bind(this);
   }
 
   componentDidMount() {
     // populate search table when page loads
     this.search("");
+    this.getSaved();
   }
 
   componentWillMount() {
@@ -65,6 +68,26 @@ export default class EmployerSearchPage extends Component {
       ev.preventDefault();
     }
   }
+
+  getSaved() {
+    const self = this;
+    fetch("/api/employers/savedemployers", {
+      method: "GET",
+      credentials: "include"
+    }).then(response => {
+      console.log(response);
+      response.json().then(json => {
+        if (json) {
+          self.setState({ saved: json });
+        }
+      });
+    });
+  }
+
+  updateList() {
+    this.search("");
+  }
+
 
   search(name) {
     const self = this;
@@ -133,7 +156,7 @@ export default class EmployerSearchPage extends Component {
                             type="text"
                             name="name"
                             className="form-control col-sm-10"
-                            placeholder="Search for employees"
+                            placeholder="Search for employers by name, by email, and/or subject"
                           />
                           <input
                             className="btn btn-default mb-2 col-sm-2 mx-1"
@@ -151,7 +174,7 @@ export default class EmployerSearchPage extends Component {
                     </div>
                   </TabPane>
                   <TabPane eventKey={2}>
-                    
+                    <SavedEmployerList data={this.state.saved} updateList={this.updateList.bind(this)}/>
                   </TabPane>
                 </TabContent>
             </div>
