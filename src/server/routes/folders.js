@@ -59,19 +59,21 @@ router.post("/create", multer().array(), (req, res) => {
 });
 
 router.post("/add", (req, res) => {
-	models.Folderentry.findOrCreate({
-		where: {
-			folderId: req.body.folderId,
-			candidateId: req.body.candidateId
-		}
-	}).spread((user, created) => {
-		if(created)
-			res.json({message: "successful"});
-		else
-			res.json({message: "failure"});
-	}).catch(error => {
-		res.json(error);
-	})
+	if (req.body.folderId) {
+		models.Folderentry.findOrCreate({
+			where: {
+				folderId: req.body.folderId,
+				candidateId: req.body.candidateId
+			}
+		}).spread((user, created) => {
+			if(created)
+				res.json({message: "successful"});
+			else
+				res.json({message: "failure"});
+		}).catch(error => {
+			res.json(error);
+		})
+	}
 });
 
 router.post("/remove", (req, res) => {
@@ -85,6 +87,29 @@ router.post("/remove", (req, res) => {
 		res.json({message: "failed"});
 	});
 });
+
+router.post("/deletefolder", (req, res) => {
+	if (req.body.folderId) {
+		models.Folderentry.destroy({
+			where: {
+				folderId: req.body.folderId
+			}
+		}).then(result => {
+			models.Folder.destroy({
+			where: {
+				id: req.body.folderId
+			}
+			}).then(result => {
+				res.json({message: "successful"});
+			}).catch(result => {
+				res.json({message: "failed"});
+			});
+		}).catch(result => {
+			res.json({message: "failed"});
+		});
+		
+	}
+})
 
 // router.post("/:facilitator_id/remove", (req, res) => {
 //   models.Facilitator.findOne({

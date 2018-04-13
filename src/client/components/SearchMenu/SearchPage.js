@@ -156,7 +156,11 @@ export default class SearchPage extends Component {
 
 	render() {
 		const sidebar = <SidebarContent />;
-
+		var selectedFolder = -1
+		if (this.state.folders) {
+			if (this.state.folders.length > 0)
+			selectedFolder = this.state.folders[0].id;
+		}
 		
 		return (
 
@@ -218,7 +222,7 @@ export default class SearchPage extends Component {
 										<hr/>
 										<div className="row">
 											<div className="col">
-												<AddCandidatesModal updateFolders={this.getfoldentries} data={this.state.selected}/>
+												<AddCandidatesModal updateFolders={this.getfoldentries} data={this.state.selected} folders={this.state.folders} selectedFolder={selectedFolder}/>
 											</div>
 										</div>
 										<div className="row">

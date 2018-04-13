@@ -4,6 +4,7 @@ import { Button, Form, Input,
 				 Modal, ModalHeader, ModalBody, ModalFooter
 			 } from 'reactstrap';
 import ProfileList from './SavedProfileList';
+import DeleteFoldersModal from './DeleteFoldersModal';
 
 export default class SavedCandidatesList extends React.Component {
 	constructor(props) {
@@ -13,8 +14,8 @@ export default class SavedCandidatesList extends React.Component {
 			current_candidate: 0,
 			modal: false
 		}
-		this.toggle.bind(this);
-		this.updateCount.bind(this);
+		this.toggle = this.toggle.bind(this);
+		this.updateCount = this.updateCount.bind(this);
 	}
 
 
@@ -73,10 +74,12 @@ export default class SavedCandidatesList extends React.Component {
 		if(folders.length > 0) {
 			candidate_list = this.state.folders[this.state.current_candidate].entry;
 		}
+		console.log("SAVED CANDIDATES LIST", this.state.folders);
 		return (
 			<div>
 				<Button onClick={this.toggle.bind(this)} color="primary">Add Folder</Button>
 				<AddFolderModal isOpen={this.state.modal} toggle={this.toggle.bind(this)} updateFolders={this.props.updateFolders}/>
+				<DeleteFoldersModal updateFolders={this.props.updateFolders} folders={this.state.folders} updateCount={this.updateCount}/>
 				<ListGroup>
 					{folders}
 				</ListGroup>

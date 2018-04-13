@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, Input, Alert} from 'reactstrap';
 
-export default class AddCandidatesModal extends Component {
+export default class DeleteFoldersModal extends Component {
 	constructor(props) {
 		super(props);
+		console.log("PROPS", props);
 		this.state = {
 			modal: false,
 			id: props.id,
 			centered: true,
-			selected: props.data,
 			folders: props.folders,
-			selectedFolder: props.selectedFolder
+			selectedFolder: props.folders.length == 0 ? -1 : props.folders[0].id
 		};
 
 		this.toggle = this.toggle.bind(this);
@@ -19,76 +19,44 @@ export default class AddCandidatesModal extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if(nextProps.data) {
+		console.log("NEXTPROPS",nextProps);
+		if(nextProps.folders) {
 			this.setState({
-				selected: nextProps.data,
 				folders: nextProps.folders,
-				selectedFolder: nextProps.selectedFolder
+				selectedFolder: nextProps.folders.length == 0 ? -1 : nextProps.folders[0].id
 			})
 		}
 	}
 
 	toggle() {
-
 		this.setState({
 			modal:!this.state.modal
 		});
 	}
 
-	handleSubmit() {
-		console.log(this.state.selected);
-		console.log(this.state.selectedFolder);
-
-
-		for (var i=0; i<this.state.selected.length; i++) {
-			this.saveCandidate(this.state.selected[i], this.state.selectedFolder);
-		}
-		
-	}
-
-	saveCandidate(candidateId, folderId) {
-		fetch('/api/folders/add' , {
+	handleSubmit(folderId) {
+		console.log("deleting folder", this.state.selectedFolder);
+		fetch('/api/folders/deletefolder' , {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				folderId: folderId,
-				candidateId: candidateId
+				folderId: this.state.selectedFolder
 			}),
 			credentials: 'include'
 		}).then(res => {
 			return res.json();
 		}).then(json => {
 			if (json.message =="successful") {
-				alert("Adding candidates successful!");
 				this.props.updateFolders();
+				this.props.updateCount();
 			}
 			this.toggle();
 		})
 	}
 	
-
-	getfoldentries() {
-		fetch('/api/folders/', {
-			method: 'GET',
-			headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json',
-			},
-			credentials: 'include'
-		}).then(res => {
-			return res.json();
-		}).then(json => {
-			if (json) {
-				this.setState({
-					folders: json,
-					selectedFolder: json[0].id
-				});
-			}
-		})
-	}
 
 	handleFolderSelect(event) {
 		event.preventDefault();
@@ -100,45 +68,47 @@ export default class AddCandidatesModal extends Component {
 
 	render() {
 		const { modal, centered } = this.state;
+		console.log("FOLDERS DELETE MODAL", this.state.folders);
+
 		var disable = true;
 		if(this.state.folders) {
 			var folders = this.state.folders.map((folder, index) => {
 				return <option value={folder.id}>{folder.name}</option>
 			})
-			if (this.state.folders.length > 0 && this.state.selected.length > 0) {
+			if (this.state.folders.length > 0) {
 				disable = false;
 			}
 		}
 
 		return (
-			<div>
-				<Button color="primary" onClick={this.toggle}>Save Selected Candidates</Button>
+			<span>
+				<Button color="primary" onClick={this.toggle}>Delete Folder</Button>
 					<Modal centered={centered} isOpen={modal} toggle={this.toggle}>
 						<form className="form-group">
 							<ModalHeader toggle={this.toggle}>
-								<h2>Which folder do you want to save these candidates?</h2>
+								<h2>Delete Folder</h2>
 							</ModalHeader>
 							<ModalBody>
 								{
 									disable ?
 										<Alert color="danger">
-											You did not choose any candidates to save and/or you do not have any folders created.
+											There is no folder available to delete.
 										</Alert>
 									:
 									<span></span>
 								}
-								<Label>Select folder you want to save to candidates to:</Label>
+								<Label>Select the folder you would like to delete</Label>
 								<Input onChange={this.handleFolderSelect} type="select">
 									{folders}
 								</Input>
 							</ModalBody>
 							<ModalFooter>
-								<Button color="primary" onClick={this.handleSubmit} disabled={disable}>Save</Button>
+								<Button color="primary" onClick={this.handleSubmit} disabled={disable}>Delete</Button>
 								<Button onClick={this.toggle}>Cancel</Button>
 							</ModalFooter>
 						</form>
 					</Modal>
-			</div>
+			</span>
 		);
 	}
 }
