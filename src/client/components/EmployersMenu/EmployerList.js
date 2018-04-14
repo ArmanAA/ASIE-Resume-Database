@@ -98,7 +98,7 @@ export default class EmployerList extends Component {
             onClick: (e, handleOriginal) => {
               if(rowInfo) {
                 if(column.id != 'addButton'){
-                  var url = "/tempemp?id=" + rowInfo.original.id
+                  var url = "/employer/?id=" + rowInfo.original.id
                   window.open(url);
                 }
               }

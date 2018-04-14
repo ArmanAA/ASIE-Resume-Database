@@ -40,12 +40,12 @@ button:hover{
 
 }
 .date{
-	height: 50%;
+	
 	margin: auto;
 }
 
 .comment-box{
-	height: 100%;
+	height: auto;
 	border-style:solid;
 	border-color: white;
 }

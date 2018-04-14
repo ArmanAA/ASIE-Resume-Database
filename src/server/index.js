@@ -128,7 +128,7 @@ app.use('/candidates', auth.admin, express.static("www"));
 app.use('/employers', auth.admin, express.static("www"));
 app.use('/facilitators', auth.admin, express.static("www"));
 app.use('/facilitator', auth.admin, express.static("www"));
-app.use('/tempemp', auth.admin, express.static("www"));
+app.use('/employer', auth.admin, express.static("www"));
 
 app.get("/robots.txt", function(req, res) {
 	res.type("text/plain");

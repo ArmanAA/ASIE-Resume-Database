@@ -12,7 +12,7 @@ import Waiver from './components/Waiver';
 import CandidatesMenu from './components/SearchMenu/SearchPage';
 import EmployersMenu from './components/EmployersMenu/EmployerSearchPage';
 import FacilitatorsMenu from './components/FacilitatorsMenu/Facilitators';
-import TempEmp from './components/EmployersMenu/EmployerProfile';
+import EmployerProfile from './components/EmployersMenu/EmployerProfile';
 import FacilitatorProfile from './components/FacilitatorsMenu/FacilitatorProfile';
 import ContactUs from "./components/ContactUs/ContactUs";
 import NotFoundPage from "./components/NotFoundPage";
@@ -36,7 +36,7 @@ export default class App extends Component {
 					<Route exact path="/employers" component={EmployersMenu}/>
 					<Route exact path="/facilitators" component={FacilitatorsMenu}/>
 					<Route exact path="/contactus" component={ContactUs} />
-					<Route exact path="/tempemp" component={TempEmp}/>
+					<Route exact path="/employer" component={EmployerProfile}/>
 					<Route exact path="/facilitator/:id" component={FacilitatorProfile}/>
 					<Route exact path="/forgot" component={ForgotPassword}/>
 

@@ -11,13 +11,11 @@ export default class ProfileComponent extends Component {
 		super(props, context);
 		this.state = {
 			notesOpen: true,
-			historyOpen: false,
 			searchpotentialcandidates: false,
 			addCandidatesModal: false
 		};
 		this.addRemoveToMyList = this.addRemoveToMyList.bind(this);
 		this.toggleNotesOpen = this.toggleNotesOpen.bind(this);
-		this.toggleHistoryOpen = this.toggleHistoryOpen.bind(this);
 		this.searchForCandidates = this.searchForCandidates.bind(this);
 		this.toggleAddCandidatesModal = this.toggleAddCandidatesModal.bind(this);
 		this.deleteMatch = this.deleteMatch.bind(this);
@@ -35,13 +33,6 @@ export default class ProfileComponent extends Component {
 		console.log(this.state);
 	}
 
-	toggleHistoryOpen(ev) {
-		this.setState({ historyOpen: !this.state.historyOpen });
-		if (ev) {
-			ev.preventDefault();
-		}
-		console.log(this.state);
-	}
 
 	componentDidMount() {
 		var currUrl = new URL(window.location.href);
@@ -137,7 +128,7 @@ export default class ProfileComponent extends Component {
 			var message = this.state.employer.message;
 			var status = false;
 			var inList = false;
-			var date = "Jan 22 1919";
+			var date = this.state.employer.createdAt.slice(0,10);
 		}
 
 		if (this.state.addedCandidates) {
@@ -190,12 +181,12 @@ export default class ProfileComponent extends Component {
 											{" "}
 											Archive{" "}
 										</button>
-										<button
+										{/*<button
 											className=" badge badge-pill badge-info float-right"
 											onClick={this.searchForCandidates}
 										>
 											Search for Potential Candidates for This Employer
-										</button>
+										</button>*/}
 										<Modal
 											open={this.state.searchpotentialcandidates}
 											onClose={() => {
@@ -206,12 +197,12 @@ export default class ProfileComponent extends Component {
 										</Modal>
 									</div>
 									<div className="col-12 box">
-										<span className="badge badge-primary float-right">
+										{/*<span className="badge badge-primary float-right">
 											STATUS{" "}
 										</span>
 										<span className="badge badge-primary float-right">
 											IN MY LIST{" "}
-										</span>
+										</span>*/}
 									</div>
 								</div>
 							</div>
@@ -238,9 +229,6 @@ export default class ProfileComponent extends Component {
 							<div className="col-12 border">
 								<CommentBox />
 							</div>
-							<div className="col-12 border sec-title">
-								<h6>History</h6>
-							</div>
 						</div>
 					</div>
 					<div className="col-6" id="search-cand">
@@ -256,7 +244,6 @@ export default class ProfileComponent extends Component {
 									</Modal>
 								</div>
 								{ candidatesList }
-								{/*Lot of buttons to come here*/}
 							</div>
 						</div>
 					</div>
