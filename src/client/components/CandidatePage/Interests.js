@@ -61,7 +61,7 @@ export default class Interests extends Component {
 						{
 							!this.state.personal_tags || this.state.personal_tags.length === 0 ? <span></span> :
 							<span>
-								<h4>Personal</h4>
+								<b>What do you like to do for fun?</b><br/>
 								<ul>
 								{personal_list}
 								</ul>
@@ -70,7 +70,7 @@ export default class Interests extends Component {
 						{
 							!this.state.career_tags || this.state.career_tags.length === 0 ? <span></span> :
 							<span>
-								<h4>Career</h4>
+								<b>What jobs are you interested in?</b><br/>
 								<ul>
 								{career_list}
 								</ul>
