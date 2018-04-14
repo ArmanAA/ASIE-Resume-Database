@@ -8,7 +8,6 @@ let RandomPass = require('voucher-code-generator'),
 const Op = Sequelize.Op;
 
 router.get('/profile/:id', (req, res) => {
-	//Change to only admin at production
 	models.Facilitator.findOne({
 		where: {
 			id: req.params.id
@@ -64,7 +63,6 @@ router.get('/match/:id', (req,res)=>{
 });
 
 router.post('/create', (req, res) => {
-	//ADD USER AUTH
 	var password = RandomPass.generate({length: 8, count: 1});
 	var mailOptions={
 		from: '"ASIE DB Team" <0lime.box0@gmail.com>',
@@ -85,9 +83,9 @@ router.post('/create', (req, res) => {
 	//Change transporterer according to which email server you're using
 	models.Facilitator.create({
 		user: {
-			firstName: req.body.firstname,
-			lastName: req.body.lastname,
-			email: req.body.email,
+			firstName: req.body.firstname.trim(),
+			lastName: req.body.lastname.trim(),
+			email: req.body.email.trim(),
 			password: `${password}`,
 			usertype: 'FAC'
 		}

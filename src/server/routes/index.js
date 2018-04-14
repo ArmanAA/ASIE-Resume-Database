@@ -75,41 +75,77 @@ router.post("/contactus", (req, res) => {
 });
 
 
+router.post('/verify/:token', (req,res)=>{
+	console.log("RESET PASSWORD: ", req.params);
+	models.User.findOne({
+		where:{
+			resetToken: req.params.token
+		}
+	}).then(user =>{
+		if( user.resetExpire < Date.now() || user == null){
+			res.redirect("/verify/"+req.params.token+"?timeout");
+		}else{
+			console.log(req.body);
+			user.update({
+				resetToken: null,
+				resetExpire: Date.now(),	
+				password: req.body.password
+			})
+			res.redirect("/verify/"+req.params.token+"?success");
+
+		}
+	}).catch(error=>{
+		res.redirect("/verify/"+req.params.token+"?invalid");
+
+	})
+})
+
+
 router.post('/forgot', (req,res)=>{
 	var email = req.body.email.trim();
-	console.log(email);
+	console.log(req.headers.origin);
 	models.User.findOne({
 		where:{
 			email: email
 		}
 	}).then(user=>{
-		if(user == null){
+		if(user == null ){
+			
 			res.redirect("/forgot?email");
-		}else{
-			var password = RandomPass.generate({length: 8, count: 1});
+
+		}else if(user.resetExpire > Date.now() ){
+		
+			res.redirect("/forgot?timeout");
+		
+		}
+		else{
+			var verify = RandomPass.generate({length: 20, count: 1});
 			var mailOptions={
 					from: '"ASIE DB Team" <0lime.box0@gmail.com>',
 					to: `"${user.firstname} ${user.lastname}", <${user.email}>`,
 					subject: 'Change password at ASIE DB Team', 
 					text: `
 					Hello, ${user.firstname} ${user.lastname}.
-					Here is your new password:
 
-					${password}
-					
-					Please make sure to change the password once you log in.
+					Please follow the link below to change your password.
+					This link will be valid for 30 minutes. 
+
+					${req.headers.origin}/verify/${verify}  
+
+					If you did not request to change the password, please disregard this message and the password will remain unchanged.
+
 
 					Thank you.`
 				};
 
 			models.User.update({
-				password: password[0]
+				resetToken: verify[0],
+				resetExpire: Date.now() + 1800000
 			}, 
 			{
 				where:{
 					id: user.id
-				},
-				individualHooks: true
+				}
 			}).then(result=>{
 				transporter.sendMail(mailOptions, (error, info) =>{
 					if(error){

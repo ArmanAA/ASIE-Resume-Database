@@ -4,11 +4,12 @@ let models = require('../models'),
 	router = express.Router(),
 	bcrypt = require("bcrypt");
 
-router.post('/password',(req, res)=>{
+router.post('/password',auth.user, (req, res)=>{
 
-	if(req.user)
-		{if(bcrypt.compareSync(req.body.old, req.user.password_digest)){
-			if(req.body.new.length < 8 ){ res.sendStatus(500); }
+	if(bcrypt.compareSync(req.body.old, req.user.password_digest)){
+			if(req.body.new.length < 8 ){ 
+				res.sendStatus(500); 
+			}
 			models.User.update(
 				{ 
 					password: req.body.new,
@@ -27,11 +28,11 @@ router.post('/password',(req, res)=>{
 		}else{
 			res.json({confirm: false});
 		}
-	}else{
-		res.json({message: "Not authorized"});
-	}
+	
 	
 });
+
+
 
 router.post ('/userinfo', auth.user, (req, res)=>{
 	res.send({
