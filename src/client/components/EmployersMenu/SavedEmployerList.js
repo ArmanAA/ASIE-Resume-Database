@@ -64,7 +64,7 @@ export default class SavedEmployerList extends Component {
 				accessor: "",
 				Cell: ({ original }) => {
 					return (
-						<Button color="danger" onClick={() => this.handleClick(original.id)}> Remove from MyList </Button>
+						<Button color="danger" onClick={() => this.handleClick(original.id)}> Remove </Button>
 					);
 				},
 				style: { textAlign: 'center' }
@@ -100,6 +100,13 @@ export default class SavedEmployerList extends Component {
 				accessor: "message",
 				style: { textAlign: "center" },
 				show: false
+			},
+			{
+				Header: "Date",
+				Cell: ({ original }) => {
+					return original.date.slice(0,10);
+				},
+				style: { textAlign: 'center'}
 			}
 		];
 
