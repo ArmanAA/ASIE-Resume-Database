@@ -13,24 +13,21 @@ export default class ContactUs extends Component {
 		let params = new URLSearchParams(url.search.slice(1));
 
 		return (
-			<div>
+			<div className="bg1">
 				<MenuBar/>
-				<div className="bg1">
-						<div className="row">
-							<div className="col title">
-								<h1>Contact Us</h1>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col">
-								<p>Individuals with disabilities face challenges every day and are accustomed to working harder to demonstrate their abilities. It may surprise you to learn that people with disabilities now represent 10-20% of the population, an influential market that continues to grow with the aging of America.<br/><br/>
-								Studies show that people with disabilities are more loyal to their employers and tend to stay on their jobs longer. Consider that employee turnover can cost up to 200%.  Save money, enhance productivity, and gain access to a largely untapped source of hard-working and qualified job candidates.<br/><br/>
-								Contact us today to learn more about this untapped workforce.</p>
-							</div>
+				<div className="container">
+					<div className="row">
+						<div className="col title">
+							<h1>Contact Us</h1>
 						</div>
 					</div>
-					
-
+					<div className="row">
+						<div className="col">
+							<p>Individuals with disabilities face challenges every day and are accustomed to working harder to demonstrate their abilities. It may surprise you to learn that people with disabilities now represent 10-20% of the population, an influential market that continues to grow with the aging of America.<br/><br/>
+							Studies show that people with disabilities are more loyal to their employers and tend to stay on their jobs longer. Consider that employee turnover can cost up to 200%.  Save money, enhance productivity, and gain access to a largely untapped source of hard-working and qualified job candidates.<br/><br/>
+							Contact us today to learn more about this untapped workforce.</p>
+						</div>
+					</div>
 					<div className="row">
 						<form className="col-6 form-background" action="/contactus" method="post">
 							<div className="row">
@@ -94,12 +91,16 @@ export default class ContactUs extends Component {
 								</div>
 							</div>
 						</form>
-						<div className="col-6 d-flex align-items-center">
+						<div className="col-6 align-items-center">
 							<img src={require("./assets/background.jpg")}/>
 						</div>
 
 				</div>
 			</div>
+				</div>
+					
+
+					
 		);
 	}
 }
