@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import {Collapse, Button, Card, CardBody, Table} from 'reactstrap';
-import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel.js';
+import {Collapse, Button, Card, CardBody, Table, Navbar, NavbarToggler} from 'reactstrap';
 import SidebarContent from '../AdminComponents/MenuBar.js';
 import Sidebar from 'react-sidebar';
 import AccountBar from '../AccountBar';
 import CollapseItem from './CollapseComponent.js';
 
-const mql = window.matchMedia('(min-width: 800px)');
+const mql = window.matchMedia('(min-width: 768px)');
 
 
 export default class FacilitatorProfile extends Component{
@@ -69,6 +68,7 @@ export default class FacilitatorProfile extends Component{
 			})
 		});
 
+		this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
 		this.toggleOpen = this.toggleOpen.bind(this);
 		this.onSetOpen = this.onSetOpen.bind(this);
 		this.toggleNotesOpen = this.toggleNotesOpen.bind(this);
@@ -144,7 +144,13 @@ export default class FacilitatorProfile extends Component{
 		return (
 			<div>
 			<Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
-			<MaterialTitlePanel  title={contentHeader}>
+				{
+					this.state.docked ? <span></span> :
+					
+					<Navbar style={{backgroundColor: "#4EB9BE"}}>
+						<Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
+					</Navbar>
+				}
 			  <AccountBar />
 			<div className="container-fluid mx-auto profile">
 			<div className="row border rounded">
@@ -206,7 +212,6 @@ export default class FacilitatorProfile extends Component{
 				</div>
 			</div>
 			</div>
-			</MaterialTitlePanel>
 			</Sidebar>
 			</div>
 		);
