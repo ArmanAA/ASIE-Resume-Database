@@ -34,6 +34,42 @@ router.get('/profile/:id', (req, res) => {
 		}
 });
 
+router.get('/match/:id', (req,res)=>{
+	if(req.user && req.user.usertype === "FAC" ){
+		models.Match.findAll({
+			where:{
+				facilitatorId: req.params.id,
+			},
+			
+			include:[
+				{
+					model: models.Candidate,
+					include: [models.User]
+				}, 
+				models.Employer
+			]
+			
+		}).then(result=>{
+			var matches = result.map((item)=> {
+				return {candidate: {
+					id: item.candidate.id,
+					email: item.candidate.user.email,
+					name: item.candidate.user.firstName + ' ' + item.candidate.user.lastName
+				}, employer: {
+					id: item.employer.id,
+					email: item.employer.email,
+					name: item.employer.firstName + ' ' + item.employer.lastName
+				},
+					date: item.createdAt
+			}
+			});
+			res.json(matches);
+		})
+	}else{
+		res.json({message: "Not Authorized"});
+	}
+});
+
 router.post('/create', (req, res) => {
 	//ADD USER AUTH
 	if(req.user && req.user.usertype === "FAC"){

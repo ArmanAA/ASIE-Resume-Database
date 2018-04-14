@@ -43,6 +43,48 @@ router.get("/", (req, res) => {
 	});
 });
 
+
+router.get("/:id", (req, res) => {
+	models.Folder.findAll({
+		where: {
+			userId: req.params.id
+		},
+		include: [{
+			model: models.Folderentry,
+			include: [{
+				model: models.Candidate,
+				include: [models.User]
+			}]
+		}]
+	}).then(folders => {
+		//res.json(folders);
+		let results = [];
+		if(folders) {
+			results = folders.map(folder => {
+				let folder_entrys = folder.folderentries.map(entry => {
+					return {
+						userId: entry.candidateId,
+						profilepic: entry.candidate.profilepic,
+						firstName: entry.candidate.user.firstName,
+						lastName: entry.candidate.user.lastName,
+						email: entry.candidate.user.email,
+						entryId: entry.id
+					}
+				});
+				return {
+					name: folder.name,
+					entry: folder_entrys,
+					id: folder.id
+				}
+			});
+		}
+		res.json(results);
+	}).catch(error => {
+		res.json(error);
+	});
+});
+
+
 router.post("/create", multer().array(), (req, res) => {
 	if (req.body.folderName) {
 		models.Folder.upsert({

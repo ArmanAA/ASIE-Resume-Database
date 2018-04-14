@@ -110,7 +110,7 @@ export default class SavedEmployerList extends Component {
 						onClick: (e, handleOriginal) => {
 							if(rowInfo) {
 								if(column.id != 'removeButton'){
-									var url = "/tempemp?id=" + rowInfo.original.id
+									var url = "/employer/?id=" + rowInfo.original.id
 									window.open(url);
 								}
 							}

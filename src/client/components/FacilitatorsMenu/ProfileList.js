@@ -17,7 +17,6 @@ export default class ProfileList extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data) {
-      console.log("ProfileList", nextProps.data);
       this.setState({
         profile: nextProps.data
       })
@@ -32,7 +31,6 @@ export default class ProfileList extends Component {
       selected: newSelected,
       selectAll: 2
     });
-    console.log(this.state.selected);
   }
 
   toggleSelectAll() {
@@ -51,7 +49,6 @@ export default class ProfileList extends Component {
   }
 
   handleDelete(event){
-    console.log(Object.keys(this.state.selected));
       fetch("/api/facilitators/delete", {
       headers: {
         "Content-Type": "application/json"
@@ -60,14 +57,12 @@ export default class ProfileList extends Component {
       body: JSON.stringify(this.state.selected),
       credentials: 'include'
     }).then(response=> {
-      console.log(response.status)
       if(response.status == 200){
           fetch('/api/search/facilitator', {
             method: 'GET',
             credentials: 'include'
           }).then(response => {
             response.json().then(json => {
-              console.log("SearchPage", json);
               if(json) {
                 this.setState({profile: json});
               }
@@ -76,7 +71,6 @@ export default class ProfileList extends Component {
   
     }
     }).catch(error=> {
-        console.log(error);
         window.alert("Deletion failed!");
     });
   }
@@ -146,7 +140,7 @@ export default class ProfileList extends Component {
           return {onClick: e =>{
             if(rowInfo)
             {  if(column.id != 'checkbox'){
-                          var url = '/facilitator?id=' + rowInfo.original.id;
+                          var url = '/facilitator/' + rowInfo.original.id;
                           window.location.href = url;
                       }
             }
