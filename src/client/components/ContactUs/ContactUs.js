@@ -85,6 +85,11 @@ export default class ContactUs extends Component {
 							</div>
 							<div className="row">
 								<div className="col-12">
+									<b>If I am agreeing on the behalf of my company, I represent and warrant that I have legal authority to bind my company to the <a href="/waiver" target="_blank">terms of the agreement.</a></b>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-12">
 									<input className="btn btn-primary" type="submit" value="Submit"/>
 								</div>
 							</div>
