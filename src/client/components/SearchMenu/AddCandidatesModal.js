@@ -112,7 +112,7 @@ export default class AddCandidatesModal extends Component {
 
 		return (
 			<div>
-				<Button color="primary" onClick={this.toggle}>Save Selected Candidates</Button>
+				<Button outline className="mb-2"color="primary" onClick={this.toggle}>Save Selected Candidates</Button>
 					<Modal centered={centered} isOpen={modal} toggle={this.toggle}>
 						<form className="form-group">
 							<ModalHeader toggle={this.toggle}>

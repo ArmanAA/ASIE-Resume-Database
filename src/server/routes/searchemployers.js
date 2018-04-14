@@ -34,7 +34,6 @@ router.get('/', (req, res) => {
     };
   });
   searchEmployer(employer_obj, req.user.id, results => {
-    //res.json(results);
     let employers_results = results.map(result => {
       return {
         id: result.id,
@@ -43,6 +42,7 @@ router.get('/', (req, res) => {
         email: result.email,
         subject: result.subject,
         message: result.message,
+        date: result.createdAt,
         inMyList: result.savedemployers.length > 0
       };
     });
@@ -66,7 +66,8 @@ let searchEmployer = (name, id, next) => {
       userId: id,
     },
     required: false
-  }]
+  }];
+  query.order = [['createdAt', 'DESC']]
   models.Employer.findAll(query).then(next).catch(next);
 };
 

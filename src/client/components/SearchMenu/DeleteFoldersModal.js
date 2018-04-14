@@ -82,7 +82,7 @@ export default class DeleteFoldersModal extends Component {
 
 		return (
 			<span>
-				<Button color="primary" onClick={this.toggle}>Delete Folder</Button>
+				<Button color="primary" outline className="mb-2" onClick={this.toggle}>Delete Folder</Button>
 					<Modal centered={centered} isOpen={modal} toggle={this.toggle}>
 						<form className="form-group">
 							<ModalHeader toggle={this.toggle}>

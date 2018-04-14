@@ -59,7 +59,7 @@ export default class ProfileComponent extends Component {
 	}
 
 	deleteMatch(match_id, entry_id) {
-		fetch("api/employers/profile/" + match_id + "/remove", {
+		fetch("/api/employers/profile/" + match_id + "/remove", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			credentials: "include"
@@ -135,6 +135,7 @@ export default class ProfileComponent extends Component {
 			var candidatesList = this.state.addedCandidates.map((item, entry_id) => {
 				return <div className="row">
 							<div className="col">
+							<hr/>
 								<div className="row">
 									<h5 className="col-8">
 										{item.candidate.name}
@@ -148,6 +149,7 @@ export default class ProfileComponent extends Component {
 										Added By {item.facilitator}
 									</h6>
 								</div>
+							<hr/>
 							</div> 
 						</div>
 			});
@@ -156,98 +158,79 @@ export default class ProfileComponent extends Component {
 		//  <CommentBox data={commentData} />,
 
 		return (
-			<div className="container-fluid mx-auto profile">
-				<div className="row border rounded">
-					<div className="col-12 mx-auto " id="employer-id">
-						<div className="row justify-content-between">
-							<div className="col-5 name">
-								<h2>{name}</h2>
-								<p> {email}</p>
-							</div>
-							<div className="col-lg-3 col-sm-5 col-md-5 buttons">
-								<div className="row justify-content-between">
-									<div className="col-12 box">
-										<button
-											className=" badge badge-pill badge-info float-right"
-											onClick={this.addRemoveToMyList}
-										>
-											{this.state.inMyList ? (
-												<span> Remove From My List</span>
-											) : (
-												<span>Add to My List</span>
-											)}
-										</button>
-										<button className=" badge badge-pill badge-info float-right">
-											{" "}
-											Archive{" "}
-										</button>
-										{/*<button
-											className=" badge badge-pill badge-info float-right"
-											onClick={this.searchForCandidates}
-										>
-											Search for Potential Candidates for This Employer
-										</button>*/}
-										<Modal
-											open={this.state.searchpotentialcandidates}
-											onClose={() => {
-												this.setState({ searchpotentialcandidates: false });
-											}}
-										>
-											<SearchPotentialCandidatesModal />
-										</Modal>
-									</div>
-									<div className="col-12 box">
-										{/*<span className="badge badge-primary float-right">
-											STATUS{" "}
-										</span>
-										<span className="badge badge-primary float-right">
-											IN MY LIST{" "}
-										</span>*/}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="col-12 mx-auto " id="employer-msg">
-						<div className="row border">
-							<div className="col-9  subject rounded">
-								<h1>{subject}</h1>
-							</div>
-							<div className="col-3 date">
-								<h6>{date}</h6>
-							</div>
-							<div className="col-12 border-top msg ">
-								<p>{message}</p>
-							</div>
-						</div>
-					</div>
-					<div className="col-6  " id="notes">
-						<div className="row">
-							<div className="col-12 border sec-title">
-								<h6 onClick={this.toggleNotesOpen}> Notes</h6>
-							</div>
-							<div className="col-12 border">
-								<CommentBox />
-							</div>
-						</div>
-					</div>
-					<div className="col-6" id="search-cand">
-						<div className="row">
-							<div className="col-12 border sec-title">
-								<h6>Search Candidate</h6>
-							</div>
-							<div className="col-12 border">
+			<div className="container-fluid">
+				<div className="row mt-4 profile border rounded">
+					<div className="col-12" id="employer-id">
+						<div className="row mt-2 mb-2">
+							<div className="col-lg-9">
 								<div className="row">
-									<Button className="col-12" onClick={this.toggleAddCandidatesModal}>Add Potential Candidates</Button>
-									<Modal isOpen={this.state.addCandidatesModal} toggle={this.toggleAddCandidatesModal}>
-										<SearchPage />
-									</Modal>
+									<div className="col-12">
+										<h2>{name}</h2>
+									</div>
 								</div>
-								{ candidatesList }
+								<div className="row">
+									<div className="col-12">
+										<p>{email}</p>
+									</div>
+								</div>
+							</div>
+							<div className="col-lg-3">
+								<Button color="info" onClick={this.addRemoveToMyList}>
+									{this.state.inMyList ? (
+										<span> Remove From My List</span>
+									) : (
+										<span>Add to My List</span>
+									)}
+								</Button>
+							</div>
+						</div>
+						<div className="row border">
+							<div className="col-12">
+								<div className="row mt-2 mb-2">
+									<div className="col-9">
+										<h4>{subject}</h4>
+									</div>
+									<div className="col-3">
+										<h5>{date}</h5>
+									</div>
+								</div>
+							<div>
+						</div>
+					</div>
+				</div>
+				<div className="row border">
+					<div className="col-12">
+						<div className="row">
+							<div className="col-12">
+								<p className="message">{message}</p>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div className="row">
+					<div className="col-6 border" id="notes">
+						<h6 className="mt-2 mb-2">Notes</h6>
+					</div>
+					<div className="col-6 border" id="search-cand">
+						<h6 className="mt-2 mb-2">Search Candidate</h6>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-6 border commentScroll" id="notes">
+						<CommentBox />
+					</div>
+					<div className="col-6 border" id="search-cand">
+						<div className="row">
+							<Button className="col-12" onClick={this.toggleAddCandidatesModal}>Add Potential Candidates</Button>
+							<Modal isOpen={this.state.addCandidatesModal} toggle={this.toggleAddCandidatesModal}>
+								<SearchPage />
+							</Modal>
+						</div>
+						{ candidatesList }
+					</div>
+				</div>
+			</div>	
+			</div>
 			</div>
 		);
 	}

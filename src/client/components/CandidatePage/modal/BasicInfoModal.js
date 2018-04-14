@@ -157,9 +157,9 @@ export default class BasicInfoModal extends Component {
 						<label className='row'> What is your phone number? (format: XXX-XXX-XXXX) <input className="form-control" onChange={this.handleChangePhoneNumber} pattern="\d{3}[\-]\d{3}[\-]\d{4}" title="XXX-XXX-XXXX" type="text" name="update_phone" defaultValue={this.state.phone}/></label>
 						<label className='row'> What is your email address? <input className="form-control"  type="text" name="update_email" defaultValue={this.state.email}/></label>
 
-						<label className='row'> Are you a regional center client? </label>
+						<label className='row'> Are you a Regional Center client? </label>
 						<select className='row' name="update_regionalclient" defaultValue={this.state.regionalclient}>{options}</select>
-						<label className='row'>Are you a department of rehabilitation client? </label>
+						<label className='row'>Are you a Department of Rehabilitation client? </label>
 						<select className='row' name="update_rehabclient" defaultValue={this.state.rehabclient}>{options}</select>
 
 						<label className='row'> Do you have a profile picture? <input type="file" accept="image/*" name="update_image"/></label>

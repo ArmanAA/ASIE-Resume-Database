@@ -164,8 +164,8 @@ export default class InterestModal extends Component {
 						<ModalHeader toggle={this.toggle}>
 							<h2>Interest</h2>
 							<p>Add some personal interests and/or career interests!</p>
-							<p>"Personal" section is about your personal interests such as video gaming, photography, painting, etc. For more information about how to add a personal interest, put your cursor over <a href="#" id="helppersonal">here</a>.</p>
-							<p>"Career" section is about your career intersts such as construction, woodwork, veterinary, etc. For more information about how to add a career interest, put your cursor over <a href="#" id="helpcareer">here</a>.</p>
+							<p>"Personal" section is about what you like to do for fun such as video gaming, photography, painting, etc. For more information about how to add a personal interest, put your cursor over <a href="#" id="helppersonal">here</a>.</p>
+							<p>"Career" section is about what kind of jobs you may be interested in such as construction, woodwork, veterinary, etc. For more information about how to add a career interest, put your cursor over <a href="#" id="helpcareer">here</a>.</p>
 							<Tooltip placement="right" target="helppersonal" isOpen={this.state.tooltipOpenPersonal} toggle={this.toggleTooltipPersonal}> 
 								To add a personal interest, type a personal interest that you want to add and press "enter key" to create a new tag. To delete a personal interest, click the "x" button next to the personal interest you want to delete. Once you are finished adding or removing personal interests, click "Submit Changes".
 							</Tooltip>
