@@ -6,8 +6,6 @@ import CanddiatePage from './components/CandidatePage/CandidatePage';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
-import WhoAreYou from './components/WhoAreYou';
-import Ideal from './components/Ideal';
 import Waiver from './components/Waiver';
 import CandidatesMenu from './components/SearchMenu/SearchPage';
 import EmployersMenu from './components/EmployersMenu/EmployerSearchPage';
@@ -29,8 +27,6 @@ export default class App extends Component {
 					<Route exact path="/login" component={Login}/>
 					<Route exact path="/signup" component={Signup}/>
 					<Route exact path="/candidate/:id" component={CanddiatePage}/>
-					<Route exact path="/whoareyou" component={WhoAreYou}/>
-					<Route exact path="/ideal" component={Ideal}/>
 					<Route exact path="/waiver" component={Waiver}/>
 					<Route exact path="/candidates" component={CandidatesMenu}/>
 					<Route exact path="/employers" component={EmployersMenu}/>
