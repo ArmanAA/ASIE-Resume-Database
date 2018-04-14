@@ -192,7 +192,7 @@ export default class SearchPage extends Component {
 										<div className="row">
 											<form className="col-12" onSubmit={this.handleSubmit}>
 												<div className="row">
-													<div className="col-sm-5">
+													<div className="col-sm-5 col-xs-12">
 														<Select
 															
 															value={this.state.interest}
@@ -203,7 +203,7 @@ export default class SearchPage extends Component {
 
 														/>
 													</div>
-													<div className="col-sm-5">
+													<div className="col-sm-5 col-xs-12">
 														<Select
 															value={this.state.location}
 															placeholder="Search by location"
@@ -213,13 +213,12 @@ export default class SearchPage extends Component {
 
 														/>
 													</div>
-													<div className="col-sm-2">
-														<Button color="primary" type="submit">Search</Button>
+													<div className="col-sm-2 col-xs-12">
+														<Button color="primary" className="mt-0" type="submit">Search</Button>
 													</div>
 												</div>
 											</form>
 										</div>
-										<hr/>
 										<div className="row">
 											<div className="col">
 												<AddCandidatesModal updateFolders={this.getfoldentries} data={this.state.selected} folders={this.state.folders} selectedFolder={selectedFolder}/>

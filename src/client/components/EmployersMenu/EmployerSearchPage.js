@@ -158,11 +158,7 @@ export default class EmployerSearchPage extends Component {
                             className="form-control col-sm-10 rounded"
                             placeholder="Search for employers by name, by email, and/or subject"
                           />
-                          <input
-                            className="btn btn-default mb-2 col-sm-2 mx-1"
-                            type="submit"
-                            value="Search"
-                          />
+                         <input className="btn btn-primary mb-2 col-sm-2 mx-1" type="submit" value="Search"/>
                         </div>
                       </form>
 
