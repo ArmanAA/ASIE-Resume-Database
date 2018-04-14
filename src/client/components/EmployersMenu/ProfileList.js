@@ -49,7 +49,14 @@ export default class ProfileList extends Component {
         accessor: "",
         Cell: ({ original }) => {
           return (
-            <Button color="primary" onClick={() => this.handleClick(original.userId)}> Add </Button>
+            <div>
+            {
+              original.matched == true ? 
+              <Button color="primary" onClick={() => this.handleClick(original.userId)} disabled={true}> Matched </Button>
+              :
+              <Button color="primary" onClick={() => this.handleClick(original.userId)}> Match </Button>
+            }
+            </div>
           );
         },
         style: { textAlign: 'center' }

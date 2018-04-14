@@ -56,7 +56,8 @@ export default class SearchPage extends Component {
 
   search(interest, location) {
     const self = this;
-    var url = '/api/search/candidate?' + "interests=" + interest + "&locations=" + location;
+    var currUrl = new URL(window.location.href);
+    var url = '/api/search/candidate/match/' + currUrl.searchParams.get("id") +'?' + "interests=" + interest + "&locations=" + location;
     fetch(url, {
       method: 'GET',
       credentials: 'include'
