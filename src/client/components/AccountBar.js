@@ -42,18 +42,19 @@ export default class AccountBar extends Component{
 			credentials: 'include'
 		}).then(response => {
 			response.json().then(json => {
-				
-				fetch('/api/emaillist/exists', {
-					method:'post',
-					credentials: 'include'
-				}).then(res => {
-					res.json().then(json=>{
-						this.setState({
-							subscribed: json.subscribe
+				if(json.usertype !== "CAND" && json.usertype != null){
+					fetch('/api/emaillist/exists', {
+						method:'post',
+						credentials: 'include'
+					}).then(res => {
+						res.json().then(json=>{
+							this.setState({
+								subscribed: json.subscribe
+							})
 						})
-					})
 
-				});
+					});
+				}
 				this.setState({
 					user: json
 
