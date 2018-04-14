@@ -155,7 +155,7 @@ export default class EmployerSearchPage extends Component {
                           <input
                             type="text"
                             name="name"
-                            className="form-control col-sm-10"
+                            className="form-control col-sm-10 rounded"
                             placeholder="Search for employers by name, by email, and/or subject"
                           />
                           <input

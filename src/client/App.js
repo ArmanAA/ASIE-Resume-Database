@@ -37,7 +37,7 @@ export default class App extends Component {
 					<Route exact path="/facilitators" component={FacilitatorsMenu}/>
 					<Route exact path="/contactus" component={ContactUs} />
 					<Route exact path="/tempemp" component={TempEmp}/>
-					<Route exact path="/facilitator" component={FacilitatorProfile}/>
+					<Route exact path="/facilitator/:id" component={FacilitatorProfile}/>
 					<Route exact path="/forgot" component={ForgotPassword}/>
 
 					<Route component={NotFoundPage}/>

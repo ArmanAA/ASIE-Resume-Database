@@ -19,7 +19,7 @@ export default class SearchPage extends Component {
       user: null,
       deleteClicked: false,
     }
-    console.log(props.match.params);
+   
 
 
     const self = this;
@@ -29,7 +29,7 @@ export default class SearchPage extends Component {
       credentials: 'include'
     }).then(response => {
       response.json().then(json => {
-        console.log("SearchPage", json);
+       
         if(json) {
           self.setState({profile: json});
         }
@@ -80,13 +80,13 @@ export default class SearchPage extends Component {
     const data = new FormData(event.target);
     var url = '/api/search/facilitator?' + "firstName=" + event.target.firstName.value+ "&lastName=" + event.target.lastName.value
     + "&email=" + event.target.email.value;
-    console.log(url);
+    
     fetch(url, {
       method: 'GET',
       credentials: 'include'
     }).then(response => {
       response.json().then(json => {
-        console.log("SearchPage", json);
+        
         if(json) {
           self.setState({profile: json});
         }

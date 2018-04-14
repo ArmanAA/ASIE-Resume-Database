@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Collapse, Button, Card, CardBody} from 'reactstrap';
-import qs from 'query-string';
+import {Collapse, Button, Card, CardBody, Table} from 'reactstrap';
 import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel.js';
 import SidebarContent from '../AdminComponents/MenuBar.js';
 import Sidebar from 'react-sidebar';
@@ -22,12 +21,14 @@ export default class FacilitatorProfile extends Component{
 				firstname: '',
 				lastname: '',
 				email: '',
-				registerDate: ''
+				registerDate: '',
+				list: [],
+				matches: []
 			};
 
 		const self = this;
-		var query = qs.parse(props.location.search);
-		fetch('/api/facilitators/profile/' + query.id, {
+		//console.log( currUrl.searchParams.getAll());
+		fetch('/api/facilitators/profile/' + this.props.match.params.id, {
 			headers: {"Content-Type": "application/json"},
 			method: 'GET',
 			credentials: 'include'
@@ -43,6 +44,28 @@ export default class FacilitatorProfile extends Component{
 					lastOnline: json.lastOnline.slice(0,10),
 					registerDate: json.createdAt.slice(0,10)
 				});
+			})
+		});
+
+		fetch('/api/folders/' + this.props.match.params.id, {
+			method: 'GET',
+			credentials: 'include'
+		}).then(res => {
+			return res.json();
+		}).then(json => {
+			this.setState({
+				list: json
+			});
+		});
+
+		fetch('/api/facilitators/match/' + this.props.match.params.id, {
+			method: 'GET',
+			credentials: 'include'
+		}).then(res => {
+			return res.json();
+		}).then(json => {
+			this.setState({
+				matches: json
 			})
 		});
 
@@ -89,7 +112,7 @@ export default class FacilitatorProfile extends Component{
 
 
 	componentDidMount() {
-		document.title="Facilitator Profile"; 
+		document.title= "Facilitator Profile"; 
 	}
 
 
@@ -102,57 +125,22 @@ export default class FacilitatorProfile extends Component{
 						 <button className="btn-toggle-menu" onClick={this.toggleOpen.bind(this)}>=</button>}
 						<span></span>
 					</span>);
+		
 
-		const mylist = {
-			count: 3,
-			lists :
-			[{
-				listName: 'My list1', 
-				listItems:[ {
-					firstName: 'cand_firstname',
-					lastName: 'cand_lastname',
-
-				},
-				{
-					firstName: 'cand_firstname',
-					lastName: 'cand_lastname',
-				}
-
-				]
-			},
-			{
-				listName: 'My list2', 
-				listItems: [{
-					firstName: 'cand_firstname',
-					lastName: 'cand_lastname',
-
-				}]
-			},
-			{
-				listName: 'My list3', 
-				listItems: [{
-					firstName: 'cand_firstname',
-					lastName: 'cand_lastname',
-
-				}]
-			}]
-
-		}
-		var lists = mylist.lists;
+		var lists = this.state.list;
 		var MyLists = lists.map((item)=>
 			<CollapseItem customClass={"mylists"}  list={item}/>
 		);
 		
-		var message = `
-			BODY\t  Facilitator Mylists\n
-				\tCollapse\n
-				\t\t	List1 \n
-				\t\t	Employers \n
-				\tCollapse \n
-				\t\t	List2 \n
-				\t\t	Employers \n
-				\t\t	... `;
-		
+		var matchtb = this.state.matches.map((item)=>
+			<tr>
+				<th scope="row"> </th>
+				<td> <a href={"/candidate/" + item.candidate.id}> {item.candidate.name} </a></td>
+				<td> <a href={"/employer/?id=" + item.employer.id}> {item.employer.name} </a></td>
+				<td> {item.date.slice(0,10)} </td>
+			</tr>
+		);
+
 		return (
 			<div>
 			<Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
@@ -184,7 +172,7 @@ export default class FacilitatorProfile extends Component{
 				<div className="col-12 mx-auto " >
 					<div className="row ">
 						<div className="col-12 border  subject rounded">
-							<h1>My Lists</h1>
+							<h1>Saved Candidates</h1>
 							
 						</div>
 						<div className="col-12 border-top msg ">
@@ -194,11 +182,23 @@ export default class FacilitatorProfile extends Component{
 						
 
 						<div className="col-12 border subject rounded">
-							<h1>Assigned Candidates</h1>
+							<h1>Matches By {this.state.firstName} {this.state.lastName}</h1>
 						</div>
 						
 						<div className="col-12 border-top msg ">
-								<p>{message}</p>
+							<Table>
+								<thead>
+									<tr>
+										<th> </th>
+										<th> Candidate </th>
+										<th> Employer </th>
+										<th> Match Date </th>
+									</tr>
+								</thead>
+								<tbody>
+									{matchtb}
+								</tbody>
+							</Table>
 						</div>
 						
 					</div>

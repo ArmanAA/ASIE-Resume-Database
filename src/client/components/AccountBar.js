@@ -75,7 +75,7 @@ export default class AccountBar extends Component{
  
     	var confirm = (e.target[1].value !== e.target[2].value);
     	var len = (e.target[1].value.length < 8);
-    	console.log("flags", confirm, len);
+    	
 
     	if(!confirm && !len){
 
@@ -89,9 +89,7 @@ export default class AccountBar extends Component{
 		     	}),
 		     	credentials: 'include'
 		    }).then(response => {
-		    	console.log(response)
 		    	response.json().then(json=>{
-		    		console.log(json);
 		    		if(json.confirm){
 		    			this.setState({
 							modalOpen: !this.state.modalOpen,
@@ -174,7 +172,7 @@ export default class AccountBar extends Component{
 		var adminDiv;
 		if(this.state.user.usertype == 'FAC' || this.state.user.usertype == 'ADMIN'){
 			adminDiv = (<div className="row mx-auto my-2" >
-						<button disabled className="btn badge badge-pill badge-info nohover"> Subscription: </button>
+						<button disabled className="btn badge badge-pill badge-info nohover"> Email List: </button>
 							<Switch onClick={this.subscribe} on={this.state.subscribed} className="mx-auto" /> 
 							
 						</div>);
