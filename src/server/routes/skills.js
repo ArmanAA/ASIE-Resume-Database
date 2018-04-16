@@ -16,6 +16,18 @@ let models  = require('../models'),
 		res.json(skills);
 	});
 router.get('/:user_id', auth.strict, function(req, res) {
+	models.Skill.findAll({
+		where: {
+			userId: req.params.user_id,
+		},
+		raw: true
+	}).then(function(results) {
+		var skills = [];
+		results.forEach(function(skill) {
+			skills.push(skill.skill);
+		})
+		res.json(skills);
+	});
 })
 
 router.post('/:user_id/update', auth.strict, function(req, res) {
