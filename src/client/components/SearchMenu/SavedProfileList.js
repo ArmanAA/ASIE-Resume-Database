@@ -95,7 +95,7 @@ export default class ProfileList extends Component {
         accessor: "",
         Cell: ({ original }) => {
           return (
-            <img src={ "profile/" + original.profilepic } align="middle" width="80" height="80"  />
+            <img src={ "/profile/" + original.profilepic } align="middle" width="80" height="80"  />
           );
         },
         Header: '',

@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
-import { Alert } from 'reactstrap';
+import { Alert, FormText, FormFeedback, Input } from 'reactstrap';
 import MenuBar from '../Home/MenuBar.js'
-import Waiver from './Waiver.js';
 import './css/Signup.css';
 
 export default class Login extends Component {
 
+	constructor(props){
+		super(props);
+		this.state={
+			invalid: false
+		}
+		this.validatePassword = this.validatePassword.bind(this);
+	}
 	componentDidMount(){
 		document.title = "Register - ASIE Resume Database"
+
+	}
+
+	validatePassword(e){
+		this.setState({
+			invalid: (e.target.value.length < 8)
+		})
 	}
 	render() {
 		let url = new URL(window.location.href);
@@ -33,12 +46,17 @@ export default class Login extends Component {
 						</Alert>
 					:
 						<span/>
+				}{
+					(params.get('password') != null) ?
+						<Alert color="danger">
+							Make sure password is at least 8 characters.
+						</Alert>
+					:
+						<span/>
 				}
 
 				<div className="row">
-				<div className="col-sm-10 col-md-8 col-lg-6 form-box">
-		 
-					<form className="signup-form" action="/signup" method="post">
+					<form className="col-md-6 offset-md-3 border border-info rounded form-box" action="/signup" method="post">
 						<div className="form-group">
 							<h1>Registration</h1>
 							<div>
@@ -55,11 +73,16 @@ export default class Login extends Component {
 							</div>
 							<div>
 								<label>Password:</label>
-								<input className="form-control" type="password" name="password" required/>
+								<Input invalid={this.state.invalid} className="form-control" type="password" name="password" onChange={this.validatePassword} required/>
+								<FormFeedback invalid={this.state.invalid} > Password must be at least 8 characters. </FormFeedback>
+								<FormText> * Password must be at least 8 characters. </FormText>
+								
 							</div>
 							<div>
-								<input type="checkbox" name="terms" required/>
-								<label> I have read and agree to the <Waiver />. </label>
+								<label className="checkbox-inline"> 
+									<input type="checkbox" name="terms" required/>
+									By checking this box I confirm that I have read and agree to be bound by  <a href="/waiver" target="_blank">this agreement</a>. I also confirm that I am of the legal age of 18.
+								</label>
 							</div>
 							<div>
 								<input className="btn btn-primary" type="submit" value="Sign Up"/>
@@ -67,7 +90,6 @@ export default class Login extends Component {
 							</div>
 						</form>
 				</div> {/*col-8*/}
-				</div> {/*row*/}
 				</div> {/*container*/}
 				</div> /*Empty div to wrap JSX*/
 		);

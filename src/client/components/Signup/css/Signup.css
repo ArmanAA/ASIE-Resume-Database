@@ -3,20 +3,7 @@ h1{
 }
 
 .form-box{
-	margin: 100px 20%;
-	
-	border-style: solid;
-	border-width: 1px;
-	border-color: #6BC;
-	border-radius: 10px;
-
 	box-shadow: 5px 5px 5px grey;
-}
-
-.signup-form{
-	width: 100%;
-	padding: 0  100px;
-	float: none;
 }
 
 .btn{
@@ -29,15 +16,6 @@ h1{
 }
 
 @media (max-width: 993px) {
-   .form-box{
-   	width: 90%;
-   	margin: 100px auto;
-   }
-
-   .signup-form{
-   	padding: 0;
-   }
-
    h1{
    	font-size: 0.5em;
 

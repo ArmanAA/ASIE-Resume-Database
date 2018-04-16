@@ -42,10 +42,13 @@ export default class AddFacilitator extends Component{
   	  	var confirm = window.confirm("Are you sure you want to add new facilitator?");
   	  	if(confirm){
   		    event.preventDefault();
+          if(event.target.admin == null)
+            event.target.admin = {checked: false};
   		    const data = {
   		    	firstname: event.target.firstname.value,
   		    	lastname: event.target.lastname.value,
-  		    	email: event.target.email.value	    
+  		    	email: event.target.email.value,
+            admin: event.target.admin.checked
   		    };
   	
   		    fetch('/api/facilitators/create', {
@@ -87,6 +90,9 @@ export default class AddFacilitator extends Component{
 				</label>
 				<label className='row'> Email <input className="form-control"  type="email" name="email"/>
 				</label>
+        { this.props.type === 'SUPER' &&
+          <label className='row form-control'><input type="checkbox" name="admin"/> Admin Account</label>
+        }
 				<button className="btn btn-primary col-4" color="primary" type="submit"> Add </button>{' '}
 				<button className="btn btn-primary col-4" color="secondary" type="button" onClick={this.toggle}> Cancel</button>	
 

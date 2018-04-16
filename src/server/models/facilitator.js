@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
 	      foreignKey: "userId",
 	      targetKey: "id"
 		});
+		Facilitator.hasMany(models.Savedemployer, {
+	      foreignKey: "userId",
+	      targetKey: "id"
+		});
 	};
 
 	return Facilitator;

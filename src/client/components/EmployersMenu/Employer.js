@@ -16,7 +16,7 @@ export default class Employer extends Component {
 
   handleClick() {
     <a
-      href="http://localhost:3001/tempemp"
+      href="http://localhost:3001/employer"
       target="_blank"
       onclick="console.log('The link was clicked.'); return false"
     >

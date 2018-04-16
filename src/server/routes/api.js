@@ -15,6 +15,7 @@ let candidates = require('./candidates'),
 router.use('/search', auth.admin, search);
 router.use('/candidates', candidates);
 router.use('/facilitators', auth.admin, facilitators);
+router.use('/facilitator', auth.admin, facilitators);
 router.use('/comments', auth.admin, comments);
 router.use('/emaillist', auth.admin, emaillist)
 router.use('/employers', auth.admin, employers);

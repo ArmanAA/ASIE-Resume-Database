@@ -12,6 +12,7 @@ export default class CollapseComponent extends Component{
 	
 		this.toggleOpen = this.toggleOpen.bind(this);
 
+
 	}
 
 	toggleOpen(ev) {
@@ -22,16 +23,16 @@ export default class CollapseComponent extends Component{
 	  }
 
 	render(){
-		var items = this.props.list.listItems;
-		var li = items.map(({firstName, lastName})=>
-        <a href="" className="list-group-item list-group-item-action list-group-item-dark"> 
+		var items = this.props.list.entry;
+		var li = items.map(({userId, firstName, lastName})=>
+        <a href={"/candidate/" + JSON.stringify(userId)} className="list-group-item list-group-item-action list-group-item-dark"> 
         {firstName} {lastName} </a>);
 
 
 		return(
 		<div>
 		<div className={this.props.customClass, "border rounded m-auto"} onClick={this.toggleOpen.bind(this)}>
-			<h5 className="my-auto p-2"> {this.props.list.listName }</h5>
+			<h5 className="my-auto p-2"> {this.props.list.name }</h5>
 		</div>
 		<Collapse isOpen={this.state.open}> 
 		<div className="list-group list-group-flush">

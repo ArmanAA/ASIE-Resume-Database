@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import {Collapse, Button, Card, CardBody} from 'reactstrap';
-import qs from 'query-string';
-import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel.js';
+import {Collapse, Button, Card, CardBody, Table, Navbar, NavbarToggler} from 'reactstrap';
 import SidebarContent from '../AdminComponents/MenuBar.js';
 import Sidebar from 'react-sidebar';
 import AccountBar from '../AccountBar';
 import CollapseItem from './CollapseComponent.js';
 
-const mql = window.matchMedia('(min-width: 800px)');
+const mql = window.matchMedia('(min-width: 768px)');
 
 
 export default class FacilitatorProfile extends Component{
@@ -19,15 +17,19 @@ export default class FacilitatorProfile extends Component{
 				docked: true,
 				open: false,
 				notesOpen: false,
+				user: props.user || {},
+				subscribed: props.subscribed || false,
 				firstname: '',
 				lastname: '',
 				email: '',
-				registerDate: ''
+				registerDate: '',
+				list: [],
+				matches: []
 			};
 
 		const self = this;
-		var query = qs.parse(props.location.search);
-		fetch('/api/facilitators/profile/' + query.id, {
+		//console.log( currUrl.searchParams.getAll());
+		fetch('/api/facilitators/profile/' + this.props.match.params.id, {
 			headers: {"Content-Type": "application/json"},
 			method: 'GET',
 			credentials: 'include'
@@ -46,6 +48,29 @@ export default class FacilitatorProfile extends Component{
 			})
 		});
 
+		fetch('/api/folders/' + this.props.match.params.id, {
+			method: 'GET',
+			credentials: 'include'
+		}).then(res => {
+			return res.json();
+		}).then(json => {
+			this.setState({
+				list: json
+			});
+		});
+
+		fetch('/api/facilitators/match/' + this.props.match.params.id, {
+			method: 'GET',
+			credentials: 'include'
+		}).then(res => {
+			return res.json();
+		}).then(json => {
+			this.setState({
+				matches: json
+			})
+		});
+
+		this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
 		this.toggleOpen = this.toggleOpen.bind(this);
 		this.onSetOpen = this.onSetOpen.bind(this);
 		this.toggleNotesOpen = this.toggleNotesOpen.bind(this);
@@ -58,6 +83,13 @@ export default class FacilitatorProfile extends Component{
 
 	componentWillUnmount() {
 		this.state.mql.removeListener(this.mediaQueryChanged);
+	}
+
+	componentWillReceiveProps(props) {
+		this.setState({
+			user: props.user,
+			subscribed: props.subscribed
+		})
 	}
 
 	onSetOpen(open) {
@@ -89,13 +121,37 @@ export default class FacilitatorProfile extends Component{
 
 
 	componentDidMount() {
-		document.title="Facilitator Profile"; 
+		document.title= "Facilitator Profile";
+		fetch('/api/users/userinfo',{
+			headers:{"Content-Type": "application/json"},
+			method:'post',
+			credentials: 'include'
+		}).then(response => {
+			response.json().then(json => {
+				if(json.usertype !== "CAND" && json.usertype != null){
+					fetch('/api/emaillist/exists', {
+						method:'post',
+						credentials: 'include'
+					}).then(res => {
+						res.json().then(json=>{
+							this.setState({
+								subscribed: json.subscribe
+							})
+						})
+					});
+				}
+				this.setState({
+					user: json
+				})
+			});
+		});
 	}
 
 
 	render(){
-
-		const sidebar = <SidebarContent />;
+		let usertype = this.state.user.usertype || "";
+		let admin = ['SUPER', 'ADMIN'].indexOf(usertype) > -1;
+		const sidebar = <SidebarContent admin={admin}/>;
 		const contentHeader = (
 					<span>
 						{!this.state.docked &&
@@ -103,61 +159,31 @@ export default class FacilitatorProfile extends Component{
 						<span></span>
 					</span>);
 
-		const mylist = {
-			count: 3,
-			lists :
-			[{
-				listName: 'My list1', 
-				listItems:[ {
-					firstName: 'cand_firstname',
-					lastName: 'cand_lastname',
-
-				},
-				{
-					firstName: 'cand_firstname',
-					lastName: 'cand_lastname',
-				}
-
-				]
-			},
-			{
-				listName: 'My list2', 
-				listItems: [{
-					firstName: 'cand_firstname',
-					lastName: 'cand_lastname',
-
-				}]
-			},
-			{
-				listName: 'My list3', 
-				listItems: [{
-					firstName: 'cand_firstname',
-					lastName: 'cand_lastname',
-
-				}]
-			}]
-
-		}
-		var lists = mylist.lists;
+		var lists = this.state.list;
 		var MyLists = lists.map((item)=>
 			<CollapseItem customClass={"mylists"}  list={item}/>
 		);
 		
-		var message = `
-			BODY\t  Facilitator Mylists\n
-				\tCollapse\n
-				\t\t	List1 \n
-				\t\t	Employers \n
-				\tCollapse \n
-				\t\t	List2 \n
-				\t\t	Employers \n
-				\t\t	... `;
-		
+		var matchtb = this.state.matches.map((item)=>
+			<tr>
+				<th scope="row"> </th>
+				<td> <a href={"/candidate/" + item.candidate.id}> {item.candidate.name} </a></td>
+				<td> <a href={"/employer/?id=" + item.employer.id}> {item.employer.name} </a></td>
+				<td> {item.date.slice(0,10)} </td>
+			</tr>
+		);
+
 		return (
 			<div>
 			<Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
-			<MaterialTitlePanel  title={contentHeader}>
-			  <AccountBar />
+				{
+					this.state.docked ? <span></span> :
+					
+					<Navbar style={{backgroundColor: "#4EB9BE"}}>
+						<Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
+					</Navbar>
+				}
+			<AccountBar user={this.state.user} subscribed={this.state.subscribed}/>
 			<div className="container-fluid mx-auto profile">
 			<div className="row border rounded">
 				<div className="col-12 mx-auto " id="employer-id">
@@ -184,7 +210,7 @@ export default class FacilitatorProfile extends Component{
 				<div className="col-12 mx-auto " >
 					<div className="row ">
 						<div className="col-12 border  subject rounded">
-							<h1>My Lists</h1>
+							<h1>Saved Candidates</h1>
 							
 						</div>
 						<div className="col-12 border-top msg ">
@@ -194,11 +220,23 @@ export default class FacilitatorProfile extends Component{
 						
 
 						<div className="col-12 border subject rounded">
-							<h1>Assigned Candidates</h1>
+							<h1>Matches By {this.state.firstName} {this.state.lastName}</h1>
 						</div>
 						
 						<div className="col-12 border-top msg ">
-								<p>{message}</p>
+							<Table>
+								<thead>
+									<tr>
+										<th> </th>
+										<th> Candidate </th>
+										<th> Employer </th>
+										<th> Match Date </th>
+									</tr>
+								</thead>
+								<tbody>
+									{matchtb}
+								</tbody>
+							</Table>
 						</div>
 						
 					</div>
@@ -206,7 +244,6 @@ export default class FacilitatorProfile extends Component{
 				</div>
 			</div>
 			</div>
-			</MaterialTitlePanel>
 			</Sidebar>
 			</div>
 		);

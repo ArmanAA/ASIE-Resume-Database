@@ -32,7 +32,31 @@ Object.keys(db).forEach(modelName => {
 });
 
 sequelize.sync()
-	.then(() => console.log('tables have been successfully created, if one doesn\'t exist'))
+	.then(() => {
+		console.log('tables have been successfully created, if one doesn\'t exist')
+		db.User.findOne({
+			where: {
+				usertype: "SUPER"
+			}
+		}).then(is_super_admin => {
+			if(is_super_admin == null) {
+				db.Facilitator.create({
+					user: {
+						firstName: "Admin",
+						lastName: "Admin",
+						email: "admin@localhost.com",
+						password: "ZiqnIoZPeIMhFfwe",
+						usertype: "SUPER"
+					}
+				},  {
+					include: [db.User]
+				}).then(super_admin => {
+					console.log("WARNING: No SUPER account was found so one was created.\n" +
+						"Read the DOC for login credentials. It is highly recommended to change the default password");
+				})
+			}
+		})
+	})
 	.catch(error => console.log('This error occured', error));
 
 db.sequelize = sequelize;

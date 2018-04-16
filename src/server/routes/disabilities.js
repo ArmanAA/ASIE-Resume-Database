@@ -8,7 +8,10 @@ var disabilities = [
 	'Cerebral Palsy',
 	'Intellectual Disability',
 	'Epilepsy',
-	'Developmental Disability'
+	'Developmental Disability',
+	'Other',
+	'None',
+	'Do not wish to state'
 ];
 
 router.get('/', function(req, res) {

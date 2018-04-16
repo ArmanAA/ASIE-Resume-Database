@@ -4,16 +4,17 @@ import SidebarContent from '../AdminComponents/MenuBar';
 import ProfileList from './ProfileList';
 import SavedCandidatesList from './SavedCandidatesList';
 import AddCandidatesModal from './AddCandidatesModal';
+import AccountBar from '../AccountBar'
 import { Button, Navbar, NavbarToggler } from 'reactstrap';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import {
-    Nav,
-    NavItem,
-    NavDropdown, // optional
-    MenuItem, // optional
-    TabContent,
-    TabPane
+		Nav,
+		NavItem,
+		NavDropdown, // optional
+		MenuItem, // optional
+		TabContent,
+		TabPane
 } from '@trendmicro/react-navs';
  
 // Be sure to include styles at some point, probably during your bootstraping
@@ -30,7 +31,8 @@ export default class SearchPage extends Component {
 			docked: true,
 			open: false,
 			count: 0,
-			user: null,
+			user: {},
+			subscribed: false,
 			interest: null,
 			location: null,
 			interestOptions: [],
@@ -45,12 +47,14 @@ export default class SearchPage extends Component {
 		this.onSetOpen = this.onSetOpen.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.getSelectedRows = this.getSelectedRows.bind(this);
+		this.getfoldentries = this.getfoldentries.bind(this);
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		mql.addListener(this.mediaQueryChanged);
 		this.setState({mql: mql, docked: mql.matches});
 		this.search("", "");
+		this.getfoldentries();
 		fetch('/api/search/candidate/options', {
 			method: 'GET',
 			headers: {
@@ -62,6 +66,48 @@ export default class SearchPage extends Component {
 		}).then(json => {
 			if (json) {
 				this.setState({interestOptions: json.interests, locationOptions: json.locations});
+			}
+		});
+
+		fetch('/api/users/userinfo',{
+			headers:{"Content-Type": "application/json"},
+			method:'post',
+			credentials: 'include'
+		}).then(response => {
+			response.json().then(json => {
+				if(json.usertype !== "CAND" && json.usertype != null){
+					fetch('/api/emaillist/exists', {
+						method:'post',
+						credentials: 'include'
+					}).then(res => {
+						res.json().then(json=>{
+							this.setState({
+								subscribed: json.subscribe
+							})
+						})
+
+					});
+				}
+				this.setState({
+					user: json
+				})
+			});
+		});
+	}
+
+	getfoldentries() {
+		fetch('/api/folders/', {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			credentials: 'include'
+		}).then(res => {
+			return res.json();
+		}).then(json => {
+			if (json) {
+				this.setState({folders: json});
 			}
 		})
 	}
@@ -136,8 +182,14 @@ export default class SearchPage extends Component {
 	}
 
 	render() {
-		const sidebar = <SidebarContent />;
-
+		let usertype = this.state.user.usertype || "";
+		let admin = ['SUPER', 'ADMIN'].indexOf(usertype) > -1;
+		const sidebar = <SidebarContent admin={admin}/>;
+		var selectedFolder = -1
+		if (this.state.folders) {
+			if (this.state.folders.length > 0)
+			selectedFolder = this.state.folders[0].id;
+		}
 		
 		return (
 
@@ -150,6 +202,7 @@ export default class SearchPage extends Component {
 								<Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
 							</Navbar>
 						}
+							<AccountBar user={this.state.user} subscribed={this.state.subscribed}/>
 							<div className="container">
 								<Nav
 									navStyle="tabs"
@@ -169,7 +222,7 @@ export default class SearchPage extends Component {
 										<div className="row">
 											<form className="col-12" onSubmit={this.handleSubmit}>
 												<div className="row">
-													<div className="col-sm-5">
+													<div className="col-sm-5 col-xs-12">
 														<Select
 															
 															value={this.state.interest}
@@ -180,7 +233,7 @@ export default class SearchPage extends Component {
 
 														/>
 													</div>
-													<div className="col-sm-5">
+													<div className="col-sm-5 col-xs-12">
 														<Select
 															value={this.state.location}
 															placeholder="Search by location"
@@ -190,16 +243,15 @@ export default class SearchPage extends Component {
 
 														/>
 													</div>
-													<div className="col-sm-2">
-														<Button color="primary" type="submit">Search</Button>
+													<div className="col-sm-2 col-xs-12">
+														<Button color="primary" className="mt-0" type="submit">Search</Button>
 													</div>
 												</div>
 											</form>
 										</div>
-										<hr/>
 										<div className="row">
 											<div className="col">
-												<AddCandidatesModal data={this.state.selected}/>
+												<AddCandidatesModal updateFolders={this.getfoldentries} data={this.state.selected} folders={this.state.folders} selectedFolder={selectedFolder}/>
 											</div>
 										</div>
 										<div className="row">
@@ -209,7 +261,7 @@ export default class SearchPage extends Component {
 										</div>
 									</TabPane>
 									<TabPane eventKey={2}>
-										<SavedCandidatesList/>
+										<SavedCandidatesList updateFolders={this.getfoldentries} data={this.state.folders}/>
 									</TabPane>
 								</TabContent>
 							</div>

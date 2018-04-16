@@ -99,6 +99,29 @@ export default class CandidatePage extends Component {
 		this.callApi('/api/candidates/hours/' + this.state.id, 'hours');
 		this.callApi('/api/candidates/transportations/' + this.state.id, 'transportation');
 		this.callApi('/api/candidates/portfolios/' + this.state.id, 'portfolio');
+		fetch('/api/users/userinfo',{
+			headers:{"Content-Type": "application/json"},
+			method:'post',
+			credentials: 'include'
+		}).then(response => {
+			response.json().then(json => {
+				if(json.usertype !== "CAND" && json.usertype != null){
+					fetch('/api/emaillist/exists', {
+						method:'post',
+						credentials: 'include'
+					}).then(res => {
+						res.json().then(json=>{
+							this.setState({
+								subscribed: json.subscribe
+							})
+						})
+					});
+				}
+				this.setState({
+					user: json
+				})
+			});
+		});
 	}
 
 	componentWillMount() {
@@ -158,7 +181,7 @@ export default class CandidatePage extends Component {
 								<Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
 							</Navbar>
 						}
-						<AccountBar user={this.state.id}/>
+						<AccountBar user={this.state.user}/>
 							<div>
 								<div className="mainpage" style={{maxWidth: 1000}}>
 									<Profile data={this.state.profile}/>

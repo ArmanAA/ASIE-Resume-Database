@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
       }
     };
   });
-  searchEmployer(employer_obj, results => {
+  searchEmployer(employer_obj, req.user.id, results => {
     let employers_results = results.map(result => {
       return {
         id: result.id,
@@ -41,14 +41,16 @@ router.get('/', (req, res) => {
         lastName: result.lastName,
         email: result.email,
         subject: result.subject,
-        message: result.message
+        message: result.message,
+        date: result.createdAt,
+        inMyList: result.savedemployers.length > 0
       };
     });
     res.json(employers_results);
   });
 });
 
-let searchEmployer = (name, next) => {
+let searchEmployer = (name, id, next) => {
   let query = {}
   if(name && name.length > 0) {
     query = {
@@ -58,6 +60,14 @@ let searchEmployer = (name, next) => {
       }
     }
   }
+  query.include = [{
+    model: models.Savedemployer,
+    where: {
+      userId: id,
+    },
+    required: false
+  }];
+  query.order = [['createdAt', 'DESC']]
   models.Employer.findAll(query).then(next).catch(next);
 };
 

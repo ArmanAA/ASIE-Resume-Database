@@ -9,7 +9,7 @@ export default class Comment extends Component {
   render() {
     return (
       <div className="comment border">
-        <p className="author">{this.props.author}</p>
+        <p className="author"><u>{this.props.author}</u></p>
         {this.props.text}
       </div>
     );

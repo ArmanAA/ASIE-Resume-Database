@@ -9,6 +9,8 @@ export default class AddCandidatesModal extends Component {
 			id: props.id,
 			centered: true,
 			selected: props.data,
+			folders: props.folders,
+			selectedFolder: props.selectedFolder
 		};
 
 		this.toggle = this.toggle.bind(this);
@@ -19,12 +21,15 @@ export default class AddCandidatesModal extends Component {
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.data) {
 			this.setState({
-				selected: nextProps.data
+				selected: nextProps.data,
+				folders: nextProps.folders,
+				selectedFolder: nextProps.selectedFolder
 			})
 		}
 	}
 
 	toggle() {
+
 		this.setState({
 			modal:!this.state.modal
 		});
@@ -38,8 +43,7 @@ export default class AddCandidatesModal extends Component {
 		for (var i=0; i<this.state.selected.length; i++) {
 			this.saveCandidate(this.state.selected[i], this.state.selectedFolder);
 		}
-		window.location.reload();
-		this.toggle();
+		
 	}
 
 	saveCandidate(candidateId, folderId) {
@@ -56,12 +60,15 @@ export default class AddCandidatesModal extends Component {
 			credentials: 'include'
 		}).then(res => {
 			return res.json();
-		});
+		}).then(json => {
+			if (json.message =="successful") {
+				alert("Adding candidates successful!");
+				this.props.updateFolders();
+			}
+			this.toggle();
+		})
 	}
 	
-	componentWillMount() {
-		this.getfoldentries();
-	}
 
 	getfoldentries() {
 		fetch('/api/folders/', {
@@ -87,21 +94,25 @@ export default class AddCandidatesModal extends Component {
 		event.preventDefault();
 		console.log('folder id ', event.target.value);
 		this.setState({
-			selectFolder: event.target.value
+			selectedFolder: event.target.value
 		})
 	}
 
 	render() {
 		const { modal, centered } = this.state;
+		var disable = true;
 		if(this.state.folders) {
 			var folders = this.state.folders.map((folder, index) => {
 				return <option value={folder.id}>{folder.name}</option>
 			})
+			if (this.state.folders.length > 0 && this.state.selected.length > 0) {
+				disable = false;
+			}
 		}
 
 		return (
 			<div>
-				<Button color="primary" onClick={this.toggle}>Save Selected Candidates</Button>
+				<Button outline className="mb-2"color="primary" onClick={this.toggle}>Save Selected Candidates</Button>
 					<Modal centered={centered} isOpen={modal} toggle={this.toggle}>
 						<form className="form-group">
 							<ModalHeader toggle={this.toggle}>
@@ -109,9 +120,9 @@ export default class AddCandidatesModal extends Component {
 							</ModalHeader>
 							<ModalBody>
 								{
-									this.state.selected.length == 0 ?
+									disable ?
 										<Alert color="danger">
-											You need to select candidates in order to save to a folder.
+											You did not choose any candidates to save and/or you do not have any folders created.
 										</Alert>
 									:
 									<span></span>
@@ -122,7 +133,7 @@ export default class AddCandidatesModal extends Component {
 								</Input>
 							</ModalBody>
 							<ModalFooter>
-								<Button color="primary" onClick={this.handleSubmit} disabled={this.state.selected.length == 0 ? true : false}>Save</Button>
+								<Button color="primary" onClick={this.handleSubmit} disabled={disable}>Save</Button>
 								<Button onClick={this.toggle}>Cancel</Button>
 							</ModalFooter>
 						</form>

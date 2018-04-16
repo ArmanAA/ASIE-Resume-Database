@@ -14,6 +14,15 @@ button:hover{
 	outline:none;
 }
 
+.message {
+	word-wrap: break-word;
+}
+
+.commentScroll {
+	overflow: scroll;
+	max-height: 60%;
+}
+
 .buttons, .name{
 	padding: 10px;
 }
@@ -40,12 +49,12 @@ button:hover{
 
 }
 .date{
-	height: 50%;
+	
 	margin: auto;
 }
 
 .comment-box{
-	height: 100%;
+	height: auto;
 	border-style:solid;
 	border-color: white;
 }

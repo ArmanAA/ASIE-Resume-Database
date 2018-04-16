@@ -1,0 +1,14 @@
+.bg1 {
+	background-color: #58ADE6;
+	background: linear-gradient(#58ADE6, white);
+	width: 100%;
+}
+
+.bg2 {
+	background-color: white;
+}
+
+.title {
+	text-align: center;
+	font-size: 24px;
+}

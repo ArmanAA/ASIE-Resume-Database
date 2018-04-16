@@ -6,79 +6,80 @@ import { FormGroup, Input, FormFeedback } from 'reactstrap';
 
 
 export default class ForgotPassword extends Component {
- 	
-  constructor(props){
-  	 super(props);
-  	 this.state={
-  	 	invalid:false
-  	 }
-  }
+	
+	constructor(props){
+		 super(props);
+		 this.state={
+			invalid:false
+		 }
+	}
 
 
- componentDidMount() {
-    document.title = "Forgot Password - ASIE Resume Database";
-  }
+ 	componentDidMount() {
+		document.title = "Forgot Password - ASIE Resume Database";
+	}
 
-  render() {
+	render() {
 
-  	let url = new URL(window.location.href);
-	let params = new URLSearchParams(url.search.slice(1));
+		let url = new URL(window.location.href);
+		let params = new URLSearchParams(url.search.slice(1));
 
-    return (
-      <div>
-        <MenuBar />
-        <div className="container">
- 		{
-			(params.get('email') != null) ?
-				<Alert color="danger">
-					No user is registered. Please try again with email registered.
-				</Alert>
-			:
-				<span/>
-		}{
-			(params.get('error') != null) ?
-				<Alert color="danger">
-					Something went wrong! Pleas try again later.
-				</Alert>
-			:
-				<span/>
-		}{
-			(params.get('success') != null) ?
-				<Alert color="success">
-					Success! New password will be sent to your email soon.
-				</Alert>
-			:
-				<span/>
-		}
-		      
-          <div className="row">
-            <div className="col-6 form-box">
-              <div className="row">
-              <form className="col-12 signup-form=" action="/forgot" method="post">
-                <div className="form-group">
-                  <h1>Forgot Password?</h1>
-                  <div>
-                    <label>Enter email you used for registration</label>
-                    <input invalid={this.state.invalid} className="form-control" type="email" name="email" required/>
-                  </div>
-              
-                  <div>
-                    <input
-                      className="btn btn-primary"
-                      type="submit"
-                      value="Submit"
-                    />
-                  </div>
-                </div>
-              </form>
-              </div>
-            </div>{" "}
-            {/*col-8*/}
-          </div>{" "}
-          {/*row*/}
-        </div>{" "}
-        {/*container*/}
-      </div> /*Empty div to wrap JSX*/
-    );
-  }
+		return (
+			<div>
+				<MenuBar />
+				<div className="container">
+					{
+						(params.get('email') != null) ?
+							<Alert color="danger">
+								No user is registered. Please try again with email registered.
+							</Alert>
+						:
+							<span/>
+					}{
+						(params.get('error') != null) ?
+							<Alert color="danger">
+								Something went wrong! Pleas try again later.
+							</Alert>
+						:
+							<span/>
+					}{
+						(params.get('success') != null) ?
+							<Alert color="success">
+								Success! Follow directions sent to your email.
+							</Alert>
+						:
+							<span/>
+					}{
+						(params.get('timeout') != null) ?
+							<Alert color="danger">
+								You already requested a password change. Please try again later.
+							</Alert>
+						:
+							<span/>
+					}
+					
+					<div className="row">
+						<form className="col-md-6 offset-md-3 border border-info rounded form-box" action="/forgot" method="post">
+							<div className="form-group">
+								<h1>Forgot Password?</h1>
+								<div>
+									<label>Enter email you used for registration</label>
+									<input invalid={this.state.invalid} className="form-control" type="email" name="email" required/>
+								</div>
+						
+								<div>
+									<input
+										className="btn btn-primary"
+										type="submit"
+										value="Submit"
+									/>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>{" "}
+				{/*container*/}
+			</div> /*Empty div to wrap JSX*/
+		);
+	}
 }

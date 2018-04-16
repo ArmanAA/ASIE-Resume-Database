@@ -4,7 +4,7 @@ import MaterialTitlePanel from '../AdminComponents/MaterialTitlePanel';
 import SidebarContent from '../AdminComponents/MenuBar';
 import ProfileList from './ProfileList';
 import './FacilitatorStyle.css';
-import AccountBar from '../AccountBar.js'
+import AccountBar from '../AccountBar'
 import { Button, Navbar, NavbarToggler } from 'reactstrap';
 const mql = window.matchMedia('(min-width: 768px)');
 
@@ -16,25 +16,11 @@ export default class SearchPage extends Component {
       docked: true,
       open: false,
       count: 0,
-      user: null,
-      deleteClicked: false,
+      user: {},
+      subscribed: false,
+      deleteClicked: false
     }
-    console.log(props.match.params);
-
-
-    const self = this;
-
-    fetch('/api/search/facilitator', {
-      method: 'GET',
-      credentials: 'include'
-    }).then(response => {
-      response.json().then(json => {
-        console.log("SearchPage", json);
-        if(json) {
-          self.setState({profile: json});
-        }
-      })
-    });
+   
     //fill data
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
@@ -42,18 +28,58 @@ export default class SearchPage extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    document.title = "Facilitators - ASIE Resume Database"
-  }
-
   componentWillMount() {
-    mql.addListener(this.mediaQueryChanged);
-    this.setState({mql: mql, docked: mql.matches});
+    document.title = "Facilitators - ASIE Resume Database"
   }
 
   componentWillUnmount() {
     this.state.mql.removeListener(this.mediaQueryChanged);
   }
+
+  componentDidMount() {
+    mql.addListener(this.mediaQueryChanged);
+    this.setState({mql: mql, docked: mql.matches});
+    const self = this;
+
+    fetch('/api/search/facilitator', {
+      method: 'GET',
+      credentials: 'include'
+    }).then(response => {
+      response.json().then(json => {
+       
+        if(json) {
+          self.setState({profile: json});
+        }
+      })
+    });
+
+    fetch('/api/users/userinfo',{
+      headers:{"Content-Type": "application/json"},
+      method:'post',
+      credentials: 'include'
+    }).then(response => {
+      response.json().then(json => {
+        if(json.usertype !== "CAND" && json.usertype != null){
+          fetch('/api/emaillist/exists', {
+            method:'post',
+            credentials: 'include'
+          }).then(res => {
+            res.json().then(json=>{
+              this.setState({
+                subscribed: json.subscribe
+              })
+            })
+
+          });
+        }
+        this.setState({
+          user: json
+        })
+      });
+    });
+  }
+
+
 
   onSetOpen(open) {
     this.setState({open: open});
@@ -80,13 +106,13 @@ export default class SearchPage extends Component {
     const data = new FormData(event.target);
     var url = '/api/search/facilitator?' + "firstName=" + event.target.firstName.value+ "&lastName=" + event.target.lastName.value
     + "&email=" + event.target.email.value;
-    console.log(url);
+    
     fetch(url, {
       method: 'GET',
       credentials: 'include'
     }).then(response => {
       response.json().then(json => {
-        console.log("SearchPage", json);
+        
         if(json) {
           self.setState({profile: json});
         }
@@ -95,7 +121,9 @@ export default class SearchPage extends Component {
   }
 
   render() {
-    const sidebar = <SidebarContent />;
+    let usertype = this.state.user.usertype || "";
+    let admin = ['SUPER', 'ADMIN'].indexOf(usertype) > -1;
+    const sidebar = <SidebarContent admin={admin}/>;
 
     const contentHeader = (
       <span>
@@ -113,7 +141,7 @@ export default class SearchPage extends Component {
                 <Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
               </Navbar>
             }
-             <AccountBar/>
+              <AccountBar user={this.state.user} subscribed={this.state.subscribed}/>
               <div className="container">
               <div className="row">
                 <form className="col-12" onSubmit={this.handleSubmit}>
@@ -129,7 +157,7 @@ export default class SearchPage extends Component {
               <div className="row mb-5">
                 <div className="col">
 
-                  <ProfileList data={this.state.profile} />
+                  <ProfileList data={this.state.profile} type={this.state.user.usertype}/>
                 </div>
               </div>
             </div>

@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
 		omitNull: true
 	});
 
+	Employer.associate = function(models) {
+		Employer.hasMany(models.Savedemployer);
+	};
+
 	Employer.beforeCreate((employer, options) => {
 		employer.email = employer.email.toLowerCase();
 	})
