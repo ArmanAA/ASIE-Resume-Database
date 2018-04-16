@@ -49,6 +49,13 @@ export default class Verify extends Component {
 							</Alert>
 						:
 							<span/>
+					}{
+						(params.get('confirmpass') != null) ?
+							<Alert color="danger">
+								Password is less than 8 characters or confirm password does not match. Please try again. 
+							</Alert>
+						:
+							<span/>
 					}
 					
 					<div className="row">

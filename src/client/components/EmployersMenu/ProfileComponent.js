@@ -30,7 +30,6 @@ export default class ProfileComponent extends Component {
 		if (ev) {
 			ev.preventDefault();
 		}
-		console.log(this.state);
 	}
 
 
@@ -67,7 +66,6 @@ export default class ProfileComponent extends Component {
 			return response.json()
 		}).then(result => {
 			if(result.message === "successful") {
-				console.log("ENTRY", entry_id);
 				let matches = this.state.addedCandidates || [];
 				if (entry_id > -1) {
 					matches.splice(entry_id, 1);

@@ -7,6 +7,9 @@ let models  = require('../models'),
 let api = require('./api');
 
 router.post("/signup", (req, res) => {
+	if(req.body.password.length < 8 ){
+		return res.redirect('/signup?password')
+	}
 	models.Candidate.create({
 		user: {
 			firstName: req.body.firstName,
@@ -77,27 +80,33 @@ router.post("/contactus", (req, res) => {
 
 router.post('/verify/:token', (req,res)=>{
 	console.log("RESET PASSWORD: ", req.params);
-	models.User.findOne({
-		where:{
-			resetToken: req.params.token
-		}
-	}).then(user =>{
-		if( user.resetExpire < Date.now() || user == null){
-			res.redirect("/verify/"+req.params.token+"?timeout");
-		}else{
-			console.log(req.body);
-			user.update({
-				resetToken: null,
-				resetExpire: Date.now(),	
-				password: req.body.password
-			})
-			res.redirect("/verify/"+req.params.token+"?success");
 
-		}
-	}).catch(error=>{
-		res.redirect("/verify/"+req.params.token+"?invalid");
+	if(req.body.password != req.body.confirm || req.body.password.length < 8){
+		res.redirect('/verify/'+ req.params.token +'?confirmpass');
+	}
+	else{
+		models.User.findOne({
+			where:{
+				resetToken: req.params.token
+			}
+		}).then(user =>{
+			if( user.resetExpire < Date.now() || user == null){
+				res.redirect("/verify/"+req.params.token+"?timeout");
+			}else{
+				console.log(req.body);
+				user.update({
+					resetToken: null,
+					resetExpire: Date.now(),	
+					password: req.body.password
+				})
+				res.redirect("/verify/"+req.params.token+"?success");
 
-	})
+			}
+		}).catch(error=>{
+			res.redirect("/verify/"+req.params.token+"?invalid");
+
+		})
+	}
 })
 
 
