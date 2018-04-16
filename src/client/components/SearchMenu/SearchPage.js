@@ -4,16 +4,17 @@ import SidebarContent from '../AdminComponents/MenuBar';
 import ProfileList from './ProfileList';
 import SavedCandidatesList from './SavedCandidatesList';
 import AddCandidatesModal from './AddCandidatesModal';
+import AccountBar from '../AccountBar'
 import { Button, Navbar, NavbarToggler } from 'reactstrap';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import {
-    Nav,
-    NavItem,
-    NavDropdown, // optional
-    MenuItem, // optional
-    TabContent,
-    TabPane
+		Nav,
+		NavItem,
+		NavDropdown, // optional
+		MenuItem, // optional
+		TabContent,
+		TabPane
 } from '@trendmicro/react-navs';
  
 // Be sure to include styles at some point, probably during your bootstraping
@@ -30,7 +31,8 @@ export default class SearchPage extends Component {
 			docked: true,
 			open: false,
 			count: 0,
-			user: null,
+			user: {},
+			subscribed: false,
 			interest: null,
 			location: null,
 			interestOptions: [],
@@ -48,7 +50,7 @@ export default class SearchPage extends Component {
 		this.getfoldentries = this.getfoldentries.bind(this);
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		mql.addListener(this.mediaQueryChanged);
 		this.setState({mql: mql, docked: mql.matches});
 		this.search("", "");
@@ -65,6 +67,31 @@ export default class SearchPage extends Component {
 			if (json) {
 				this.setState({interestOptions: json.interests, locationOptions: json.locations});
 			}
+		});
+
+		fetch('/api/users/userinfo',{
+			headers:{"Content-Type": "application/json"},
+			method:'post',
+			credentials: 'include'
+		}).then(response => {
+			response.json().then(json => {
+				if(json.usertype !== "CAND" && json.usertype != null){
+					fetch('/api/emaillist/exists', {
+						method:'post',
+						credentials: 'include'
+					}).then(res => {
+						res.json().then(json=>{
+							this.setState({
+								subscribed: json.subscribe
+							})
+						})
+
+					});
+				}
+				this.setState({
+					user: json
+				})
+			});
 		});
 	}
 
@@ -155,7 +182,9 @@ export default class SearchPage extends Component {
 	}
 
 	render() {
-		const sidebar = <SidebarContent />;
+		let usertype = this.state.user.usertype || "";
+		let admin = ['SUPER', 'ADMIN'].indexOf(usertype) > -1;
+		const sidebar = <SidebarContent admin={admin}/>;
 		var selectedFolder = -1
 		if (this.state.folders) {
 			if (this.state.folders.length > 0)
@@ -173,6 +202,7 @@ export default class SearchPage extends Component {
 								<Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
 							</Navbar>
 						}
+							<AccountBar user={this.state.user} subscribed={this.state.subscribed}/>
 							<div className="container">
 								<Nav
 									navStyle="tabs"

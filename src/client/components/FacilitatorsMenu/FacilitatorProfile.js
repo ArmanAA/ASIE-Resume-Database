@@ -18,6 +18,8 @@ export default class FacilitatorProfile extends Component{
 				docked: true,
 				open: false,
 				notesOpen: false,
+				user: props.user || {},
+				subscribed: props.subscribed || false,
 				firstname: '',
 				lastname: '',
 				email: '',
@@ -83,6 +85,13 @@ export default class FacilitatorProfile extends Component{
 		this.state.mql.removeListener(this.mediaQueryChanged);
 	}
 
+	componentWillReceiveProps(props) {
+		this.setState({
+			user: props.user,
+			subscribed: props.subscribed
+		})
+	}
+
 	onSetOpen(open) {
 		this.setState({open: open});
 	}
@@ -112,20 +121,43 @@ export default class FacilitatorProfile extends Component{
 
 
 	componentDidMount() {
-		document.title= "Facilitator Profile"; 
+		document.title= "Facilitator Profile";
+		fetch('/api/users/userinfo',{
+			headers:{"Content-Type": "application/json"},
+			method:'post',
+			credentials: 'include'
+		}).then(response => {
+			response.json().then(json => {
+				if(json.usertype !== "CAND" && json.usertype != null){
+					fetch('/api/emaillist/exists', {
+						method:'post',
+						credentials: 'include'
+					}).then(res => {
+						res.json().then(json=>{
+							this.setState({
+								subscribed: json.subscribe
+							})
+						})
+					});
+				}
+				this.setState({
+					user: json
+				})
+			});
+		});
 	}
 
 
 	render(){
-
-		const sidebar = <SidebarContent />;
+		let usertype = this.state.user.usertype || "";
+		let admin = ['SUPER', 'ADMIN'].indexOf(usertype) > -1;
+		const sidebar = <SidebarContent admin={admin}/>;
 		const contentHeader = (
 					<span>
 						{!this.state.docked &&
 						 <button className="btn-toggle-menu" onClick={this.toggleOpen.bind(this)}>=</button>}
 						<span></span>
 					</span>);
-		
 
 		var lists = this.state.list;
 		var MyLists = lists.map((item)=>
@@ -145,7 +177,7 @@ export default class FacilitatorProfile extends Component{
 			<div>
 			<Sidebar sidebar={sidebar} docked={this.state.docked} open={this.state.open} onSetOpen={this.onSetOpen}>
 			<MaterialTitlePanel  title={contentHeader}>
-			  <AccountBar />
+			<AccountBar user={this.state.user} subscribed={this.state.subscribed}/>
 			<div className="container-fluid mx-auto profile">
 			<div className="row border rounded">
 				<div className="col-12 mx-auto " id="employer-id">

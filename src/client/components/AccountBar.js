@@ -28,46 +28,26 @@ export default class AccountBar extends Component{
 		this.state = {
 			popoverOpen: false,
 			modalOpen:false,
-			user:{},
-			subscribed: null,
 			pwInvalid: false,
 			confirmInvalid: false,
-			lenInvalid: false
+			lenInvalid: false,
+			user: props.user || {},
+			subscribed: props.subscribed || false
 		};
 		//console.log(props.match.params);
-
-		fetch('/api/users/userinfo',{
-			headers:{"Content-Type": "application/json"},
-			method:'post',
-			credentials: 'include'
-		}).then(response => {
-			response.json().then(json => {
-				if(json.usertype !== "CAND" && json.usertype != null){
-					fetch('/api/emaillist/exists', {
-						method:'post',
-						credentials: 'include'
-					}).then(res => {
-						res.json().then(json=>{
-							this.setState({
-								subscribed: json.subscribe
-							})
-						})
-
-					});
-				}
-				this.setState({
-					user: json
-
-				})
-			});
-			
-		});
 
 		this.toggleTooltip = this.toggleTooltip.bind(this);
 		this.changePassword = this.changePassword.bind(this);
 		this.logout = this.logout.bind(this);
 		this.toggle = this.toggle.bind(this);
 		this.subscribe = this.subscribe.bind(this);
+	}
+
+	componentWillReceiveProps(props) {
+		this.setState({
+			user: props.user,
+			subscribed: props.subscribed
+		})
 	}
 	
 

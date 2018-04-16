@@ -128,7 +128,7 @@ export default class ProfileList extends Component {
     return (
       <div>
 
-      <AddFacilitatorModal/>
+      <AddFacilitatorModal type={this.props.type}/>
        <input className="btn btn-outline-primary mb-2  mx-1" onClick={this.handleDelete} type="button" value="Delete Facilitator"/>
       
       <ReactTable

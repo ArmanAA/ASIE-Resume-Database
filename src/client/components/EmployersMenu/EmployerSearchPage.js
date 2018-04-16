@@ -4,6 +4,7 @@ import MaterialTitlePanel from "../AdminComponents/MaterialTitlePanel";
 import SidebarContent from "../AdminComponents/MenuBar";
 import EmployerList from "./EmployerList";
 import SavedEmployerList from "./SavedEmployerList";
+import AccountBar from '../AccountBar'
 import { Button, Navbar, NavbarToggler } from 'reactstrap';
 import {
     Nav,
@@ -24,7 +25,8 @@ export default class EmployerSearchPage extends Component {
       docked: true,
       open: false,
       count: 0,
-      user: null,
+      user: {},
+      subscribed: false,
       activeTab: 1
     };
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
@@ -39,11 +41,32 @@ export default class EmployerSearchPage extends Component {
     // populate search table when page loads
     this.search("");
     this.getSaved();
-  }
-
-  componentWillMount() {
     mql.addListener(this.mediaQueryChanged);
     this.setState({ mql: mql, docked: mql.matches });
+
+    fetch('/api/users/userinfo',{
+      headers:{"Content-Type": "application/json"},
+      method:'post',
+      credentials: 'include'
+    }).then(response => {
+      response.json().then(json => {
+        if(json.usertype !== "CAND" && json.usertype != null){
+          fetch('/api/emaillist/exists', {
+            method:'post',
+            credentials: 'include'
+          }).then(res => {
+            res.json().then(json=>{
+              this.setState({
+                subscribed: json.subscribe
+              })
+            })
+          });
+        }
+        this.setState({
+          user: json
+        })
+      });
+    });
   }
 
   componentWillUnmount() {
@@ -112,7 +135,9 @@ export default class EmployerSearchPage extends Component {
   }
 
   render() {
-    const sidebar = <SidebarContent />;
+    let usertype = this.state.user.usertype || "";
+    let admin = ['SUPER', 'ADMIN'].indexOf(usertype) > -1;
+    const sidebar = <SidebarContent admin={admin}/>;
 
     const contentHeader = (
       <span>
@@ -133,6 +158,7 @@ export default class EmployerSearchPage extends Component {
               <Button style={{backgroundColor: "#4EB9BE"}} onClick={this.toggleOpen.bind(this)}>=</Button>
             </Navbar>
           }
+            <AccountBar user={this.state.user} subscribed={this.state.subscribed}/>
             <div className="container">
               <Nav
                 navStyle="tabs"
