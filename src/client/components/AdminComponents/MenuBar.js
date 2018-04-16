@@ -26,7 +26,12 @@ const SidebarContent = (props) => {
     <MaterialTitlePanel title="Menu" style={style}>
         <NavLink to="/candidates" style={styles.sidebarLink} activeClassName="active"><h2 className='NavLink'>Candidates</h2></NavLink>
         <NavLink to="/employers" style={styles.sidebarLink} activeClassName="active"><h2 className='NavLink'>Employers</h2></NavLink>
-        <NavLink to="/facilitators" style={styles.sidebarLink} activeClassName="active"><h2 className='NavLink'>Facilitators</h2></NavLink>
+        {
+          props.admin ?
+            <NavLink to="/facilitators" style={styles.sidebarLink} activeClassName="active"><h2 className='NavLink'>Facilitators</h2></NavLink>
+          :
+            <span/>
+        }
     </MaterialTitlePanel>
   );
 };
