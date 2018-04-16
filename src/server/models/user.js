@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		usertype: {
 			type: DataTypes.ENUM,
-			values: ['ADMIN', 'FAC', 'CAND'],
+			values: ['SUPER', 'ADMIN', 'FAC', 'CAND'],
 			defaultValue: 'CAND'
 		},
 		isArchived: {

@@ -82,6 +82,12 @@ router.post('/create', (req, res) => {
 		Thank you.`
 	};
 
+	console.log(req.body.admin);
+
+	let usertype = req.body.admin ? "ADMIN" : "FAC";
+	if(req.user.usertype !== "SUPER")
+		usertype = "FAC";
+
 	//Change transporterer according to which email server you're using
 	models.Facilitator.create({
 		user: {
@@ -89,7 +95,7 @@ router.post('/create', (req, res) => {
 			lastName: req.body.lastname,
 			email: req.body.email,
 			password: `${password}`,
-			usertype: 'FAC'
+			usertype: usertype
 		}
 	},  {
 		include: [models.User]

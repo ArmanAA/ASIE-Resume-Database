@@ -104,17 +104,19 @@ app.get("/protected", auth.user, function(req, res) {
 
 /* Log in gateway */
 app.get("/gate", auth.user, function(req, res){
+	let usertype = req.user.usertype || "";
+	let is_admin = ['SUPER', 'ADMIN', 'FAC'].indexOf(usertype) > -1;
 	if(req.user.isArchived){
 		req.logout(); 
 		res.redirect('/login');
 	}
-	if(req.user.usertype == 'FAC'){
+	if(is_admin){
 		models.Facilitator.update({
 			lastOnline: sequelize.fn('NOW'),
 		}, {where:
 			{id: req.user.id}
 		});
-		res.redirect('/facilitators');
+		res.redirect('/candidates');
 	}
 	if(req.user.usertype=='CAND'){
 		res.redirect('/candidate/' + req.user.id);
