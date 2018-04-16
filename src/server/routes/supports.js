@@ -33,8 +33,6 @@ router.post('/:user_id/remove', function(req, res) {
 });
 
 router.post('/:user_id/update', function(req, res) {
-	console.log("LOOKIE HERE");
-	console.log(req.body);
 	models.Support.upsert({
 		id: req.params.user_id,
 		name: req.body.name,

@@ -43,7 +43,6 @@ router.get('/:user_id', function(req, res) {
 })
 
 router.post('/:user_id/update', multer().array(), function(req, res) {
-	console.log("HOURS ",req.body);
 	if (!req.body.hours) {
 		req.body.hours = null;
 	}
