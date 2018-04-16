@@ -5,9 +5,9 @@
   "author": "Jason Kwak <jasonkkw@usc.edu",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently --kill-others-on-fail \"yarn run server\" \"yarn run webpack\"",
-    "server": "nodemon --watch src/server src/server/index.js",
+    "start": "nodemon --watch src/server src/server/index.js",
     "webpack": "webpack -w",
+    "dev": "concurrently --kill-others-on-fail \"yarn run start\" \"yarn run webpack\"",
     "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
