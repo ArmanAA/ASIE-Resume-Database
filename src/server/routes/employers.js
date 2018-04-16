@@ -27,7 +27,8 @@ router.get('/savedemployers/', (req, res) => {
 		where: {
 			userId: req.user.id
 		},
-		include: [models.Employer]
+		include: [models.Employer],
+		order: [[models.Employer, 'createdAt', 'DESC']]
 	}).then(employers => {
 		let results = [];
 		if(employers) {
@@ -38,7 +39,8 @@ router.get('/savedemployers/', (req, res) => {
 					lastName: employer.employer.lastName,
 					email: employer.employer.email,
 					subject: employer.employer.subject,
-					message: employer.employer.message
+					message: employer.employer.message,
+					date: employer.employer.createdAt
 				}
 			});
 		}

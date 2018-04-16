@@ -5,7 +5,7 @@ import "./Signup/css/Signup.css";
 import { FormGroup, Input, FormFeedback } from 'reactstrap';
 
 
-export default class ForgotPassword extends Component {
+export default class Verify extends Component {
 	
 	constructor(props){
 		 super(props);
@@ -16,7 +16,7 @@ export default class ForgotPassword extends Component {
 
 
  	componentDidMount() {
-		document.title = "Forgot Password - ASIE Resume Database";
+		document.title = "Reset Password - ASIE Resume Database";
 	}
 
 	render() {
@@ -29,42 +29,44 @@ export default class ForgotPassword extends Component {
 				<MenuBar />
 				<div className="container">
 					{
-						(params.get('email') != null) ?
+						(params.get('invalid') != null) ?
 							<Alert color="danger">
-								No user is registered. Please try again with email registered.
-							</Alert>
-						:
-							<span/>
-					}{
-						(params.get('error') != null) ?
-							<Alert color="danger">
-								Something went wrong! Pleas try again later.
+								This link is invalid. 
 							</Alert>
 						:
 							<span/>
 					}{
 						(params.get('success') != null) ?
 							<Alert color="success">
-								Success! Follow directions sent to your email.
+								Success! Log in with your new credentials. 
 							</Alert>
 						:
 							<span/>
 					}{
 						(params.get('timeout') != null) ?
 							<Alert color="danger">
-								You already requested a password change. Please try again later.
+								This link has expired. 
+							</Alert>
+						:
+							<span/>
+					}{
+						(params.get('confirmpass') != null) ?
+							<Alert color="danger">
+								Password is less than 8 characters or confirm password does not match. Please try again. 
 							</Alert>
 						:
 							<span/>
 					}
 					
 					<div className="row">
-						<form className="col-md-6 offset-md-3 border border-info rounded form-box" action="/forgot" method="post">
+						<form className="col-md-6 offset-md-3 border border-info rounded form-box"  method="post">
 							<div className="form-group">
-								<h1>Forgot Password?</h1>
+								<h1>Reset Password</h1>
 								<div>
-									<label>Enter email you used for registration</label>
-									<input invalid={this.state.invalid} className="form-control" type="email" name="email" required/>
+									<label>Enter new password</label>
+									<input className="form-control" type="password" name="password" required/>
+									<label>Confirm your new password</label>
+									<input className="form-control" type="password" name="confirm" required/>
 								</div>
 						
 								<div>

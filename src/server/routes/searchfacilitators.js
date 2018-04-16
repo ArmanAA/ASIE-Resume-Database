@@ -14,7 +14,7 @@ router.use('/', (req, res) => {
 		}]
 	};
 
-	let firstName = req.query.firstName || "";
+	let firstName = req.query.firstName  || "";
 	let lastName = req.query.lastName || "";
 	let email = req.query.email || "";
 

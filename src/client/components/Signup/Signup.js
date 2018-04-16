@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
-import { Alert } from 'reactstrap';
+import { Alert, FormText, FormFeedback, Input } from 'reactstrap';
 import MenuBar from '../Home/MenuBar.js'
 import './css/Signup.css';
 
 export default class Login extends Component {
 
+	constructor(props){
+		super(props);
+		this.state={
+			invalid: false
+		}
+		this.validatePassword = this.validatePassword.bind(this);
+	}
 	componentDidMount(){
 		document.title = "Register - ASIE Resume Database"
+
+	}
+
+	validatePassword(e){
+		this.setState({
+			invalid: (e.target.value.length < 8)
+		})
 	}
 	render() {
 		let url = new URL(window.location.href);
@@ -32,6 +46,13 @@ export default class Login extends Component {
 						</Alert>
 					:
 						<span/>
+				}{
+					(params.get('password') != null) ?
+						<Alert color="danger">
+							Make sure password is at least 8 characters.
+						</Alert>
+					:
+						<span/>
 				}
 
 				<div className="row">
@@ -52,7 +73,10 @@ export default class Login extends Component {
 							</div>
 							<div>
 								<label>Password:</label>
-								<input className="form-control" type="password" name="password" required/>
+								<Input invalid={this.state.invalid} className="form-control" type="password" name="password" onChange={this.validatePassword} required/>
+								<FormFeedback invalid={this.state.invalid} > Password must be at least 8 characters. </FormFeedback>
+								<FormText> * Password must be at least 8 characters. </FormText>
+								
 							</div>
 							<div>
 								<label className="checkbox-inline"> 

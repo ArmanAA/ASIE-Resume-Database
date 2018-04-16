@@ -28,6 +28,16 @@ module.exports = (sequelize, DataTypes) => {
 				notEmpty: true
 			}
 		},
+		resetToken: {
+			type: DataTypes.STRING, 
+			allowNull: true,
+			unique: true
+		},
+		resetExpire: {
+			type: DataTypes.DATE, 
+			allowNull:true 
+		}
+		,
 		phone: {
 			type: DataTypes.STRING,
 			unique: true,

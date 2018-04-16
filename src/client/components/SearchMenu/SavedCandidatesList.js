@@ -77,7 +77,7 @@ export default class SavedCandidatesList extends React.Component {
 		console.log("SAVED CANDIDATES LIST", this.state.folders);
 		return (
 			<div>
-				<Button onClick={this.toggle.bind(this)} color="primary">Add Folder</Button>
+				<Button onClick={this.toggle.bind(this)} outline className="mb-2 mr-2" color="primary">Add Folder</Button>
 				<AddFolderModal isOpen={this.state.modal} toggle={this.toggle.bind(this)} updateFolders={this.props.updateFolders}/>
 				<DeleteFoldersModal updateFolders={this.props.updateFolders} folders={this.state.folders} updateCount={this.updateCount}/>
 				<ListGroup>

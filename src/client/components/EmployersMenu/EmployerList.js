@@ -48,9 +48,9 @@ export default class EmployerList extends Component {
             <div>
             {
               original.inMyList == true ?
-               <Button color="primary" disabled={original.inMyList}> Already in MyList </Button>
+               <Button color="primary" disabled={original.inMyList}> Added </Button>
               :
-                <Button color="primary" onClick={() => this.handleClick(original.id)}> Add to MyList </Button>
+                <Button color="primary" onClick={() => this.handleClick(original.id)}> Add </Button>
             }
             </div>
           );
@@ -88,6 +88,13 @@ export default class EmployerList extends Component {
         accessor: "message",
         style: { textAlign: "center" },
         show: false
+      },
+      {
+        Header: "Date",
+        Cell: ({ original }) => {
+          return original.date.slice(0,10);
+        },
+        style: { textAlign: 'center'}
       }
     ];
 

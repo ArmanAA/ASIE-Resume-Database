@@ -15,6 +15,7 @@ import FacilitatorProfile from './components/FacilitatorsMenu/FacilitatorProfile
 import ContactUs from "./components/ContactUs/ContactUs";
 import NotFoundPage from "./components/NotFoundPage";
 import ForgotPassword from "./components/ForgotPassword";
+import Verify from "./components/Verify";
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import registerServiceWorker from './registerServiceWorker';
 
@@ -35,6 +36,7 @@ export default class App extends Component {
 					<Route exact path="/employer" component={EmployerProfile}/>
 					<Route exact path="/facilitator/:id" component={FacilitatorProfile}/>
 					<Route exact path="/forgot" component={ForgotPassword}/>
+					<Route exact path="/verify/:token" component={Verify}/>
 
 					<Route component={NotFoundPage}/>
 				</Switch>
