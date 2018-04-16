@@ -1,9 +1,10 @@
 let models  = require('../models'),
+	auth = require('./auth'),
 	multer = require("multer"),
 	express = require('express'),
 	router  = express.Router();
 
-router.get('/:user_id', function(req, res) {
+router.get('/:user_id', auth.strict, function(req, res) {
 	models.Experience.findAll({
 		where: {
 			userId: req.params.user_id
@@ -36,8 +37,7 @@ router.get('/:user_id', function(req, res) {
 	});
 })
 
-router.post('/:user_id/update', multer().array(), function(req, res) {
-
+router.post('/:user_id/update', auth.strict, multer().array(), function(req, res) {
 	let currently = true;
 	if (req.body.currently == 'no') {
 		currently = false;
@@ -57,7 +57,7 @@ router.post('/:user_id/update', multer().array(), function(req, res) {
 	});
 });
 
-router.post('/:user_id/remove', function(req, res) {
+router.post('/:user_id/remove', auth.strict, function(req, res) {
 	models.Experience.destroy({
 		where: {
 			userId: req.params.user_id,

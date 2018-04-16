@@ -35,3 +35,13 @@ module.exports.user = (req, res, next) => {
 	console.log("not authorized", req.originalUrl);
 	res.redirect("/login");
 }
+
+module.exports.strict = (req, res, next) => {
+	if((req.user.usertype == "CAND") && (req.params.user_id != req.user.id)) {
+		console.log("AUTH STRICT not authorized to view other candidates");
+		res.redirect("/notauthorized");
+	}
+	else {
+		return next();
+	}
+}

@@ -1,4 +1,5 @@
 let models  = require('../models'),
+	auth = require('./auth'),
 	URL = require('url'),
 	multer = require('multer'),
 	path = require('path'),
@@ -32,7 +33,7 @@ let portfolio_upload = multer({
 	}
 });
 
-router.get('/:user_id', function(req, res) {
+router.get('/:user_id', auth.strict, function(req, res) {
 	models.Portfolio.findAll({
 		where: {
 			userId: req.params.user_id,
@@ -56,7 +57,7 @@ router.get('/:user_id', function(req, res) {
 	});
 })
 
-router.post('/:user_id/update', portfolio_upload.single("image"), function(req, res) {
+router.post('/:user_id/update', auth.strict, portfolio_upload.single("image"), function(req, res) {
 	let action = 'add';//req.body.action;
 	
 	if(req.file) {
@@ -97,7 +98,7 @@ router.post('/:user_id/update', portfolio_upload.single("image"), function(req, 
 	}
 });
 
-router.post('/:user_id/remove', function(req, res) {
+router.post('/:user_id/remove', auth.strict, function(req, res) {
 	models.Portfolio.destroy({
 		where: {
 			userId: req.params.user_id,
