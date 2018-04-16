@@ -47,7 +47,7 @@ router.get('/', function(req, res) {
 	res.json(response);
 })
 
-router.post('/create', auth.user, function(req, res) {
+router.post('/create', function(req, res) {
 	models.Candidate.create({
 		User: {
 			firstName: req.body.firstName,
