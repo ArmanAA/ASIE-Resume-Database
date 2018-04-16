@@ -45,7 +45,7 @@ export default class AccountBar extends Component{
 
 	componentWillReceiveProps(props) {
 		this.setState({
-			user: props.user,
+			user: props.user || {},
 			subscribed: props.subscribed
 		})
 	}
@@ -151,7 +151,7 @@ export default class AccountBar extends Component{
 	render(){
 
 		var adminDiv;
-		if(this.state.user.usertype == 'FAC' || this.state.user.usertype == 'ADMIN'){
+		if(this.state.user && (this.state.user.usertype == 'FAC' || this.state.user.usertype == 'ADMIN')){
 			adminDiv = (<div className="row mx-auto my-2" >
 						<button disabled className="btn badge badge-pill badge-info nohover"> Email List: </button>
 							<Switch onClick={this.subscribe} on={this.state.subscribed} className="mx-auto" /> 
