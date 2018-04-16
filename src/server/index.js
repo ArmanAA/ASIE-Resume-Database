@@ -125,6 +125,7 @@ app.get("/gate", auth.user, function(req, res){
 
 app.use('/', routes);
 
+app.use('/candidate/:user_id', auth.user, auth.strict, express.static("www"));
 app.use('/candidate', auth.user, express.static("www"));
 app.use('/candidates', auth.admin, express.static("www"));
 app.use('/employers', auth.admin, express.static("www"));

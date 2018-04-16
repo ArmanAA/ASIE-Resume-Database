@@ -1,4 +1,5 @@
 let models  = require('../models'),
+	auth = require('./auth'),
 	multer = require("multer"),
 	express = require('express'),
 	router  = express.Router();
@@ -6,7 +7,7 @@ let models  = require('../models'),
 let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 let parts_of_day = ["morning", "afternoon", "evening"];
 
-router.get('/:user_id', function(req, res) {
+router.get('/:user_id', auth.strict, function(req, res) {
 	models.Hour.findOne({
 		where: {
 			id: req.params.user_id
@@ -42,7 +43,7 @@ router.get('/:user_id', function(req, res) {
 	});
 })
 
-router.post('/:user_id/update', multer().array(), function(req, res) {
+router.post('/:user_id/update', auth.strict, multer().array(), function(req, res) {
 	if (!req.body.hours) {
 		req.body.hours = null;
 	}

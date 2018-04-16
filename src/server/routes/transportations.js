@@ -1,9 +1,10 @@
 let models  = require('../models'),
+  auth = require('./auth'),
   multer = require("multer"),
   express = require('express'),
   router  = express.Router();
 
-router.get('/:user_id', function(req, res) {
+router.get('/:user_id', auth.strict, function(req, res) {
   models.Transportation.findOne({
     where: {
       id: req.params.user_id
@@ -34,7 +35,7 @@ router.get('/:user_id', function(req, res) {
   });
 })
 
-router.post('/:user_id/update', multer().array(), function(req, res) {
+router.post('/:user_id/update', auth.strict, multer().array(), function(req, res) {
   if(req.body.distance == "")
     req.body.distance = null;
   models.Transportation.upsert({

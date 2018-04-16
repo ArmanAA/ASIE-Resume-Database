@@ -67,7 +67,7 @@ router.post('/create', auth.user, function(req, res) {
 	});
 })
 
-router.get('/:user_id', auth.user, function(req, res) {
+router.get('/:user_id', auth.user, auth.strict, function(req, res) {
 	models.Candidate.findOne({
 		where: {
 			id: req.params.user_id
@@ -93,7 +93,7 @@ router.get('/:user_id', auth.user, function(req, res) {
 	});
 });
 
-router.post('/:user_id/update', auth.user, profile_update.single("update_image"), function(req, res) {
+router.post('/:user_id/update', auth.user, auth.strict, profile_update.single("update_image"), function(req, res) {
 	req.file = req.file || {};
 	let filename = req.file.filename;
 	if(!req.body.update_city)

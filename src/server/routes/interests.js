@@ -1,4 +1,5 @@
 let models  = require('../models'),
+	auth = require('./auth'),
 	express = require('express'),
 	router  = express.Router();
 
@@ -36,7 +37,7 @@ router.get('/', function(req, res) {
 	res.json(response);
 })
 
-router.get('/:user_id', function(req, res) {
+router.get('/:user_id', auth.user, auth.strict, function(req, res) {
 	models.Interest.findAll({
 		where: {
 			'userId': req.params.user_id,
@@ -57,7 +58,7 @@ router.get('/:user_id', function(req, res) {
 	});
 })
 
-router.post('/:user_id/update', function(req, res) {
+router.post('/:user_id/update', auth.user, auth.strict, function(req, res) {
 	let interest = req.body.interest;
 	let type = req.body.type;
 	let action = req.body.action;

@@ -1,9 +1,10 @@
 let models  = require('../models'),
+	auth = require('./auth'),
 	express = require('express'),
 	router  = express.Router();
 
 
-router.get('/:user_id', function(req, res) {
+router.get('/:user_id', auth.strict, function(req, res) {
 	models.Support.findOne({
 		where: {
 			id: req.params.user_id,
@@ -23,8 +24,7 @@ router.get('/:user_id', function(req, res) {
 	});
 })
 
-router.post('/:user_id/remove', function(req, res) {
-
+router.post('/:user_id/remove', auth.strict, function(req, res) {
 	models.Support.destroy({
 		where: {
 			id: req.params.user_id,
@@ -32,7 +32,7 @@ router.post('/:user_id/remove', function(req, res) {
 	})
 });
 
-router.post('/:user_id/update', function(req, res) {
+router.post('/:user_id/update', auth.strict, function(req, res) {
 	models.Support.upsert({
 		id: req.params.user_id,
 		name: req.body.name,
