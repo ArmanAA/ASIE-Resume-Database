@@ -68,7 +68,6 @@ export default class InterestModal extends Component {
 	}
 
 	updateData(action, type, interest) {
-		console.log("POST", action, type, interest);
 		fetch('/api/candidates/interests/' + this.state.id + '/update', {
 			method: 'POST',
 			headers: {
@@ -81,19 +80,13 @@ export default class InterestModal extends Component {
 	}
 
 	handleChange(type, tags, changed, changedIndexes) {
-		console.log(type);
-		console.log(tags);
-		console.log(changed);
-		console.log(changedIndexes);
 		this.setState({[type]: tags});
 
 		for(var i=0; i<changed.length; i++) {
 			if(tags[changedIndexes[i]] === changed[i]) {
-				console.log("interest - add");
 				this.updateData("add", type, changed[i]);
 			}
 			else {
-				console.log("interest - remove");
 				this.updateData("remove", type, changed[i]);
 			}
 		}
@@ -112,13 +105,9 @@ export default class InterestModal extends Component {
 		for (var i=0; i<career.length; i++) {
 			newCareer.push(career[i].value);
 		}
-		console.log("NEW", newCareer);
-		console.log("OLD", this.state.career);
 		let oldCareer = this.state.career;
 		let removeCareer = oldCareer.filter(x => !newCareer.includes(x));
-		console.log("REMOVE", removeCareer);
 		let addCareer = newCareer.filter(x => !oldCareer.includes(x));
-		console.log("ADD", addCareer);
 
 		for (var i=0; i<removeCareer.length; i++) {
 			this.updateData("remove", "career", removeCareer[i]);

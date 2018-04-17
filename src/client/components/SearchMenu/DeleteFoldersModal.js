@@ -4,7 +4,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, Input, Alert
 export default class DeleteFoldersModal extends Component {
 	constructor(props) {
 		super(props);
-		console.log("PROPS", props);
 		this.state = {
 			modal: false,
 			id: props.id,
@@ -19,7 +18,6 @@ export default class DeleteFoldersModal extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log("NEXTPROPS",nextProps);
 		if(nextProps.folders) {
 			this.setState({
 				folders: nextProps.folders,
@@ -35,7 +33,6 @@ export default class DeleteFoldersModal extends Component {
 	}
 
 	handleSubmit(folderId) {
-		console.log("deleting folder", this.state.selectedFolder);
 		fetch('/api/folders/deletefolder' , {
 			method: 'POST',
 			headers: {
@@ -60,7 +57,6 @@ export default class DeleteFoldersModal extends Component {
 
 	handleFolderSelect(event) {
 		event.preventDefault();
-		console.log('folder id ', event.target.value);
 		this.setState({
 			selectedFolder: event.target.value
 		})
@@ -68,7 +64,6 @@ export default class DeleteFoldersModal extends Component {
 
 	render() {
 		const { modal, centered } = this.state;
-		console.log("FOLDERS DELETE MODAL", this.state.folders);
 
 		var disable = true;
 		if(this.state.folders) {

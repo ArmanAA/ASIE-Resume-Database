@@ -50,19 +50,14 @@ export default class SkillsModal extends Component {
 	}
 
 	handleAdd(item) {
-		console.log(item);
 		this.updateData("add", item);
 	}
 
 	handleRemove(item) {
-		console.log(item);
 		this.updateData("remove", item);
 	}
 
 	handleChange(tags, changed, changedIndexes) {
-		console.log("tags", tags);
-		console.log("changed", changed);
-		console.log("changedIndexes", changedIndexes);
 		this.setState({skills: tags});
 		//added
 		for(var i=0; i<changed.length; i++) {

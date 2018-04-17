@@ -80,7 +80,6 @@ router.post('/create', (req, res) => {
 		Thank you.`
 	};
 
-	console.log(req.body.admin);
 
 	let usertype = req.body.admin ? "ADMIN" : "FAC";
 	if(req.user.usertype !== "SUPER")
@@ -98,7 +97,6 @@ router.post('/create', (req, res) => {
 	},  {
 		include: [models.User]
 	}).then(facilitator => {
-		console.log("THEN ENTER");
 		transporter.sendMail(mailOptions, (error, info) =>{
 			if(error){
 				models.User.destroy({
@@ -108,7 +106,7 @@ router.post('/create', (req, res) => {
 				});
 				facilitator.destroy();
 				res.sendStatus(500);
-				return console.log(error, "EROR HERE");
+				return;
 			}
 			else {
 				models.Emaillist.upsert({
@@ -116,11 +114,8 @@ router.post('/create', (req, res) => {
 				});
 			}
 		});
-		console.log("RES SENT HERE");
 		res.sendStatus(200);
 	}).catch(error => {
-		console.log("RES SENT CATCH ENTER");
-		//console.log("ERROR: createProfile", error);
 		res.sendStatus(500);
 		return;
 	});

@@ -37,9 +37,7 @@ export default class SupportModal extends Component {
 	}
 
 	updateSupport(supportInfo) {
-		console.log(supportInfo);
 		let url = '/api/candidates/supports/' + this.state.id + '/update';
-		console.log(url);
 		fetch(url , {
 			method: 'POST',
 			body: JSON.stringify(supportInfo),
@@ -59,7 +57,6 @@ export default class SupportModal extends Component {
 
 	removeSupport() {
 		let url = '/api/candidates/supports/' + this.state.id + '/remove';
-		console.log(url);
 		fetch(url , {
 			method: 'POST',
 			credentials: 'include'

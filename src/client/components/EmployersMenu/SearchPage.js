@@ -63,7 +63,6 @@ export default class SearchPage extends Component {
       credentials: 'include'
     }).then(response => {
       response.json().then(json => {
-        console.log("SearchPage", json);
         if(json) {
           self.setState({profile: json});
         }

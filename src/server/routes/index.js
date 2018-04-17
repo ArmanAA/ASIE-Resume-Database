@@ -79,7 +79,6 @@ router.post("/contactus", (req, res) => {
 
 
 router.post('/verify/:token', (req,res)=>{
-	console.log("RESET PASSWORD: ", req.params);
 
 	if(req.body.password != req.body.confirm || req.body.password.length < 8){
 		res.redirect('/verify/'+ req.params.token +'?confirmpass');
@@ -93,7 +92,6 @@ router.post('/verify/:token', (req,res)=>{
 			if( user.resetExpire < Date.now() || user == null){
 				res.redirect("/verify/"+req.params.token+"?timeout");
 			}else{
-				console.log(req.body);
 				user.update({
 					resetToken: null,
 					resetExpire: Date.now(),	
@@ -112,7 +110,6 @@ router.post('/verify/:token', (req,res)=>{
 
 router.post('/forgot', (req,res)=>{
 	var email = req.body.email.trim();
-	console.log(req.headers.origin);
 	models.User.findOne({
 		where:{
 			email: email

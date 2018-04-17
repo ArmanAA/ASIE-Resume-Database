@@ -124,7 +124,6 @@ router.get('/profile/:id/matches', (req, res) => {
 			}
 		]
 	}).then((results) => {
-		console.log(results);
 		let matches = [];
 		if(results) {
 			matches = results.map(result => {

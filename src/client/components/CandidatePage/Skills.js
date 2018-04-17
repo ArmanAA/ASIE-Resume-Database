@@ -26,19 +26,14 @@ export default class Skills extends Component {
 	}
 
 	handleAdd(item) {
-		console.log(item);
 		this.handleSubmit("add", item);
 	}
 
 	handleRemove(item) {
-		console.log(item);
 		this.handleSubmit("remove", item);
 	}
 
 	handleChange(tags, changed, changedIndexes) {
-		console.log("tags", tags);
-		console.log("changed", changed);
-		console.log("changedIndexes", changedIndexes);
 		this.setState({skills: tags});
 		//added
 		for(var i=0; i<changed.length; i++) {

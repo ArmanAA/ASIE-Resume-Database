@@ -98,7 +98,6 @@ export default class EmployerSearchPage extends Component {
       method: "GET",
       credentials: "include"
     }).then(response => {
-      console.log(response);
       response.json().then(json => {
         if (json) {
           self.setState({ saved: json });
@@ -120,7 +119,6 @@ export default class EmployerSearchPage extends Component {
       credentials: "include"
     }).then(response => {
       response.json().then(json => {
-        console.log("EmployerSearchPage", json);
         if (json) {
           self.setState({ profile: json });
         }

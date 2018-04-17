@@ -29,7 +29,6 @@ export default class ExperienceAddModal extends Component {
 		this.toggle();
 		event.preventDefault();
 		const data = new FormData(event.target);
-		console.log(data);
 		fetch('/api/candidates/experiences/'+ this.state.id +'/update', {
 			method: 'POST',
 			body: data,
