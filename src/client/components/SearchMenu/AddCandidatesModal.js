@@ -36,8 +36,6 @@ export default class AddCandidatesModal extends Component {
 	}
 
 	handleSubmit() {
-
-
 		for (var i=0; i<this.state.selected.length; i++) {
 			this.saveCandidate(this.state.selected[i], this.state.selectedFolder);
 		}

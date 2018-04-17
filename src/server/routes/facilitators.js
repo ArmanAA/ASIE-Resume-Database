@@ -80,7 +80,6 @@ router.post('/create', (req, res) => {
 		Thank you.`
 	};
 
-
 	let usertype = req.body.admin ? "ADMIN" : "FAC";
 	if(req.user.usertype !== "SUPER")
 		usertype = "FAC";
