@@ -61,7 +61,6 @@ export default class BasicInfoModal extends Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		const data = new FormData(event.target);
-		console.log(data);
 		fetch('/api/candidates/transportations/' + this.state.id + '/update', {
 			method: 'POST',
 			body: data,

@@ -36,10 +36,6 @@ export default class AddCandidatesModal extends Component {
 	}
 
 	handleSubmit() {
-		console.log(this.state.selected);
-		console.log(this.state.selectedFolder);
-
-
 		for (var i=0; i<this.state.selected.length; i++) {
 			this.saveCandidate(this.state.selected[i], this.state.selectedFolder);
 		}
@@ -92,7 +88,6 @@ export default class AddCandidatesModal extends Component {
 
 	handleFolderSelect(event) {
 		event.preventDefault();
-		console.log('folder id ', event.target.value);
 		this.setState({
 			selectedFolder: event.target.value
 		})

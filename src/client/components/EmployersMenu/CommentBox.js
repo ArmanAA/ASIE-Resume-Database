@@ -57,7 +57,6 @@ export default class CommentBox extends Component {
 
   handleCommentSubmit(comment) {
     this.AddCommentToDB(comment, response => {
-      console.log(response);
       if(!response.message) {
         let current_comments = this.state.comments;
         current_comments.push(response);

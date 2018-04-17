@@ -28,7 +28,6 @@ export default class FacilitatorProfile extends Component{
 			};
 
 		const self = this;
-		//console.log( currUrl.searchParams.getAll());
 		fetch('/api/facilitators/profile/' + this.props.match.params.id, {
 			headers: {"Content-Type": "application/json"},
 			method: 'GET',

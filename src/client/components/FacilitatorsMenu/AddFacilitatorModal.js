@@ -57,13 +57,11 @@ export default class AddFacilitator extends Component{
   		      body: JSON.stringify(data),
   		      credentials: 'include'
   		    }).then(function(response) {
-  		    	console.log(response.ok);
   		      if(response.ok) {
   		       window.alert("Facilitator invitation successful!", window.location);
   				window.location.href = "/facilitators";
   		      }
   		      else {
-  		      	console.log(response);
   		       window.alert("Invitation failed. Something went wrong.");
   		        this.onCloseModal();
   		      }

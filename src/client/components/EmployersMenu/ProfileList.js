@@ -14,7 +14,6 @@ export default class ProfileList extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data) {
-      console.log("ProfileList", nextProps.data);
       this.setState({
         profile: nextProps.data
       })

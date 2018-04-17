@@ -54,7 +54,6 @@ export default class PortfolioAddModal extends Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		const data = new FormData(event.target);
-		console.log(data);
 		fetch('/api/candidates/portfolios/' + this.state.id + '/update', {
 			method: 'POST',
 			body: data,

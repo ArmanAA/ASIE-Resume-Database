@@ -76,7 +76,6 @@ export default class ExperienceModal extends Component {
 	}
 
 	render() {
-		console.log("EXPERIENCE", this.state.experiences);
 		const { modal, centered, experiences } = this.state;
 
 		const SortableItem = SortableElement(({value, sortIndex}) =>

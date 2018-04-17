@@ -34,7 +34,6 @@ export default class AccountBar extends Component{
 			user: props.user || {},
 			subscribed: props.subscribed || false
 		};
-		//console.log(props.match.params);
 
 		this.toggleTooltip = this.toggleTooltip.bind(this);
 		this.changePassword = this.changePassword.bind(this);

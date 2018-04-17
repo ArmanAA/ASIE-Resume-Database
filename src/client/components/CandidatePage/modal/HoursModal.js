@@ -47,7 +47,6 @@ export default class HoursModal extends Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		const data = new FormData(event.target);
-		console.log(data);
 		fetch('/api/candidates/hours/' + this.state.id + '/update', {
 			method: 'POST',
 			body: data,

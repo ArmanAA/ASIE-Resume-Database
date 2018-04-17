@@ -29,7 +29,6 @@ export default class SavedCandidatesList extends React.Component {
 	}
 
 	handleClick(event) {
-		console.log(this.state.folders);
 		if(event.target.tagName == "LI") {
 			let entry_row = event.target.getAttribute('entry');
 			this.setState({current_candidate: entry_row});
@@ -74,7 +73,6 @@ export default class SavedCandidatesList extends React.Component {
 		if(folders.length > 0) {
 			candidate_list = this.state.folders[this.state.current_candidate].entry;
 		}
-		console.log("SAVED CANDIDATES LIST", this.state.folders);
 		return (
 			<div>
 				<Button onClick={this.toggle.bind(this)} outline className="mb-2 mr-2" color="primary">Add Folder</Button>
@@ -93,7 +91,6 @@ class AddFolderModal extends React.Component {
 	POSTNewFolder(event) {
 		event.preventDefault();
 		const data = new FormData(event.target);
-		console.log("ADD", data);
 		fetch('/api/folders/create', {
 			method: 'POST',
 			credentials: 'include',

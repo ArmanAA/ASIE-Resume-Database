@@ -1,5 +1,7 @@
 # ASIE-Resume-Database
 
+This repo contains the source code for a resume database. Prospective candidates will be able to upload interests, skills, portfolio entries, and more. Employers are able to submit an email-like request for facilitators to review and match the most fitting candidate.
+
 ## To install
 Install backend node_modules
 
@@ -7,9 +9,9 @@ Install backend node_modules
 
 `npm install`
 
-## Postgresql
+## Database
 
-Be sure to update your database link in `db/config.js`.
+Create a config file in `src/server/config/config.js`. There is a sample in `src/server/config/config.js.sample`.
 
 ## To run
 
@@ -19,5 +21,12 @@ Be sure to update your database link in `db/config.js`.
 
 `npm start`
 
+Or if you prefer to run both of these commands concurrently for developmental purposes
 
-This should run two servers. The frontend at `localhost:3000` and the backend at `localhost:3001`. You should interact with the site using `localhost:3001`.
+`npm run dev`
+
+This command will run the previous two commands using the `concurrently` modudle.
+
+For production mode, you may want to run `webpack` in optimized mode.
+
+`npm run heroku-postbuild`

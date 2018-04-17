@@ -1,5 +1,4 @@
 module.exports.admin = (req, res, next) => {
-	console.log("USER", req.user);
 	if(!req.isAuthenticated()) {
 		// denied. redirect to login
 		console.log("not authorized as ADMIN", req.originalUrl);
