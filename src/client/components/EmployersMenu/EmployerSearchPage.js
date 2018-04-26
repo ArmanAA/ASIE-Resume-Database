@@ -38,6 +38,7 @@ export default class EmployerSearchPage extends Component {
   }
 
   componentDidMount() {
+    document.title = "Employers - ASIE Resume Database";
     // populate search table when page loads
     this.search("");
     this.getSaved();

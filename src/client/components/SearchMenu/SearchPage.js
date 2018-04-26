@@ -51,6 +51,7 @@ export default class SearchPage extends Component {
 	}
 
 	componentDidMount() {
+		document.title = "Candidates - ASIE Resume Database";
 		mql.addListener(this.mediaQueryChanged);
 		this.setState({mql: mql, docked: mql.matches});
 		this.search("", "");

@@ -89,6 +89,7 @@ export default class CandidatePage extends Component {
 	};
 
 	componentDidMount() {
+		document.title = "Describe Yourself - ASIE Resume Database";
 		this.callApi('/api/candidates/profiles/' + this.state.id, 'profile');
 		this.callApi('/api/candidates/disabilities/' + this.state.id, 'disability');
 		this.callApi('/api/candidates/supports/' + this.state.id, 'support');
