@@ -118,7 +118,7 @@ export default class PortfolioModal extends Component {
 					<Modal centered={centered} isOpen={modal} toggle={this.toggle}>
 						<ModalHeader toggle={this.toggle}>
 							<h2>Portfolio</h2>
-							<p>Show your skills by adding images of videos of your portfolio!</p>
+							<p>Show your skills by adding images or videos of your portfolio!</p>
 						</ModalHeader>
 						<ModalBody>
 							<div>
