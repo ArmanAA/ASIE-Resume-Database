@@ -31,6 +31,7 @@ export default class SearchPage extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
+      credentials: 'include'
     }).then(res => {
       return res.json();
     }).then(json => {
