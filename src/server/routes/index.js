@@ -48,7 +48,7 @@ router.post("/contactus", (req, res) => {
 				include: models.User
 			}],
 			raw: true
-		},)
+		})
 		.then(results => {
 			results.forEach(facilitator => {
 				let firstName = facilitator['facilitator.user.firstName'];
